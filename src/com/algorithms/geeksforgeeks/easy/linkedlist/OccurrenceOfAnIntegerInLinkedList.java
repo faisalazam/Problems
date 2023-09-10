@@ -19,7 +19,7 @@ public class OccurrenceOfAnIntegerInLinkedList {
         return count;
     }
 
-    class Node {
+    private static class Node {
         int data;
         Node next;
 

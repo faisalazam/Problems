@@ -1,6 +1,6 @@
-package com.algorithms.geeksforgeeks.basic.binarysearch;
+package com.algorithms.templates;
 
-public class BinarySearch {
+public class BinarySearchTemplate {
     /**
      * Given a sorted array A[](0 based index) and a key "k"  you need to complete the function bin_search to
      * determine the position of the key if the key is present in the array.

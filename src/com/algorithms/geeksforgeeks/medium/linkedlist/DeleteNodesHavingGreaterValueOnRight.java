@@ -39,7 +39,7 @@ public class DeleteNodesHavingGreaterValueOnRight {
         head = null;
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node next;
 
@@ -48,7 +48,7 @@ public class DeleteNodesHavingGreaterValueOnRight {
         }
     }
 
-    private class LinkedList {
+    private static class LinkedList {
         Node head;
     }
 }
