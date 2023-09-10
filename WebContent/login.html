@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--<html>-->
+<!--<head>-->
+<!--<meta charset="US-ASCII">-->
+<!--<title>Login Page</title>-->
+
+<!--<script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+
+<!--<script>-->
+<!--function onSubmit(token) {-->
+<!--alert('thanks ' + token);-->
+<!--document.getElementById("form1").submit();-->
+<!--}-->
+
+<!--function validate(event) {-->
+<!--event.preventDefault();-->
+<!--// if (!document.getElementById('field').value) {-->
+<!--// 	alert("You must add text to the required field");-->
+<!--// } else {-->
+<!--// 	grecaptcha.execute();-->
+<!--document.getElementById("form1").submit();-->
+<!--// }-->
+<!--}-->
+
+<!--function onload() {-->
+<!--var element = document.getElementById('submit');-->
+<!--element.onclick = validate;-->
+<!--}-->
+<!--</script>-->
+
+<!--</head>-->
+<!--<body>-->
+
+<!--<form id="form1" action="LoginServlet" method="post">-->
+
+<!--Username: <input type="text" name="user"> <br> Password:-->
+<!--<input type="password" name="pwd"> <br>-->
+
+<!--&lt;!&ndash;<div class="g-recaptcha" data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA"></div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;<div id='recaptcha'&ndash;&gt;-->
+<!--&lt;!&ndash;class="g-recaptcha"&ndash;&gt;-->
+<!--&lt;!&ndash;data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA"&ndash;&gt;-->
+<!--&lt;!&ndash;data-callback="onSubmit"&ndash;&gt;-->
+<!--&lt;!&ndash;data-size="invisible">&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<br> <input id="submit" type="submit" value="Login">-->
+<!--</form>-->
+<!--<script>onload();</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!-- Working with one captch button starts -->
+<html>
+<head>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script>
+        function submitForm(token) {
+            console.log('thanks ' + token);
+            document.getElementById("myForm").submit();
+        }
+    </script>
+</head>
+
+<body>
+
+<p>Enter some text in the fields below, then press the "Submit form" button to submit the form.</p>
+
+<form id="myForm" action="LoginServlet" method="post">
+    Username: <input type="text" name="user"><br>
+    Password:<input type="password" name="pwd"> <br>
+
+    <!--<button class="g-recaptcha" data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA" data-callback='onSubmit'>Login</button>-->
+    <input type="submit" name="loginButton" id="loginButton" value="Login" disabled="" class="button1 g-recaptcha" data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA" data-callback='submitForm'>
+</form>
+
+</body>
+</html>
+<!-- Working with one captch button ends -->
+
+
+<!-- Working with multi captch button starts -->
+<!--<html>-->
+<!--<head>-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<p>Enter some text in the fields below, then press the "Submit form" button to submit the form.</p>-->
+
+<!--<form id="myForm" action="LoginServlet" method="post">-->
+    <!--Username: <input type="text" name="user"><br>-->
+    <!--Password:<input type="password" name="pwd"> <br>-->
+
+    <!--<button class="g-recaptcha" data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA" data-callback='onSubmit'>Login</button>-->
+    <!--<input type="submit"-->
+           <!--name="loginButton"-->
+           <!--id="loginButton"-->
+           <!--value="Login"-->
+           <!--class="button1 g-recaptcha"-->
+           <!--data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA"-->
+           <!--data-callback='submitForm'>-->
+    <!--<input type="submit"-->
+           <!--name="loginButton"-->
+           <!--id="loginButton2"-->
+           <!--value="Login 2"-->
+           <!--class="button1 g-recaptcha"-->
+           <!--data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA"-->
+           <!--data-callback='submitForm1'>-->
+
+    <!--<div id='recaptcha'-->
+         <!--class="g-recaptcha"-->
+         <!--data-sitekey="6LdzEMEUAAAAAJaTzGjOu57eKRFDnyNMKwrNTDQn"-->
+         <!--data-callback="onLoginSubmit"-->
+         <!--data-size="invisible"-->
+         <!--data-bind="direct-upgrade-login-capctha-button"-->
+    <!--&gt;-->
+    <!--</div>-->
+    <!--<button type="submit" id="direct-upgrade-login-capctha-button"-->
+            <!--class="button&#45;&#45;primary login-with-one-time-password"-->
+    <!--&gt;-->
+        <!--<strong>Login</strong>-->
+    <!--</button>-->
+
+    <!--<div id='recaptchaOtp'-->
+         <!--class="g-recaptcha"-->
+         <!--data-sitekey="6LdzEMEUAAAAAJaTzGjOu57eKRFDnyNMKwrNTDQn"-->
+         <!--data-callback="onRequestOtpSubmit"-->
+         <!--data-size="invisible"-->
+         <!--data-bind="otp-capctha-button-new-code"-->
+    <!--&gt;-->
+    <!--</div>-->
+    <!--<button type="submit" id="otp-capctha-button-new-code"-->
+            <!--class="button&#45;&#45;primary login-with-one-time-password newCode"-->
+    <!--&gt;-->
+        <!--Get new code-->
+    <!--</button>-->
+
+    <!--&lt;!&ndash;<div id="RecaptchaField1"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button   id="button1" type="submit" data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA" class="btn btn-info col-md-12  g-recaptcha">Send 1</button>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<div id="RecaptchaField2"></div>&ndash;&gt;-->
+    <!--&lt;!&ndash;<button   id="button2" type="submit" data-sitekey="6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA" class="btn btn-info col-md-12  g-recaptcha">Send 2</button>&ndash;&gt;-->
+<!--</form>-->
+
+<!--</body>-->
+
+<!--<script type="text/javascript">-->
+    <!--var widgetId1;-->
+    <!--var widgetId2;-->
+
+    <!--var onLoad = function() {-->
+        <!--console.log("Inside onLoad......");-->
+        <!--var loginButtonElement = document.getElementById('button1');-->
+        <!--if (loginButtonElement) {-->
+            <!--loginButtonElement.onclick = validate1;-->
+        <!--}-->
+        <!--var element = document.getElementById('button2');-->
+        <!--if(element) {-->
+            <!--element.onclick = validate2;-->
+        <!--}-->
+        <!--var element = document.getElementById('direct-upgrade-login-capctha-button');-->
+        <!--if(element) {-->
+            <!--element.onclick = validate3;-->
+        <!--}-->
+        <!--var element = document.getElementById('otp-capctha-button-new-code');-->
+        <!--if(element) {-->
+            <!--element.onclick = validate3;-->
+        <!--}-->
+    <!--};-->
+
+    <!--var loadCaptcha = function() {-->
+        <!--console.log("Inside loadCaptcha......");-->
+        <!--widgetId1 = grecaptcha.render('RecaptchaField1', { 'sitekey': '6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA', 'size': 'invisible', 'callback': submitForm1});-->
+        <!--widgetId2 = grecaptcha.render('RecaptchaField2', { 'sitekey': '6LcyYpEUAAAAANXjen9qFFm89h9F9yqnQ-pqunvA', 'size': 'invisible', 'callback': submitForm2 }); //does not work with invisible mode-->
+
+        <!--// $('.g-recaptcha').each(function (index, element) {-->
+        <!--//     if (!$(element).children().length) {-->
+        <!--//         var id = grecaptcha.render(element, {}, true);-->
+        <!--//         $(element).attr('widget-id', id);-->
+        <!--//     }-->
+        <!--// });-->
+    <!--};-->
+
+    <!--var validate1 = function() {-->
+        <!--console.log("Inside validate1......");-->
+        <!--//TODO need to specify the widget id, which is a 0 based number and get incremented with every captcha based elemenet in the html-->
+        <!--grecaptcha.reset(widgetId1);-->
+        <!--grecaptcha.execute(widgetId1);-->
+    <!--};-->
+
+    <!--var validate2 = function() {-->
+        <!--console.log("Inside validate2......");-->
+        <!--grecaptcha.reset(widgetId2);-->
+        <!--grecaptcha.execute(widgetId2);-->
+    <!--};-->
+
+    <!--var validate3 = function() {-->
+        <!--console.log("Inside validate3......");-->
+        <!--grecaptcha.reset("otp-capctha-button-new-code");-->
+        <!--grecaptcha.execute("otp-capctha-button-new-code");-->
+    <!--};-->
+
+    <!--var submitForm1 = function(token) {-->
+        <!--console.log("Inside submitForm1......");-->
+        <!--console.log('thanks submitForm1: ' + token);-->
+        <!--document.getElementById("myForm").submit();-->
+    <!--};-->
+    <!--var submitForm2 = function(token) {-->
+        <!--console.log("Inside submitForm2......");-->
+        <!--console.log('thanks submitForm2: ' + token);-->
+        <!--document.getElementById("myForm").submit();-->
+    <!--};-->
+
+    <!--function submitForm(token) {-->
+        <!--console.log('thanks submitForm: ' + token);-->
+        <!--document.getElementById("myForm").submit();-->
+    <!--}-->
+
+    <!--var onLoginSubmit = function (token) {-->
+        <!--console.log('thanks onLoginSubmit: ' + token);-->
+    <!--};-->
+
+    <!--var onRequestOtpSubmit = function (token) {-->
+        <!--console.log('thanks onRequestOtpSubmit: ' + token);-->
+    <!--};-->
+
+    <!--$( document ).ready(function() {-->
+        <!--onLoad();-->
+    <!--});-->
+
+    <!--var onloadCallback = function() {-->
+        <!--console.log("Inside onloadCallback......");-->
+        <!--// loadCaptcha();-->
+    <!--}-->
+<!--</script>-->
+<!--<script src="https://www.google.com/recaptcha/api.js"></script>-->
+<!--&lt;!&ndash;<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback"></script>&ndash;&gt;-->
+<!--&lt;!&ndash;<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"></script>&ndash;&gt;-->
+
+<!--</html>-->
+<!-- Working with multi captch button ends -->

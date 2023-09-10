@@ -1,0 +1,218 @@
+src/com/algorithms
+├── ctci
+│	├── medium
+│	│	    └── NumberSwapperWithoutTempVariable.java
+│	└── normal
+│	        ├── arrayandstrings
+│	        │	    ├── IsStringUnique.java
+│	        │	    ├── SortArrayByPeaksAndValleys.java
+│	        │	    ├── SortedMatrixSearch.java
+│	        │	    ├── StringCompression.java
+│	        │	    └── ZeroMatrix.java
+│	        ├── linkedlists
+│	        │	    ├── IntersectionPointInYShappedLinkedLists.java
+│	        │	    ├── NodeAtBeginningOfLoop.java
+│	        │	    ├── PartitionList.java
+│	        │	    └── SumLists.java
+│	        ├── recursionanddp
+│	        │	    ├── FindPathInGridBySteppingRightOrDown.java
+│	        │	    ├── MakeChange.java
+│	        │	    ├── PerformMultiplicationWithoutMultiplyOperator.java
+│	        │	    ├── PermutationsWithDups.java
+│	        │	    ├── PermutationsWithoutDups.java
+│	        │	    ├── PowerSetOrAllSubsetsOfASet.java
+│	        │	    ├── StaircaseThreeStepHopping.java
+│	        │	    └── TowerOfHanoi.java
+│	        ├── stacksandqueues
+│	        │	    ├── AnimalQueue.java
+│	        │	    ├── QueueViaStacks.java
+│	        │	    ├── SetOfStacks.java
+│	        │	    ├── SortStack.java
+│	        │	    └── StackWithMin.java
+│	        └── treesandgraph
+│	                ├── InOrderSuccessor.java
+│	                ├── ListOfDepths.java
+│	                ├── MinimalBinarySearchTree.java
+│	                └── TopologicalSortOrBuildOrder.java
+├── geeksforgeeks
+│	    ├── GraphColoringProblem.java
+│	    ├── basic
+│	    │	    ├── CheckIfStringIsRotatedByTwoPlaces.java
+│	    │	    ├── ImplementAtoi.java
+│	    │	    ├── ImplementStrStr.java
+│	    │	    ├── MissingNumberInArray.java
+│	    │	    ├── PermutationsOfString.java
+│	    │	    ├── SearchingANumber.java
+│	    │	    ├── TripletFamily.java
+│	    │	    ├── binarysearch
+│	    │	    │	    ├── BinarySearch.java
+│	    │	    │	    ├── NumberOfOccurrence.java
+│	    │	    │	    └── SearchingAnElementInASortedArray.java
+│	    │	    ├── linkedlist
+│	    │	    │	    ├── CheckIfCircularLinkedList.java
+│	    │	    │	    ├── FindModularNode.java
+│	    │	    │	    ├── FindTheSumOfLastNNodesOfTheLinkedList.java
+│	    │	    │	    ├── FindingMiddleElementInALinkedList.java
+│	    │	    │	    ├── FindingNByKthElementInALinkedList.java
+│	    │	    │	    └── InsertInMiddleOfLinkedList.java
+│	    │	    ├── sorting
+│	    │	    │	    ├── BubbleSort.java
+│	    │	    │	    └── SelectSort.java
+│	    │	    └── treetraversals
+│	    │	            ├── CountLeavesInBinaryTree.java
+│	    │	            ├── HeightOfBinaryTree.java
+│	    │	            ├── InorderTraversal.java
+│	    │	            ├── PostorderTraversal.java
+│	    │	            ├── PreorderTraversal.java
+│	    │	            └── SizeOfBinaryTree.java
+│	    ├── easy
+│	    │	    ├── Anangram.java
+│	    │	    ├── BFSOfGraph.java
+│	    │	    ├── BuildingsReceivingSunlight.java
+│	    │	    ├── CommonElements.java
+│	    │	    ├── CountTheTriplets.java
+│	    │	    ├── DFSOfGraph.java
+│	    │	    ├── ElementWithLeftSideSmallerAndRightSideGreater.java
+│	    │	    ├── KthElementOfTwoSortedArrays.java
+│	    │	    ├── LargestNumberPossible.java
+│	    │	    ├── LongestDistinctCharactersInString.java
+│	    │	    ├── MaximizeToys.java
+│	    │	    ├── MinimumNumberOfCoins.java
+│	    │	    ├── NMeetingsInOneRoom.java
+│	    │	    ├── RemoveDuplicatesFromString.java
+│	    │	    ├── ReverseWordsInAGivenString.java
+│	    │	    ├── RomanNumberToInteger.java
+│	    │	    ├── SegregateEvenAndOddNodesInLinkedList.java
+│	    │	    ├── SortAnArrayOf0sAnd1sAnd2s.java
+│	    │	    ├── SubarrayWithGivenSum.java
+│	    │	    ├── SumOfMiddleElementsOfTwoSortedArrays.java
+│	    │	    ├── linkedlist
+│	    │	    │	    ├── DetectLoopInLinkedList.java
+│	    │	    │	    ├── MergeTwoSortedLinkedLists.java
+│	    │	    │	    ├── NthNodeFromEndOfLinkedList.java
+│	    │	    │	    ├── OccurrenceOfAnIntegerInLinkedList.java
+│	    │	    │	    ├── ReverseALinkedList.java
+│	    │	    │	    └── RotateALinkedList.java
+│	    │	    ├── sorting
+│	    │	    │	    ├── InsertionSort.java
+│	    │	    │	    ├── MergeSort.java
+│	    │	    │	    └── QuickSort.java
+│	    │	    └── treetraversals
+│	    │	            ├── CheckForBalancedTree.java
+│	    │	            ├── DetermineIfTwoTreesAreIdentical.java
+│	    │	            ├── LeftViewOfBinaryTree.java
+│	    │	            ├── LevelOrderTraversal.java
+│	    │	            ├── LevelOrderTraversalInSpiralForm.java
+│	    │	            ├── LevelOrderTraversalWithSeparator.java
+│	    │	            ├── MirrorTree.java
+│	    │	            ├── ReverseLevelOrderTraversal.java
+│	    │	            ├── RightViewOfBinaryTree.java
+│	    │	            └── SumOfLeafNodes.java
+│	    └── medium
+│	            ├── DetectCycleInAnUndirectedGraph.java
+│	            ├── Dijkstra.java
+│	            ├── FindNumberOfIslands.java
+│	            ├── FindWhetherPathExist.java
+│	            ├── KadanesAlgorithmContiguousSubArrayMaxSum.java
+│	            ├── LongestCommonPrefixInAnArray.java
+│	            ├── LongestCommonSubstring.java
+│	            ├── PageFaultsInLRU.java
+│	            ├── ParenthesisChecker.java
+│	            ├── StockBuyAndSell.java
+│	            ├── TopologicalSort.java
+│	            ├── TrappingRainWater.java
+│	            ├── linkedlist
+│	            │	    ├── DeleteNodesHavingGreaterValueOnRight.java
+│	            │	    ├── RemoveLoopInLinkedList.java
+│	            │	    └── ReverseLinkedListInGroupsOfGivenSize.java
+│	            └── treetraversal
+│	                    ├── BottomViewOfBinaryTree.java
+│	                    ├── CheckForBST.java
+│	                    ├── ConnectedNodeAtSameLevel.java
+│	                    ├── CountOfBSTNodeThatLieInGivenRange.java
+│	                    └── TopViewOfBinaryTree.java
+├── leetcode
+│	    ├── StringOperations.java
+│	    ├── easy
+│	    │	    ├── AlienDictionary.java
+│	    │	    ├── BinaryTreePaths.java
+│	    │	    ├── DegreeOfAnArray.java
+│	    │	    ├── FindModeInBinarySearchTree.java
+│	    │	    ├── FindTheTownJudge.java
+│	    │	    ├── FloodFillAlgorithm.java
+│	    │	    ├── HouseRobber.java
+│	    │	    ├── IsStringSubsequenceOfAnotherString.java
+│	    │	    ├── LongestContinuousIncreasingSubsequence.java
+│	    │	    ├── LongestWordInDictionary.java
+│	    │	    ├── MaximumDepthOfNAryTree.java
+│	    │	    ├── MaximumNumberofBalloons.java
+│	    │	    ├── MinimumAbsoluteDifference.java
+│	    │	    └── ShortestUnsortedContinuousSubarray.java
+│	    ├── hard
+│	    │	    ├── BinaryTreeMaxPathSum.java
+│	    │	    ├── FrogJump.java
+│	    │	    └── LongestConsecutiveSequence.java
+│	    └── medium
+│	            ├── AsteroidCollision.java
+│	            ├── ConstructBinaryTreeFromPreorderAndInorderTraversal.java
+│	            ├── ContiguousArrayOfEqualBinaries.java
+│	            ├── ConvertSortedListToBinarySearchTree.java
+│	            ├── DeepestLeavesSum.java
+│	            ├── FindAllAnagramsInAString.java
+│	            ├── FindDuplicatesInArray.java
+│	            ├── FindMinInCircularSorterArray.java
+│	            ├── FinderInCircularSorterArray.java
+│	            ├── GenerateParenthesis.java
+│	            ├── GlobalAndLocalInversions.java
+│	            ├── HandOfStraights.java
+│	            ├── JumpGame.java
+│	            ├── LRUCache.java
+│	            ├── LetterCombinationsOfAPhoneNumber.java
+│	            ├── LongestPalindromicSubstring.java
+│	            ├── LongestRepeatingCharacterReplacement.java
+│	            ├── MergeIntervals.java
+│	            ├── MinimumRemoveToMakeValidParentheses.java
+│	            ├── MinimumTimeDifference.java
+│	            ├── OpenTheLock.java
+│	            ├── PartitionLabels.java
+│	            ├── ProductOfArrayExceptSelf.java
+│	            ├── QueensThatCanAttackTheKing.java
+│	            ├── ScoreOfParentheses.java
+│	            ├── SubarrayProductLessThanK.java
+│	            ├── SurroundedRegions.java
+│	            ├── TaskScheduler.java
+│	            ├── TicTacToe.java
+│	            ├── TwoDInPlaceMatrixRotation.java
+│	            ├── ValidSudoku.java
+│	            └── WordLadder.java
+├── misc
+│	    ├── APowerBModuloC.java
+│	    ├── Agoda1.java
+│	    ├── AutoCompleteWithGivenPrefix.java
+│	    ├── BaeldungDijkstra.java
+│	    ├── BinaryTreeOperations.java
+│	    ├── ConnectedCellsInMatrixUsingDFS.java
+│	    ├── DeadOrAliveFinder.java
+│	    ├── GoogleMergeIntervals.java
+│	    ├── GraphOperationsWithAdjacencyList.java
+│	    ├── IncreasingSequenceInGrid.java
+│	    ├── Knapsack.java
+│	    ├── LargestWordInDictionaryAfterReplacement.java
+│	    ├── LinkedListOperations.java
+│	    ├── NumberOfOccurrencesFinder.java
+│	    ├── NumberOfRotationsFinderInCircularSorterArray.java
+│	    ├── Pair.java
+│	    ├── RansomNoteBuildingPossibilityFinder.java
+│	    ├── RotOranges.java
+│	    ├── RunningMedianFinderInOneDArray.java
+│	    ├── SlidingWindow.java
+│	    ├── SquareSubArrayFinder.java
+│	    ├── TargetSumWays.java
+│	    └── XTotalShapes.java
+└── templates
+        ├── Backtracking.java
+        ├── DynamicProgrammingBasicTemplate.java
+        ├── LevelOrderTraversalOrBFSTemplate.java
+        └── SlowFastPointerTemplate.java
+
+28 directories, 188 files
