@@ -57,6 +57,8 @@ public class BinarySearch {
         return -1;
     }
 
+    // Time Complexity: O(log n)
+    // Auxiliary Space: O(log n)
     int binarySearchRecursive(int[] array, int left, int right, int key) {
         final int mid = left + ((right - left) / 2);
         final int midValue = array[mid];

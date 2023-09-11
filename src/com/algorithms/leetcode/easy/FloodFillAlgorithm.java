@@ -6,7 +6,7 @@ import com.algorithms.misc.Pair;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/*
+/**
  * Given a 2D screen, location of a pixel in the screen ie(x,y) and a color(K),
  * your task is to replace color of the given pixel and all adjacent(excluding diagonally adjacent)
  * same colored pixels with the given color K.

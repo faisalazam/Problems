@@ -7,30 +7,33 @@ public class KthElementOfTwoSortedArrays {
      * <p>
      * https://practice.geeksforgeeks.org/problems/k-th-element-of-two-sorted-array/0
      */
-    private static int findKthElement(int[] A, int[] B, int N, int M, int K) {
+
+    // Time Complexity: O(k)
+    // Auxiliary Space: O(1)
+    private static long findKthElement(int[] arr1, int[] arr2, int n, int m, int k) {
         int i = 0;
         int j = 0;
-        int k = 0;
-        while (i < N && j < M) {
-            int value;
-            if (A[i] <= B[j]) {
-                value = A[i++];
+        int kk = 0;
+        while (i < n && j < m) {
+            final long value;
+            if (arr1[i] <= arr2[j]) {
+                value = arr1[i++];
             } else {
-                value = B[j++];
+                value = arr2[j++];
             }
-            if (++k == K) {
+            if (++kk == k) {
                 return value;
             }
         }
-        while (i < N) {
-            int value = A[i++];
-            if (++k == K) {
+        while (i < n) {
+            final long value = arr1[i++];
+            if (++kk == k) {
                 return value;
             }
         }
-        while (j < M) {
-            int value = B[j++];
-            if (++k == K) {
+        while (j < m) {
+            final long value = arr2[j++];
+            if (++kk == k) {
                 return value;
             }
         }

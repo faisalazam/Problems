@@ -16,6 +16,9 @@ public class SubarrayWithGivenSum {
      * https://practice.geeksforgeeks.org/problems/subarray-with-given-sum/0
      * <p>
      * Sliding Window
+     * <p>
+     * Time Complexity: O(N)
+     * Auxiliary Space: O(1). Since no extra space has been taken.
      */
     List<Integer> subArrayWithGivenSum(int[] arr, int n, int s) {
         final ArrayList<Integer> result = new ArrayList<>();

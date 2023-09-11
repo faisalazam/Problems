@@ -1,6 +1,6 @@
 package com.algorithms.ctci.normal.linkedlists;
 
-public class IntersectionPointInYShappedLinkedLists {
+public class IntersectionPointInYShapedLinkedLists {
     /**
      * Intersection: Given two (singly) linked lists, determine if the two lists intersect.
      * Return the intersecting node. Note that the intersection is defined based on reference, not value.
@@ -9,7 +9,7 @@ public class IntersectionPointInYShappedLinkedLists {
      * <p>
      * This algorithm takes 0(A + B) time, where A and B are the lengths of the two linked lists.
      * It takes 0(1) additional space.
-     *
+     * <p>
      * https://practice.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1/?track=md-linkedlist&batchId=144
      */
     public static Node findIntersection(Node list1, Node list2) {

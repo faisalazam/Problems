@@ -7,6 +7,9 @@ public class SearchingANumber {
      * Note: Position of first element is considered as 1.
      * <p>
      * https://practice.geeksforgeeks.org/problems/searching-a-number/0
+     * <p>
+     * Time Complexity: O(N)
+     * Auxiliary Space: O(1)
      */
     int search(int[] A, int N, int K) {
         for (int i = 0; i < N; i++) {

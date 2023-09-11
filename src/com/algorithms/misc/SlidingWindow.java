@@ -41,7 +41,7 @@ public class SlidingWindow {
         for (int i = 0; i < n - k + 1; i++) {
             int currentSum = 0;
             for (int j = 0; j < k; j++) {
-                currentSum = currentSum + arr[i + j];
+                currentSum += arr[i + j];
             }
             maxSum = Math.max(currentSum, maxSum);
         }

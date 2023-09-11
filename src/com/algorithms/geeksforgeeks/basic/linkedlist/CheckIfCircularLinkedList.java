@@ -7,6 +7,9 @@ public class CheckIfCircularLinkedList {
      * An empty linked list is considered as circular.
      * <p>
      * https://practice.geeksforgeeks.org/problems/circular-linked-list/1
+     * <p>
+     * Time Complexity: O(N).
+     * Auxiliary Space: O(1).
      */
     boolean isCircular(Node head) {
         if (head == null || head.next == null) {
@@ -24,7 +27,22 @@ public class CheckIfCircularLinkedList {
         return false;
     }
 
-    private class Node {
+    // This might be slower than the upper one as the fast pointer used above might find it in may be around n/2...
+    boolean isCircular1(Node head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        Node curr = head.next;
+        while (curr != null) {
+            if (curr == head) {
+                return true;
+            }
+            curr = curr.next;
+        }
+        return false;
+    }
+
+    private static class Node {
         int data;
         Node next;
 

@@ -16,6 +16,22 @@ public class HouseRobber {
         if (nums == null || nums.length == 0) {
             return 0;
         }
+
+        int prev2 = 0;
+        int prev = nums[0];
+
+        for (int i = 1; i < nums.length; i++) {
+            final int newSum = prev2 + nums[i];
+            prev2 = prev;
+            prev = Math.max(prev, newSum);
+        }
+        return prev;
+    }
+
+    public int robV0(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
         int[] dp = new int[nums.length + 1];
         dp[0] = 0;
         dp[1] = nums[0];

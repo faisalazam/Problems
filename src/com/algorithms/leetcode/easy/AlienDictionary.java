@@ -24,14 +24,14 @@ public class AlienDictionary {
         return true;
     }
 
+    private int[] charMap;
+
     private void alienAlphabetOrdering(String order) {
         charMap = new int[26];
         for (int i = 0; i < order.length(); i++) {
             charMap[order.charAt(i) - 'a'] = i;
         }
     }
-
-    private int[] charMap;
 
     private int compare(String word1, String word2) {
         int i = 0;

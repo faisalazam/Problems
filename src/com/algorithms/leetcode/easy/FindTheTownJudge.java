@@ -2,7 +2,7 @@ package com.algorithms.leetcode.easy;
 
 public class FindTheTownJudge {
     /**
-     * In a town, there are N people labelled from 1 to N.  There is a rumor that one of these people is secretly the town judge.
+     * In a town, there are N people labelled from 1 to N. There is a rumor that one of these people is secretly the town judge.
      * <p>
      * If the town judge exists, then:
      * <p>

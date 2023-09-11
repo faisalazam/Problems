@@ -10,7 +10,7 @@ src/com/algorithms
 │	        │	    ├── StringCompression.java
 │	        │	    └── ZeroMatrix.java
 │	        ├── linkedlists
-│	        │	    ├── IntersectionPointInYShappedLinkedLists.java
+│	        │	    ├── IntersectionPointInYShapedLinkedLists.java
 │	        │	    ├── NodeAtBeginningOfLoop.java
 │	        │	    ├── PartitionList.java
 │	        │	    └── SumLists.java
@@ -66,7 +66,7 @@ src/com/algorithms
 │	    │	            ├── PreorderTraversal.java
 │	    │	            └── SizeOfBinaryTree.java
 │	    ├── easy
-│	    │	    ├── Anangram.java
+│	    │	    ├── Anagram.java
 │	    │	    ├── BFSOfGraph.java
 │	    │	    ├── BuildingsReceivingSunlight.java
 │	    │	    ├── CommonElements.java
@@ -211,8 +211,10 @@ src/com/algorithms
 │	    └── XTotalShapes.java
 └── templates
         ├── Backtracking.java
+        ├── BinarySearchTemplate.java
+        ├── CharFrequenciesTemplate.java
         ├── DynamicProgrammingBasicTemplate.java
         ├── LevelOrderTraversalOrBFSTemplate.java
         └── SlowFastPointerTemplate.java
 
-28 directories, 188 files
+28 directories, 190 files

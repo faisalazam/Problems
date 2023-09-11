@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import static java.util.Collections.emptyList;
-
 public class LevelOrderTraversal {
     /**
      * You are given a tree and you need to do the level order traversal on this tree.
@@ -18,6 +16,9 @@ public class LevelOrderTraversal {
      *   4     5
      * <p>
      * https://practice.geeksforgeeks.org/problems/level-order-traversal/1
+     * <p>
+     * Time Complexity: O(N), Where n is the number of nodes in the binary tree.
+     * Auxiliary Space: O(N), Where n is the number of nodes in the binary tree.
      */
     static ArrayList<Integer> levelOrder(final Node node) {
         final ArrayList<Integer> result = new ArrayList<>();

@@ -1,5 +1,7 @@
 package com.algorithms.geeksforgeeks.basic;
 
+import java.util.Arrays;
+
 public class MissingNumberInArray {
     /**
      * Given an array C of size N-1 and given that there are numbers from 1 to N with one element missing,
@@ -13,8 +15,40 @@ public class MissingNumberInArray {
         for (int i = 0; i < n - 1; i++) {
             sum += a[i];
         }
-        int sumOfNumbersFromOneToN = (n * (n + 1)) / 2;
+        final int sumOfNumbersFromOneToN = (n * (n + 1)) / 2; // there can be an overflow if N is large.
         return sumOfNumbersFromOneToN - sum;
+    }
+
+    // This solution will avoid the overflow issue which is possible in the previous solution but works only with sorted
+    // numbers. For more options, check out https://www.geeksforgeeks.org/find-the-missing-number/
+    // Example: {1, 2, 4, 5, 6} =>
+    int missingNumberV1(int[] a, int n) {
+        int total = 1;
+        for (int i = 2; i < (n + 1); i++) {
+            total += i;
+            total -= a[i - 2];
+        }
+        return total;
+    }
+
+    // Time Complexity: O(N)
+    // Auxiliary Space: O(N)
+    int missingNumberV0(int[] a, int N) {
+        int i;
+        int[] temp = new int[N + 1];
+        Arrays.fill(temp, 0);
+
+        for (i = 0; i < N; i++) {
+            temp[a[i] - 1] = 1; // Set 1 on the index for the number which exists
+        }
+
+        int ans = 0;
+        for (i = 0; i <= N; i++) {
+            if (temp[i] == 0) {
+                ans = i + 1;
+            }
+        }
+        return ans;
     }
 
     /*

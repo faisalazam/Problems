@@ -16,10 +16,11 @@ public class RansomNoteBuildingPossibilityFinder {
         return hasEnoughStrings(magazineWordsFrequencies, noteWordsFrequencies);
     }
 
-    private static boolean hasEnoughStrings(Map<String, Integer> magazineWordsFrequencies, Map<String, Integer> noteWordsFrequencies) {
-        for (Map.Entry<String, Integer> wordFrequencyEntry : noteWordsFrequencies.entrySet()) {
-            int freq = magazineWordsFrequencies.getOrDefault(wordFrequencyEntry.getKey(), -1);
-            if (wordFrequencyEntry.getValue() > freq) {
+    private static boolean hasEnoughStrings(Map<String, Integer> magazineWordsFrequencies,
+                                            Map<String, Integer> noteWordsFrequencies) {
+        for (Map.Entry<String, Integer> noteWordFrequencyEntry : noteWordsFrequencies.entrySet()) {
+            int magazineWordFrequency = magazineWordsFrequencies.getOrDefault(noteWordFrequencyEntry.getKey(), -1);
+            if (noteWordFrequencyEntry.getValue() > magazineWordFrequency) {
                 return false;
             }
         }

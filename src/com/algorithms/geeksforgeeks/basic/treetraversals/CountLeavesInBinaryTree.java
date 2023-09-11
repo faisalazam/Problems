@@ -8,6 +8,8 @@ public class CountLeavesInBinaryTree {
      * Given a Binary Tree of size N , You have to count leaves in it. For example, there are two leaves in following tree
      * <p>
      * https://practice.geeksforgeeks.org/problems/count-leaves-in-binary-tree/1
+     * <p>
+     * Time Complexity: O(n)
      */
     int countLeavesRecursive(Node node) {
         if (node == null) {

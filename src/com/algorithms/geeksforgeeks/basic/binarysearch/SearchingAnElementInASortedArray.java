@@ -6,6 +6,9 @@ public class SearchingAnElementInASortedArray {
      * if the element K is present in the array or not.
      * <p>
      * https://practice.geeksforgeeks.org/problems/who-will-win/0
+     * <p>
+     * Time Complexity: O(Log N)
+     * Auxiliary Space: O(1)
      */
     public static int search(int K, int N, int[] A) {
         int start = 0;

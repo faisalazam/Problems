@@ -1,5 +1,7 @@
 package com.algorithms.geeksforgeeks.basic.linkedlist;
 
+import org.w3c.dom.Node;
+
 public class FindModularNode {
     /**
      * Given a singly linked list and a number K, you are required to complete the function modularNode()
@@ -9,8 +11,14 @@ public class FindModularNode {
      * https://practice.geeksforgeeks.org/problems/modular-node/1
      */
     public static int modularNode(Node head, int k) {
-        int count = 1;
         int result = -1;
+        if (k <= 0 || head == null) {
+            return result;
+        }
+        // One solution is to count the number of nodes and then, return -1 if k > count; otherwise the target node will
+        // be int x = (count / k) * k; at 'x' position, iterate till 'x' and return node.data at 'x'.
+        // Below is another solution:
+        int count = 1;
         Node temp = head;
         while (temp != null) {
             result = count++ % k == 0 ? temp.data : result;
@@ -19,7 +27,7 @@ public class FindModularNode {
         return result;
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node next;
 

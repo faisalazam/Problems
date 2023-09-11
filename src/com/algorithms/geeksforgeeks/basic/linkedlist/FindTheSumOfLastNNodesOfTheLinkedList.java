@@ -47,7 +47,71 @@ public class FindTheSumOfLastNNodesOfTheLinkedList {
         return sum;
     }
 
-    private class Node {
+    // Time Complexity: O(n), where n is the number of nodes in the linked list.
+    // Auxiliary Space: O(1)
+    private static int sumV2(Node head, int n) {
+        if (n <= 0) {
+            return 0;
+        }
+
+        int sum = 0;  // It'll hold the total sum of all the nodes in the linked list
+        int temp = 0; // It'll hold the sum of the first (listSize - n) nodes in the linked list
+        Node refPtr = head;
+        Node mainPtr = head;
+
+        // traverse 1st 'n' nodes through 'refPtr' and accumulate all node's data to 'sum'
+        while (refPtr != null && (n--) > 0) {
+            sum += refPtr.data;
+            refPtr = refPtr.next;
+        }
+
+        // traverse to the end of the linked list
+        while (refPtr != null) {
+            sum += refPtr.data;
+            refPtr = refPtr.next;
+
+            temp += mainPtr.data;
+            mainPtr = mainPtr.next;
+        }
+        return (sum - temp);
+    }
+
+    // Another approach is to reverse the linked list and then take the sum of first n nodes
+
+    private static int n, sum;
+
+    // utility function to find the sum of last 'n' nodes
+    // Time Complexity: O(n), where n is the number of nodes in the linked list.
+    // Auxiliary Space: O(n), if system call stack is being considered.
+    static int sumV1(Node head, int n) {
+        if (n <= 0)
+            return 0;
+
+        sum = 0;
+
+        // find the sum of last 'n' nodes
+        sumOfLastN_Nodes(head);
+
+        // required sum
+        return sum;
+    }
+
+    // function to recursively find the sum of last 'n' nodes of the given linked list
+    static void sumOfLastN_Nodes(Node head) {
+        if (head == null)
+            return;
+
+        // recursively traverse the remaining nodes
+        sumOfLastN_Nodes(head.next);
+
+        // if node count 'n' is greater than 0
+        if (n > 0) {
+            sum = sum + head.data;
+            --n;
+        }
+    }
+
+    private static class Node {
         int data;
         Node next;
 

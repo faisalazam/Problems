@@ -22,8 +22,10 @@ public class TopViewOfBinaryTree {
      * <p>
      * https://practice.geeksforgeeks.org/problems/top-view-of-binary-tree/1
      * <p>
-     * Time Complexity: O(NlogN)
-     * Auxiliary Space: O(N).
+     * Time Complexity: O(N * log(N)), where N is the number of nodes in the binary tree. This is because we visit each
+     * node once during the level-order traversal and sorting and inserting an element into the map will take O(log N) time.
+     * Auxiliary Space: O(N), We use a queue for level-order traversal, and in the worst case, the queue can contain all
+     * nodes at one level. Additionally, the TreeMap can contain at most N horizontal distances.
      */
     private static ArrayList<Integer> topView(Node root) {
         final ArrayList<Integer> result = new ArrayList<>();
@@ -36,31 +38,31 @@ public class TopViewOfBinaryTree {
         // Note that this implementation is not synchronized.
         // This implementation provides guaranteed log(n) time cost for the containsKey, get, put and remove operations.
         final Map<Integer, Integer> hdDataMap = new TreeMap<>();
-        final Queue<Object[]> queue = new LinkedList<>();
-        queue.offer(new Object[]{0, root});
+        final Queue<NodeDistancePair> queue = new LinkedList<>();
+        queue.offer(new NodeDistancePair(0, root));
 
         while (!queue.isEmpty()) {
-            final Object[] currNodeWithHD = queue.poll();
-            processNode(currNodeWithHD, queue, hdDataMap);
+            final NodeDistancePair currNodeDistancePair = queue.poll();
+            processNode(currNodeDistancePair, queue, hdDataMap);
         }
 
         result.addAll(hdDataMap.values());
         return result;
     }
 
-    private static void processNode(Object[] nodeWithHD,
-                                    final Queue<Object[]> queue,
+    private static void processNode(NodeDistancePair nodeDistancePair,
+                                    final Queue<NodeDistancePair> queue,
                                     final Map<Integer, Integer> hdDataMap) {
-        final Integer hd = (Integer) nodeWithHD[0]; // Horizontal distance from the root
-        final Node node = (Node) nodeWithHD[1];
+        final int hd = nodeDistancePair.hd; // Horizontal distance from the root
+        final Node node = nodeDistancePair.node;
         hdDataMap.putIfAbsent(hd, node.data);
         addNode(hd - 1, node.left, queue);
         addNode(hd + 1, node.right, queue);
     }
 
-    private static void addNode(final Integer hd, final Node node, final Queue<Object[]> queue) {
+    private static void addNode(final int hd, final Node node, final Queue<NodeDistancePair> queue) {
         if (node != null) {
-            queue.offer(new Object[]{hd, node});
+            queue.offer(new NodeDistancePair(hd, node));
         }
     }
 
@@ -71,6 +73,16 @@ public class TopViewOfBinaryTree {
         public Node(int key) {
             data = key;
             left = right = null;
+        }
+    }
+
+    private static class NodeDistancePair {
+        int hd;  // Horizontal distance from the root
+        Node node;
+
+        NodeDistancePair(int hd, Node node) {
+            this.hd = hd;
+            this.node = node;
         }
     }
 }
