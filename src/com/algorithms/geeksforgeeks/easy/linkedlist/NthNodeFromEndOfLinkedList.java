@@ -9,8 +9,8 @@ public class NthNodeFromEndOfLinkedList {
      * The task is to complete the function getNthFromLast() which takes two arguments:
      * reference to head and N and you need to return Nth from the end.
      * <p>
-     * Expected Time Complexity: O(N).
-     * Expected Auxiliary Space: O(1).
+     * Time Complexity: O(N).
+     * Auxiliary Space: O(1).
      * <p>
      * https://practice.geeksforgeeks.org/problems/nth-node-from-end-of-linked-list/1
      */
@@ -26,6 +26,9 @@ public class NthNodeFromEndOfLinkedList {
             }
             end = end.next;
         }
+        // now traversing with both pointers and when 'end' pointer becomes null, 'start' pointer will be at the nth
+        // node from end, since the 'end' pointer had already traversed n nodes and thus had difference of n nodes with
+        // 'start' pointer.
         while (end != null) {
             start = start.next;
             end = end.next;
@@ -33,7 +36,7 @@ public class NthNodeFromEndOfLinkedList {
         return start.data;
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node next;
 

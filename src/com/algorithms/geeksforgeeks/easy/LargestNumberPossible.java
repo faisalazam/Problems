@@ -2,24 +2,21 @@ package com.algorithms.geeksforgeeks.easy;
 
 public class LargestNumberPossible {
     /**
-     * Given two numbers 'N' and 'S', find the largest number that can be formed with 'N' digits
-     * and whose sum of digits should be equals to 'S'.
+     * Given two numbers 'N' and 'S', find the largest number that can be formed with 'N' digits and whose sum of
+     * digits should be equals to 'S'.
      * <p>
-     *
      * Example 1:
-     *
+     * <p>
      * Input: N = 2, S = 9
      * Output: 90
-     * Explanation: It is the biggest number
-     * with sum of digits equals to 9.
+     * Explanation: It is the biggest number with sum of digits equals to 9.
      * Example 2:
-     *
+     * <p>
      * Input: N = 3, S = 20
      * Output: 992
-     * Explanation: It is the biggest number
-     * with sum of digits equals to 20.
-     *
-     *
+     * Explanation: It is the biggest number with sum of digits equals to 20.
+     * <p>
+     * <p>
      * https://practice.geeksforgeeks.org/problems/largest-number-possible/0
      */
     private static String largestNumberPossible(int N, int S) {

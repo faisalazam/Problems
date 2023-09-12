@@ -11,20 +11,24 @@ public class LetterCombinationsOfAPhoneNumber {
      * <p>
      * https://leetcode.com/problems/letter-combinations-of-a-phone-number/
      */
-    public List<String> letterCombinations(String digits) {
-        LinkedList<String> letterCombinations = new LinkedList<>();
+    // Time Complexity: O(3^M×4^N) ???
+    // Space Complexity: O(3^M×4^N) ???
+    public List<String> letterCombinations(final String digits) {
+        final LinkedList<String> letterCombinations = new LinkedList<>();
         if (digits == null || digits.isEmpty()) {
             return letterCombinations;
         }
-        String[] charMap = new String[]{"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        final String[] charMap = new String[]{"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         letterCombinations.add("");
 
         for (int i = 0; i < digits.length(); i++) {
-            int index = Character.getNumericValue(digits.charAt(i));
-            while (letterCombinations.peek().length() == i) {
-                String permutation = letterCombinations.remove();
-                for (char c : charMap[index].toCharArray()) {
-                    letterCombinations.add(permutation + c);
+            final int index = Character.getNumericValue(digits.charAt(i));
+            final char[] mappedChars = charMap[index].toCharArray();
+
+            while (!letterCombinations.isEmpty() && letterCombinations.peek().length() == i) {
+                final String permutation = letterCombinations.remove();
+                for (char character : mappedChars) {
+                    letterCombinations.add(permutation + character);
                 }
             }
         }

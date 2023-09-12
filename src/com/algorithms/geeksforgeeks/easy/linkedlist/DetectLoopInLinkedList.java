@@ -12,10 +12,17 @@ public class DetectLoopInLinkedList {
      * Challenge : Try to solve the problem with constant space and Linear time complexity.
      * <p>
      * https://practice.geeksforgeeks.org/problems/detect-loop-in-linked-list/1
+     * <p>
+     * By using Floyd’s Cycle-Finding Algorithm: This algorithm is used to find a loop in a linked list. It uses two
+     * pointers one moving twice as fast as the other one. The faster one is called the faster pointer and the other
+     * one is called the slow pointer, if both pointers meet then the cycle is present otherwise not.
+     * <p>
+     * Time Complexity: O(N)
+     * Auxiliary Space: O(1)
      */
-    public int detectLoop(Node head) {
+    public boolean detectLoop(Node head) {
         if (head == null || head.next == null) {
-            return 0;
+            return false;
         }
         Node slow = head;
         Node fast = head.next;
@@ -23,13 +30,13 @@ public class DetectLoopInLinkedList {
             slow = slow.next;
             fast = fast.next.next;
             if (slow == fast) {
-                return 1;
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 
-    class Node {
+    static class Node {
         int data;
         Node next;
 
