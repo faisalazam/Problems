@@ -1,5 +1,8 @@
 package com.algorithms.geeksforgeeks.basic.linkedlist;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FindingMiddleElementInALinkedList {
     /**
      * Given a singly linked list of N nodes. The task is to find the middle of the linked list.
@@ -11,10 +14,12 @@ public class FindingMiddleElementInALinkedList {
      * The task is to complete the function getMiddle() which takes a head reference as the only argument
      * and should return the data at the middle node of the linked list.
      * <p>
-     * Expected Time Complexity: O(N).
-     * Expected Auxiliary Space: O(1).
+     * Time Complexity: O(N).
+     * Auxiliary Space: O(1).
      * <p>
      * https://practice.geeksforgeeks.org/problems/finding-middle-element-in-a-linked-list/1
+     * <p>
+     * "hare and tortoise" or "tortoise and hare" or "slow and fast" pointers approach.
      */
     int getMiddle(Node head) {
         if (head == null) {
@@ -38,7 +43,7 @@ public class FindingMiddleElementInALinkedList {
             temp = temp.next;
         }
         temp = head;
-        int middleElementIndex = count / 2;
+        int middleElementIndex = (count % 2 == 0) ? (count + 1) / 2 : (count / 2);
         while (middleElementIndex > 0) {
             temp = temp.next;
             middleElementIndex--;
@@ -46,8 +51,24 @@ public class FindingMiddleElementInALinkedList {
         return temp.data;
     }
 
+    /**
+     * Time Complexity: O(N).
+     * Auxiliary Space: O(N).
+     */
+    int getMiddleV0(Node head) {
+        Node temp = head;
+        final List<Integer> list = new ArrayList<>();
+        while (temp != null) {
+            list.add(temp.data);
+            temp = temp.next;
+        }
+        final int count = list.size();
+        final int middleElementIndex = (count % 2 == 0) ? (count + 1) / 2 : (count / 2);
+        return list.get(middleElementIndex);
+    }
 
-    private class Node {
+
+    private static class Node {
         int data;
         Node next;
 

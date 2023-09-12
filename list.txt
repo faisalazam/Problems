@@ -170,6 +170,7 @@ src/com/algorithms
 │	            ├── LetterCombinationsOfAPhoneNumber.java
 │	            ├── LongestPalindromicSubstring.java
 │	            ├── LongestRepeatingCharacterReplacement.java
+│	            ├── MaxAreaOfIslandInMatrix.java
 │	            ├── MergeIntervals.java
 │	            ├── MinimumRemoveToMakeValidParentheses.java
 │	            ├── MinimumTimeDifference.java
@@ -191,7 +192,6 @@ src/com/algorithms
 │	    ├── AutoCompleteWithGivenPrefix.java
 │	    ├── BaeldungDijkstra.java
 │	    ├── BinaryTreeOperations.java
-│	    ├── ConnectedCellsInMatrixUsingDFS.java
 │	    ├── DeadOrAliveFinder.java
 │	    ├── GoogleMergeIntervals.java
 │	    ├── GraphOperationsWithAdjacencyList.java
@@ -212,9 +212,12 @@ src/com/algorithms
 └── templates
         ├── Backtracking.java
         ├── BinarySearchTemplate.java
+        ├── BinaryTreeDFSTemplate.java
         ├── CharFrequenciesTemplate.java
         ├── DynamicProgrammingBasicTemplate.java
         ├── LevelOrderTraversalOrBFSTemplate.java
+        ├── MatrixOrGridBFSTemplate.java
+        ├── MatrixOrGridDFSTemplate.java
         └── SlowFastPointerTemplate.java
 
-28 directories, 190 files
+28 directories, 193 files

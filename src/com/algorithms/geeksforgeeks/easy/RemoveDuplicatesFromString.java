@@ -1,5 +1,6 @@
 package com.algorithms.geeksforgeeks.easy;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -12,15 +13,35 @@ public class RemoveDuplicatesFromString {
      * Note: that original order of characters must be kept same.
      * <p>
      * https://practice.geeksforgeeks.org/problems/remove-duplicates/0
+     * <p>
+     * Time Complexity: O(|s|)
+     * Auxiliary Space: O(constant)
      */
-    void removeDuplicates(String str) {
-        Set<Character> chars = new LinkedHashSet<>();
-        for (int i = 0; i < str.length(); i++) {
-            chars.add(str.charAt(i));
+    String removeDups(String S) {
+        final StringBuilder sb = new StringBuilder();
+        // It works with LinkedHashSet too, but we don't really need to use LinkedHashSet as we are appending the
+        // characters while traversing the actual string
+        final Set<Character> chars = new HashSet<>();
+        for (int i = 0; i < S.length(); i++) {
+            final char character = S.charAt(i);
+            if (chars.add(character)) {
+                sb.append(character);
+            }
         }
+        return sb.toString();
+    }
+
+    // Time Complexity: O(n)
+    // Auxiliary Space: O(n)
+    String removeDupsV0(String S) {
+        final Set<Character> chars = new LinkedHashSet<>();
+        for (int i = 0; i < S.length(); i++) {
+            chars.add(S.charAt(i));
+        }
+        final StringBuilder sb = new StringBuilder();
         for (Character character : chars) {
-            System.out.print(character);
+            sb.append(character);
         }
-        System.out.println();
+        return sb.toString();
     }
 }

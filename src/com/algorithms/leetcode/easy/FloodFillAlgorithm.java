@@ -1,22 +1,20 @@
 package com.algorithms.leetcode.easy;
 
 
-import com.algorithms.misc.Pair;
-
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 /**
  * Given a 2D screen, location of a pixel in the screen ie(x,y) and a color(K),
  * your task is to replace color of the given pixel and all adjacent(excluding diagonally adjacent)
  * same colored pixels with the given color K.
- *
+ * <p>
  * https://leetcode.com/problems/flood-fill/
- *
+ * <p>
  * Is this implementation same as https://practice.geeksforgeeks.org/problems/flood-fill-algorithm/0 ?
- *
+ * <p>
  * Example:
- *
+ * <p>
  * {{1, 1, 1, 1, 1, 1, 1, 1},
  * {1, 1, 1, 1, 1, 1, 0, 0},
  * {1, 0, 0, 1, 1, 0, 1, 1},
@@ -25,10 +23,10 @@ import java.util.Queue;
  * {1, 1, 1, 2, 2, 2, 2, 0},
  * {1, 1, 1, 1, 1, 2, 1, 1},
  * {1, 1, 1, 1, 1, 2, 2, 1},
- *  };
- *
- *  x=4, y=4, color=3
- *
+ * };
+ * <p>
+ * x=4, y=4, color=3
+ * <p>
  * {{1, 1, 1, 1, 1, 1, 1, 1},
  * {1, 1, 1, 1, 1, 1, 0, 0},
  * {1, 0, 0, 1, 1, 0, 1, 1},
@@ -37,9 +35,8 @@ import java.util.Queue;
  * {1, 1, 1, 3, 3, 3, 3, 0},
  * {1, 1, 1, 1, 1, 3, 1, 1},
  * {1, 1, 1, 1, 1, 3, 3, 1}, };
- *
+ * <p>
  * Note: Use zero based indexing.
- *
  */
 public class FloodFillAlgorithm {
     public static void main(String[] args) {
@@ -54,15 +51,133 @@ public class FloodFillAlgorithm {
                 {1, 1, 1, 1, 1, 2, 2, 1},
         };
         int x = 4, y = 4, color = 3;
-        int rows = screen.length;
-        int columns = screen[0].length;
-        boolean[][] visited = new boolean[rows][columns];
-//        updateScreenColorV1(x, y, screen[x][y], color, screen, visited);
-        if (screen[x][y] != color) { // No need to update if the target pixel already have the new color
-            updateScreenColorV2(x, y, color, screen);
-        }
+//        floodFillDFS(screen, x, y, color);
+        final int rows = screen.length;
+        final int columns = screen[0].length;
+        final boolean[][] visited = new boolean[rows][columns]; // Time Limit Exceeded even after using visited array
+        updateColorBFS(x, rows, y, columns, color, screen, visited);
 
         printScreen(columns, screen);
+    }
+
+    /**
+     * Time complexity: O(M x N).
+     * Auxiliary Space: O(M x N),
+     */
+    public static int[][] floodFillBFS(int[][] image, int sr, int sc, int newColor) {
+        if (image[sr][sc] == newColor) { // No need to update if the target pixel already have the new color
+            return image;
+        }
+
+        final int rows = image.length;
+        final int columns = image[0].length;
+        final boolean[][] visited = new boolean[rows][columns];
+        updateColorBFS(sr, rows, sc, columns, newColor, image, visited);
+        return image;
+    }
+
+    /**
+     * The idea is simple, we first replace the color of the current pixel, then recur for 4 surrounding points.
+     * <p>
+     * Time complexity: O(M x N).
+     * Auxiliary Space: O(M x N), as implicit stack is created due to recursion
+     */
+    public static int[][] floodFillDFS(int[][] image, int sr, int sc, int newColor) {
+        final int originalColor = image[sr][sc];
+        if (originalColor == newColor) { // No need to update if the target pixel already have the new color
+            return image;
+        }
+        final int rows = image.length;
+        final int columns = image[0].length;
+        final boolean[][] visited = new boolean[rows][columns];
+        updateColorDFS(sr, sc, originalColor, newColor, image, visited);
+        return image;
+    }
+
+    private static void updateColorBFS(final int row,
+                                       final int rows,
+                                       final int column,
+                                       final int columns,
+                                       final int newColor,
+                                       final int[][] image,
+                                       final boolean[][] visited) {
+        final int originalColor = image[row][column];
+        final Queue<Integer> queue = new ArrayDeque<>();
+        queue.offer((row * columns) + column); // single dimensional representation of [i][j] or [row][column]
+
+        while (!queue.isEmpty()) {
+            final int currentPixel = queue.poll();
+            final int currentRow = currentPixel / columns;
+            final int currentColumn = currentPixel % columns;
+
+            visited[currentRow][currentColumn] = true;
+            image[currentRow][currentColumn] = newColor;
+
+            addCell(currentRow - 1, rows, currentColumn, columns, image, originalColor, queue, visited);
+            addCell(currentRow + 1, rows, currentColumn, columns, image, originalColor, queue, visited);
+            addCell(currentRow, rows, currentColumn - 1, columns, image, originalColor, queue, visited);
+            addCell(currentRow, rows, currentColumn + 1, columns, image, originalColor, queue, visited);
+        }
+    }
+
+    private static void addCell(final int row,
+                                final int rows,
+                                final int column,
+                                final int columns,
+                                final int[][] image,
+                                final int originalColor,
+                                final Queue<Integer> queue,
+                                final boolean[][] visited) {
+        if (isValid(row, rows, column, columns, originalColor, image, visited)) {
+            visited[row][column] = true;
+            queue.offer((row * columns) + column); // single dimensional representation of [i][j] or [row][column]
+        }
+    }
+
+    /**
+     * Does this algorithm seem familiar? It should! This is essentially depth-first search on a graph
+     */
+    private static void updateColorDFS(final int row,
+                                       final int column,
+                                       final int originalColor,
+                                       final int newColor,
+                                       final int[][] image,
+                                       final boolean[][] visited) {
+        if (isNotValid(row, column, originalColor, image, visited)) {
+            return;
+        }
+        visited[row][column] = true;
+        image[row][column] = newColor;
+
+        updateColorDFS(row - 1, column, originalColor, newColor, image, visited);
+        updateColorDFS(row + 1, column, originalColor, newColor, image, visited);
+        updateColorDFS(row, column - 1, originalColor, newColor, image, visited);
+        updateColorDFS(row, column + 1, originalColor, newColor, image, visited);
+    }
+
+    private static boolean isNotValid(final int row,
+                                      final int column,
+                                      final int originalColor,
+                                      final int[][] image,
+                                      final boolean[][] visited) {
+        return row < 0 || row >= image.length
+                || column < 0 || column >= image[row].length
+                || visited[row][column]
+                || image[row][column] != originalColor
+                ;
+    }
+
+    private static boolean isValid(final int row,
+                                   final int rows,
+                                   final int column,
+                                   final int columns,
+                                   final int originalColor,
+                                   final int[][] image,
+                                   final boolean[][] visited) {
+        return row >= 0 && row < rows
+                && column >= 0 && column < columns
+                && !visited[row][column]
+                && image[row][column] == originalColor;
     }
 
     private static void printScreen(int columns, int[][] screen) {
@@ -73,53 +188,6 @@ public class FloodFillAlgorithm {
             }
             builder.append("\n");
         }
-        System.out.println(builder.toString());
-    }
-
-    private static void updateScreenColorV2(int x, int y, int newColor, int[][] screen) {
-        int originalColor = screen[x][y];
-        Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
-        queue.offer(Pair.of(x, y));
-
-        while (!queue.isEmpty()) {
-            Pair<Integer, Integer> currentPixel = queue.poll();
-            int row = currentPixel.fst;
-            int column = currentPixel.snd;
-            screen[row][column] = newColor;
-
-            if (row - 1 >= 0 && screen[row - 1][column] == originalColor) {
-                queue.offer(Pair.of(row - 1, column));
-            }
-            if (row + 1 < screen.length && screen[row + 1][column] == originalColor) {
-                queue.offer(Pair.of(row + 1, column));
-            }
-            if (column - 1 >= 0 && screen[row][column - 1] == originalColor) {
-                queue.offer(Pair.of(row, column - 1));
-            }
-            if (column + 1 < screen[row].length && screen[row][column + 1] == originalColor) {
-                queue.offer(Pair.of(row, column + 1));
-            }
-        }
-    }
-
-    /**
-     * Does this algorithm seem familiar? It should! This is essentially depth-first search on a graph
-     */
-    private static void updateScreenColorV1(int x, int y, int originalColor, int newColor, int[][] screen, boolean[][] visited) {
-        if (isNotValid(x, y, screen, visited)) {
-            return;
-        }
-        visited[x][y] = true;
-        if (screen[x][y] == originalColor) {
-            screen[x][y] = newColor;
-        }
-        updateScreenColorV1(x - 1, y, originalColor, newColor, screen, visited);
-        updateScreenColorV1(x + 1, y, originalColor, newColor, screen, visited);
-        updateScreenColorV1(x, y - 1, originalColor, newColor, screen, visited);
-        updateScreenColorV1(x, y + 1, originalColor, newColor, screen, visited);
-    }
-
-    private static boolean isNotValid(int x, int y, int[][] screen, boolean[][] visited) {
-        return x < 0 || x >= screen.length || y < 0 || y >= screen[x].length || visited[x][y];
+        System.out.println(builder);
     }
 }
