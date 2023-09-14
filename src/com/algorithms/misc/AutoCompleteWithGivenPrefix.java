@@ -15,10 +15,10 @@ import java.util.Map;
  */
 public class AutoCompleteWithGivenPrefix {
     // Trie node class
-    private class Node {
-        String prefix;
+    private static class Node {
+        final String prefix;
         boolean isEndOfWord;
-        Map<Character, Node> children;
+        final Map<Character, Node> children;
 
         private Node(String prefix) {
             this.prefix = prefix;
@@ -27,7 +27,7 @@ public class AutoCompleteWithGivenPrefix {
     }
 
     // The trie
-    private Node trie;
+    private final Node trie;
 
     // Construct the trie from the dictionary
     public AutoCompleteWithGivenPrefix(String[] dict) {

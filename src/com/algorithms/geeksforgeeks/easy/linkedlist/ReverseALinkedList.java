@@ -55,6 +55,22 @@ public class ReverseALinkedList {
         return prev;
     }
 
+    /**
+     * Time Complexity: O(n)
+     */
+    //Working and submitted Iterative Solution
+    Node reverseIterativelyV1(Node head) {
+        Node newHead = null;
+        while (head != null) {
+            final Node next = head.next;
+            head.next = newHead;
+            newHead = head;
+            head = next;
+        }
+        return newHead;
+    }
+
+
     private static class Node {
         int data;
         Node next;

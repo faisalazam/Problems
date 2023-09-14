@@ -13,7 +13,7 @@ public class DeadOrAliveFinder {
         System.out.println(isAlive(row, column, boat));
     }
 
-    /*
+    /**
      * Will be alive only if jump is possible to an empty/blank cell
      * (and by jumping only on the same color, e.g. x can jump only on x (but not on o) or blank and vice versa.)
      */

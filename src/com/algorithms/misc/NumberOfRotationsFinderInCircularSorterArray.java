@@ -30,13 +30,14 @@ public class NumberOfRotationsFinderInCircularSorterArray {
         int high = size - 1;
 
         while (low <= high) {
-            int mid = low + (high - low) / 2;
+            final int mid = low + (high - low) / 2;
             if (a.get(low) <= a.get(high)) {
                 return low;
             }
-            int midValue = a.get(mid);
-            int nextValue = a.get((mid + 1) % size); // using the % just in case if mid is the last element in the list
-            int previousValue = a.get((mid + size - 1) % size); // added size so that index does not become -ve number in case mid is first element in the list
+            final int midValue = a.get(mid);
+            final int nextValue = a.get((mid + 1) % size); // using the % just in case if mid is the last element in the list
+            // added size so that index does not become -ve number in case mid is first element in the list
+            final int previousValue = a.get((mid + size - 1) % size);
             if (midValue <= previousValue && midValue <= nextValue) {
                 return mid;
             } else if (midValue <= a.get(high)) {

@@ -16,7 +16,6 @@ public class LargestNumberPossible {
      * Output: 992
      * Explanation: It is the biggest number with sum of digits equals to 20.
      * <p>
-     * <p>
      * https://practice.geeksforgeeks.org/problems/largest-number-possible/0
      */
     private static String largestNumberPossible(int N, int S) {

@@ -63,13 +63,13 @@ public class StockBuyAndSell {
             }
             buyingDay = i++; // cost at i is minimum so far
 
-            // loop to find the best day for selling, i.e. keep incrementing i until we find a day on which selling
-            // price is lower than the selling price on yesterday and then yesterday will become our best day to sell so
-            // far; because it makes sense to sell yesterday if today's selling price is lower than the yesterday's price
-            while (i < N && A[i] >= A[i - 1]) { // skip if today's selling price is higher than yesterday's selling price
+            // loop to find the best day for selling, i.e. keep incrementing i until we find a day on which today's
+            // selling price is higher than the selling price on next day and that'll become our best day to sell so far;
+            // because it makes sense to sell today if today's selling price is higher than the price on next day
+            while (i < N - 1 && A[i] < A[i + 1]) { // skip if today's selling price is lower than tomorrow's selling price
                 i++;
             }
-            sellingDay = i - 1; // selling price at (i - 1) is maximum so far
+            sellingDay = i; // selling price at i is maximum so far
 
             profit.append("(").append(buyingDay).append(" ").append(sellingDay).append(") ");
         }

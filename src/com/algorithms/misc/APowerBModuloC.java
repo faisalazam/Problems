@@ -6,7 +6,10 @@ public class APowerBModuloC {
 //        System.out.println(pow(2, 5, 7));
     }
 
-    //This is the solution(O(logb)) instead of (O(b)) where you just keep multiplying the number itself 'b' times
+    /**
+     * Calculate ((A^b) % C)
+     * This is the solution(O(log(b))) instead of (O(b)) where you just keep multiplying the number itself 'b' times
+     */
     private static int pow(int number, int exponent, int mod) {
         if (exponent == 0) {
             return 0;
@@ -18,7 +21,7 @@ public class APowerBModuloC {
         if (exponent % 2 == 0) { // e.g. when exponent is even => a^b = (a^(b/2) * a^(b/2)) => 2^4 = 2^2 * 2^2 = 16
             return evenResult;
         }
-        //else e.g.  when exponent is odd => a^b = a * (a^(b-1)) ...which makes it even
+        // else e.g.  when exponent is odd => a^b = a * (a^(b-1)) ...which makes it even
         // hence, a * evenResult = a * (a^(b/2) * a^(b/2)) => 2^5 = 2 * 2^2 * 2^2 = 32
         return (number * evenResult) % mod;
     }

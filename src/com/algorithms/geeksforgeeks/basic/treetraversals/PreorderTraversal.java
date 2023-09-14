@@ -1,5 +1,6 @@
 package com.algorithms.geeksforgeeks.basic.treetraversals;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class PreorderTraversal {
@@ -14,38 +15,54 @@ public class PreorderTraversal {
      *  5
      * <p>
      * https://practice.geeksforgeeks.org/problems/preorder-traversal/1
+     * <p>
+     * Time Complexity: O(N).
+     * Auxiliary Space: O(Height of the Tree) => O(H) => where H, in best case, will be log(N); and N in worst case.
      */
-    static void preorder(final Node root) {
-        // preorderRecursive(root);
-        preorderIterative(root);
+    static ArrayList<Integer> preorder(final Node root) {
+        final ArrayList<Integer> result = new ArrayList<>();
+//        preorderIterative(root, result);
+        preorderRecursive(root, result);
+        return result;
     }
 
-    private static void preorderIterative(final Node root) {
-        Stack<Node> stack = new Stack<>();
+    private static void preorderIterative(final Node root, final ArrayList<Integer> result) {
+        Node currentNode = root;
+        final Stack<Node> stack = new Stack<>();
 
-        pushLeft(root, stack);
-        while (!stack.isEmpty()) {
-            Node temp = stack.pop();
-            pushLeft(temp.right, stack);
+        while (currentNode != null || !stack.isEmpty()) {
+            pushLeft(currentNode, stack, result);
+            currentNode = stack.pop();
+            currentNode = currentNode.right;
         }
     }
 
-    private static void pushLeft(final Node root, final Stack<Node> stack) {
+    private static void preorderIterativeV0(final Node root, final ArrayList<Integer> result) {
+        Stack<Node> stack = new Stack<>();
+
+        pushLeft(root, stack, result);
+        while (!stack.isEmpty()) {
+            Node temp = stack.pop();
+            pushLeft(temp.right, stack, result);
+        }
+    }
+
+    private static void pushLeft(final Node root, final Stack<Node> stack, final ArrayList<Integer> result) {
         Node temp = root;
         while (temp != null) {
-            System.out.print(temp.data + " ");
+            result.add(temp.data);
             stack.push(temp);
             temp = temp.left;
         }
     }
 
-    private static void preorderRecursive(final Node root) {
+    private static void preorderRecursive(final Node root, final ArrayList<Integer> result) {
         if (root == null) {
             return;
         }
-        System.out.print(root.data + " ");
-        preorderRecursive(root.left);
-        preorderRecursive(root.right);
+        result.add(root.data);
+        preorderRecursive(root.left, result);
+        preorderRecursive(root.right, result);
     }
 
     private static class Node {

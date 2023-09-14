@@ -1,5 +1,6 @@
 package com.algorithms.geeksforgeeks.basic.treetraversals;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class InorderTraversal {
@@ -10,28 +11,42 @@ public class InorderTraversal {
      * You don't need to read input or print anything. Your task is to complete the function inOrder()
      * that takes root node of the tree as input and returns a list containing the In-Order Traversal of the given Binary Tree.
      * <p>
-     * Expected Time Complexity: O(N).
-     * Expected Auxiliary Space: O(N).
+     * Time Complexity: O(N).
+     * Auxiliary Space: O(Height of the Tree) => O(H) => where H, in best case, will be log(N); and N in worst case.
      * <p>
      * https://practice.geeksforgeeks.org/problems/inorder-traversal/1
      */
-    void inOrder(Node root) {
-        inOrderIterative(root);
-        // inOrderRecursive(root);
+    ArrayList<Integer> inOrder(Node root) {
+        final ArrayList<Integer> result = new ArrayList<>();
+         inOrderIterative(root, result);
+//        inOrderRecursive(root, result);
+        return result;
     }
 
-    private void inOrderIterative(Node root) {
-        Stack<Node> stack = new Stack<>();
+    private void inOrderIterative(final Node root, final ArrayList<Integer> result) {
+        Node currentNode = root;
+        final Stack<Node> stack = new Stack<>();
+
+        while (currentNode != null || !stack.isEmpty()) {
+            pushLeft(currentNode, stack);
+            currentNode = stack.pop();
+            result.add(currentNode.data);
+            currentNode = currentNode.right;
+        }
+    }
+
+    private void inOrderIterativeV0(final Node root, final ArrayList<Integer> result) {
+        final Stack<Node> stack = new Stack<>();
 
         pushLeft(root, stack);
         while (!stack.isEmpty()) {
-            Node temp = stack.pop();
-            System.out.print(temp.data + " ");
+            final Node temp = stack.pop();
+            result.add(temp.data);
             pushLeft(temp.right, stack);
         }
     }
 
-    private void pushLeft(Node root, Stack<Node> stack) {
+    private void pushLeft(final Node root, final Stack<Node> stack) {
         Node temp = root;
         while (temp != null) {
             stack.push(temp);
@@ -39,16 +54,16 @@ public class InorderTraversal {
         }
     }
 
-    private void inOrderRecursive(Node root) {
+    private void inOrderRecursive(Node root, final ArrayList<Integer> result) {
         if (root == null) {
             return;
         }
-        inOrderRecursive(root.left);
-        System.out.print(root.data + " ");
-        inOrderRecursive(root.right);
+        inOrderRecursive(root.left, result);
+        result.add(root.data);
+        inOrderRecursive(root.right, result);
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node left;
         Node right;

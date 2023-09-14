@@ -10,6 +10,8 @@ public class ParenthesisChecker {
      * <p>
      * https://practice.geeksforgeeks.org/problems/parenthesis-checker/0
      * <p>
+     * https://leetcode.com/problems/valid-parentheses/description/
+     * <p>
      * Time Complexity: O(|x|)
      * Auxiliary Space: O(|x|)
      */

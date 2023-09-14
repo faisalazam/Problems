@@ -95,7 +95,7 @@ public class BinaryTreeOperations {
         System.out.print(root.getData() + ", ");
     }
 
-    /*
+    /**
      * 1) Create an empty stack.
      * 2) Initialize current node as root
      * 3) Push the current node to stack and set current = current->left until current is NULL
@@ -251,7 +251,7 @@ public class BinaryTreeOperations {
         return countBSTNodeInRange(root.getLeft(), low, high);
     }
 
-    /*
+    /**
      * Given two BST, Return elements of both BSTs in sorted form.
      * The values in the string are in the order of level order traversal of the tree where,
      * numbers denote node values, and a character “N” denotes NULL child.
@@ -267,7 +267,7 @@ public class BinaryTreeOperations {
         return mergedBST;
     }
 
-    private class TreeNode {
+    private static class TreeNode {
         private int data;
         private TreeNode left;
         private TreeNode right;

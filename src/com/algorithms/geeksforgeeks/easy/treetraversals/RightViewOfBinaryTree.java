@@ -7,17 +7,16 @@ public class RightViewOfBinaryTree {
     /**
      * Given a Binary Tree, print Right view of it. Right view of a Binary Tree is set of nodes visible
      * when tree is viewed from right side.
-     *
+     * <p>
      * Right view of following tree is 1 3 7 8.
-     *
-     *           1
-     *        /     \
-     *      2        3
-     *    /   \     /    \
+     *            1
+     *        /      \
+     *      2         3
+     *    /   \     /  \
      *   4     5   6    7
-     *     \
-     *      8
-     *
+     *    \
+     *     8
+     * <p>
      * Your Task:
      * This is a function problem. You don't have to take input. Just complete the function rightView() that
      * takes node as parameter and prints the right view. The newline is automatically appended by the driver code.
@@ -53,10 +52,10 @@ public class RightViewOfBinaryTree {
                 queue.offer(curr.left);
             }
         }
-        System.out.print(builder.toString());
+        System.out.print(builder);
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node left;
         Node right;
