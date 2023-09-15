@@ -9,25 +9,38 @@ public class ImplementStrStr {
      * Note : Try to solve the question in constant space complexity.
      * <p>
      * https://practice.geeksforgeeks.org/problems/implement-strstr/1
+     * <p>
+     * Time Complexity: O(N*M), where N and M are lengths of s and x respectively, Nested loops are used, outer from
+     * 0 to N – M and inner from 0 to M
+     * Auxiliary Space: O(1), As no extra space is required.
+     * <p>
+     * Note : We can do this question in a much more optimised way O(N+M) using KMP Algorithm.
      */
-    int strstr(String str, String target) {
-        int j = -1;
-        int index = -1;
-        int targetLength = target.length();
-        for (int i = 0; i < str.length(); i++) {
-            if (j + 1 < targetLength && target.charAt(j + 1) == str.charAt(i)) {
-                j++;
-                index = index == -1 ? i : index;
-            } else if (j == targetLength - 1) {
-                break;
-            } else {
-                j = -1;
-                index = -1;
+    static int strstr(String s, String x) {
+        if (s == null || x == null || s.isBlank() || x.isBlank() || x.length() > s.length()) {
+            return -1;
+        }
+        final int N = s.length();
+        final int M = x.length();
+        for (int i = 0; i <= N - M; i++) {
+            if (x.charAt(0) != s.charAt(i)) {
+                continue;
+            }
+            int j;
+            for (j = 0; j < M; j++) {
+                if (s.charAt(i + j) != x.charAt(j)) {
+                    break;
+                }
+            }
+            if (j == M) {
+                return i;
             }
         }
-        if (j == targetLength - 1) {
-            return index;
-        }
         return -1;
+    }
+
+    public static void main(String[] args) {
+//        System.out.println(strstr("abaaaaaaaa", "abaa"));
+        System.out.println(strstr("ababaaaaaa", "abaa"));
     }
 }

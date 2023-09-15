@@ -8,7 +8,7 @@ public class FindingNByKthElementInALinkedList {
      * https://practice.geeksforgeeks.org/problems/find-nk-th-node-in-linked-list/1
      */
     public static int nkNode(Node head, int k) {
-        if (head == null) {
+        if (k <= 0 || head == null) {
             return -1;
         }
         int counter = 1;
@@ -16,15 +16,45 @@ public class FindingNByKthElementInALinkedList {
         Node fast = head;
         while (fast.next != null) {
             fast = fast.next;
-            // The variable fast updates the value on every iteration while variable slow updates when the position of
-            // the node (stored and updated in ctr) is a multiple of k. This way slow contains the last node at a
+            // The fast pointer gets updated on every iteration while the slow pointer get updated only when the position
+            // of the node (stored and updated in ctr) is a multiple of k. This way slow contains the last node at a
             // position divisible by k when fast reaches the end of the linked list.
             slow = counter++ % k == 0 ? slow.next : slow;
         }
         return slow.data;
     }
 
+    /**
+     * Same as the {@link #nkNode(Node, int)} but just a different style of writing
+     * Time Complexity: O(n)
+     * Space complexity: O(1)
+     */
+    public static int nkNodeV1(Node head, int k) {
+        if (k <= 0 || head == null) {
+            return -1;
+        }
+        Node fractionalNode = null;
+
+        int counter = 0;
+        for (Node temp = head; temp != null; temp = temp.next) {
+            // For every k nodes, we move fractionalNode one step ahead.
+            if (counter % k == 0) {
+                // First time we see a multiple of k
+                if (fractionalNode == null) {
+                    fractionalNode = head;
+                } else {
+                    fractionalNode = fractionalNode.next;
+                }
+            }
+            counter++;
+        }
+        return fractionalNode.data;
+    }
+
     public static int nkNodeV0(Node head, int k) {
+        if (k <= 0 || head == null) {
+            return -1;
+        }
         Node temp = head;
         int count = getCount(head);
         int kth = (int) Math.ceil((double) count / k);
@@ -35,16 +65,16 @@ public class FindingNByKthElementInALinkedList {
     }
 
     private static int getCount(Node head) {
-        int count = 1;
+        int count = 0;
         Node temp = head;
         while (temp != null) {
             count++;
             temp = temp.next;
         }
-        return count - 1;
+        return count;
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node next;
 

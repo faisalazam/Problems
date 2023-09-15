@@ -36,4 +36,22 @@ public class DynamicProgrammingBasicTemplate {
         }
         return prev;
     }
+
+    /**
+     * Optimised DP
+     * Time O(n)
+     * Space O(1)
+     */
+    public int basicDPTemplateWithoutExtraVars(int[] nums) { // We can avoid using extra variables if we can update the input array
+        if (nums == null || nums.length == 0) {
+            return 0; // or whatever
+        }
+
+        nums[1] = Math.max(nums[1], nums[0]); // or whatever is more relevant in your context
+        for (int i = 2; i < nums.length; i++) {
+            // this is the statement which might usually change based on the problem
+            nums[i] = Math.max(nums[i] + nums[i - 2], nums[i - 1]);
+        }
+        return nums[nums.length - 1];
+    }
 }

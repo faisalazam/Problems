@@ -4,7 +4,8 @@ public class SubarrayProductLessThanK {
     /**
      * You are given an array of positive integers nums.
      * <p>
-     * Count and print the number of (contiguous) subarrays where the product of all the elements in the subarray is less than k.
+     * Count and print the number of (contiguous) subarrays where the product of all the elements in the subarray is
+     * less than k.
      * <p>
      * Complexity Analysis
      * Time Complexity: O(N), where N is the length of nums. left can only be incremented at most N times.

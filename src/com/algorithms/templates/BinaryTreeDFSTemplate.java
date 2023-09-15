@@ -4,7 +4,23 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class BinaryTreeDFSTemplate {
-    public void template(final Node root) { // iterative DFS
+    private void template(final Node root) { // iterative DFS
+        Node currentNode = root;
+        // This 'ArrayDeque' class is likely to be faster than Stack when used as a stack, and faster than LinkedList
+        // when used as a queue. It is also known as Array Double Ended Queue or Array Deck. This is a special kind of
+        // array that grows and allows users to add or remove an element from both sides of the queue. The ArrayDeque
+        // class is not thread-safe, but you can use the Collections.synchronizedDeque method to create a thread-safe
+        // version of the ArrayDeque class.
+        final Deque<Node> stack = new ArrayDeque<>();
+
+        while (currentNode != null || !stack.isEmpty()) {
+            pushLeft(currentNode, stack);
+            currentNode = stack.pop();
+            currentNode = currentNode.right;
+        }
+    }
+
+    public void templateV0(final Node root) { // iterative DFS
         if (root == null) {
             return;
         }
