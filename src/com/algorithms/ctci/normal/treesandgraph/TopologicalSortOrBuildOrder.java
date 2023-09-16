@@ -17,17 +17,17 @@ public class TopologicalSortOrBuildOrder {
      * <p>
      * This solution takes 0(P + D) time, where P is the number of projects and D is the number of dependency pairs.
      */
-    Project[] findBuildOrder(String[] projects, String[][] dependencies) {
-        Graph graph = new Graph(projects, dependencies);
+    Project[] findBuildOrder(final String[] projects, final String[][] dependencies) {
+        final Graph graph = new Graph(projects, dependencies);
         return orderProjects(graph.getProjects());
     }
 
-    private Project[] orderProjects(List<Project> projects) {
-        Project[] order = new Project[projects.size()];
+    private Project[] orderProjects(final List<Project> projects) {
+        final Project[] order = new Project[projects.size()];
         int endOfList = addNonDependent(order, projects, 0);
         int toBeProcessed = 0;
         while (toBeProcessed < order.length) {
-            Project current = order[toBeProcessed];
+            final Project current = order[toBeProcessed];
 
             /* We have a circular dependency since there are no remaining projects with * zero dependencies. */
             if (current == null) {
@@ -35,7 +35,7 @@ public class TopologicalSortOrBuildOrder {
             }
 
             /* Remove myself as a dependency. */
-            List<Project> children = current.getChildren();
+            final List<Project> children = current.getChildren();
             for (Project child : children) {
                 child.decrementDependencies();
             }
@@ -56,9 +56,9 @@ public class TopologicalSortOrBuildOrder {
         return offset;
     }
 
-    private class Graph {
-        private List<Project> projects = new ArrayList<>();
-        private Map<String, Project> map = new HashMap<>();
+    private static class Graph {
+        private final List<Project> projects = new ArrayList<>();
+        private final Map<String, Project> map = new HashMap<>();
 
         private Graph(String[] projects, String[][] dependencies) {
             for (String project : projects) {
@@ -72,7 +72,7 @@ public class TopologicalSortOrBuildOrder {
 
         Project getOrCreateProjectNode(String projectName) {
             if (!map.containsKey(projectName)) {
-                Project project = new Project(projectName);
+                final Project project = new Project(projectName);
                 projects.add(project);
                 map.put(projectName, project);
             }
@@ -80,8 +80,8 @@ public class TopologicalSortOrBuildOrder {
         }
 
         void addEdge(String startName, String endName) {
-            Project start = getOrCreateProjectNode(startName);
-            Project end = getOrCreateProjectNode(endName);
+            final Project start = getOrCreateProjectNode(startName);
+            final Project end = getOrCreateProjectNode(endName);
             start.addNeighbor(end);
         }
 
@@ -90,11 +90,11 @@ public class TopologicalSortOrBuildOrder {
         }
     }
 
-    private class Project {
-        private String projectName;
+    private static class Project {
+        private final String projectName;
         private int dependencies = 0;
-        private List<Project> children = new ArrayList<>();
-        private Map<String, Project> map = new HashMap<>();
+        private final List<Project> children = new ArrayList<>();
+        private final Map<String, Project> map = new HashMap<>();
 
         Project(String projectName) {
             this.projectName = projectName;

@@ -212,9 +212,11 @@ src/com/algorithms
 │	    └── XTotalShapes.java
 └── templates
         ├── Backtracking.java
+        ├── BFSOfGraphTemplate.java
         ├── BinarySearchTemplate.java
         ├── BinaryTreeDFSTemplate.java
         ├── CharFrequenciesTemplate.java
+        ├── DFSOfGraphTemplate.java
         ├── DynamicProgrammingBasicTemplate.java
         ├── LevelOrderTraversalOrBFSTemplate.java
         ├── MatrixOrGridBFSTemplate.java
@@ -222,4 +224,4 @@ src/com/algorithms
         ├── RecursionTemplate.java
         └── SlowFastPointerTemplate.java
 
-28 directories, 195 files
+28 directories, 197 files

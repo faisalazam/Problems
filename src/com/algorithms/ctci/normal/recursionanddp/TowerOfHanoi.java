@@ -3,10 +3,10 @@ package com.algorithms.ctci.normal.recursionanddp;
 import java.util.Stack;
 
 /**
- * Towers of Hanoi: In the classic problem of the Towers of Hanoi, you have 3 towers
- * and N disks of different sizes which can slide onto any tower.
- * The puzzle starts with disks sorted in ascending order of size from top to bottom
- * (i.e., each disk sits on top of an even larger one). You have the following constraints:
+ * Towers of Hanoi: In the classic problem of the Towers of Hanoi, you have 3 towers and N disks of different sizes
+ * which can slide onto any tower.
+ * The puzzle starts with disks sorted in ascending order of size from top to bottom (i.e., each disk sits on top of
+ * an even larger one). You have the following constraints:
  * (1) Only one disk can be moved at a time.
  * (2) A disk is slid off the top of one tower onto another tower.
  * (3) A disk cannot be placed on top of a smaller disk.
@@ -14,8 +14,8 @@ import java.util.Stack;
  * Write a program to move the disks from the first tower to the last using Stacks.
  */
 public class TowerOfHanoi {
-    private Stack<Integer> disks;
-    private int index;
+    private final Stack<Integer> disks;
+    private final int index;
 
     private TowerOfHanoi(int i) {
         disks = new Stack<>();
@@ -47,7 +47,7 @@ public class TowerOfHanoi {
      * Let's start with the smallest possible example: n = 1,
      * Case n = 1. Can we move Disk 1 from Tower 1 to Tower 3? Yes.
      * 1. We simply move Disk 1 from Tower 1 to Tower 3.
-     * Case n = 2. Can we move Disk 1 and Disk 2from Tower Ho Tower 3?Yes.
+     * Case n = 2. Can we move Disk 1 and Disk 2 from Tower 1 to Tower 3? Yes.
      * 1. Move Disk 1 from Tower 1 to Tower 2
      * 2. Move Disk 2 from Tower 1 to Tower 3
      * 3. Move Disk 1 from Tower 2 to Tower 3

@@ -6,7 +6,8 @@ import java.util.Stack;
  * Queue via Stacks: Implement a QueueViaStacks class which implements a queue using two stacks.
  */
 public class QueueViaStacks<T> {
-    private Stack<T> stackNewest, stackOldest;
+    private final Stack<T> stackNewest;
+    private final Stack<T> stackOldest;
 
     public QueueViaStacks() {
         stackNewest = new Stack<T>();
