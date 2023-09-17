@@ -5,22 +5,22 @@ public class MakeChange {
      * Coins: Given an infinite number of quarters (25 cents), dimes (10 cents), nickels (5 cents), and
      * pennies (1 cent), write code to calculate the number of ways of representing n cents.
      */
+    private static int makeChange1(int n) {
+        final int[] denoms = {25, 10, 5, 1};
+        return makeChange(n, denoms, 0);
+    }
+
     private static int makeChange(int amount, int[] denoms, int index) {
         if (index >= denoms.length - 1) { // one denom remaining -> one way to do it
             return 1;
         }
         int ways = 0;
-        int denomAmount = denoms[index];
+        final int denomAmount = denoms[index];
         for (int i = 0; i * denomAmount <= amount; i++) {
             int amountRemaining = amount - i * denomAmount;
             ways += makeChange(amountRemaining, denoms, index + 1); // go to next denom
         }
         return ways;
-    }
-
-    private static int makeChange1(int n) {
-        int[] denoms = {25, 10, 5, 1};
-        return makeChange(n, denoms, 0);
     }
 
     private static int makeChangeImproved(int n) {

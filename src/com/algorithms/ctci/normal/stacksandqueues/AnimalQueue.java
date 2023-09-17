@@ -12,61 +12,61 @@ import java.util.LinkedList;
  */
 public class AnimalQueue {
     private int order = 0;
-    private LinkedList<Dog> dogs = new LinkedList<>();
-    private LinkedList<Cat> cats = new LinkedList<>();
+    private final LinkedList<Dog> dogsQueue = new LinkedList<>();
+    private final LinkedList<Cat> catsQueue = new LinkedList<>();
 
     public void enqueue(Animal a) {
         a.setOrder(order++);
         if (a instanceof Dog) {
-            dogs.addLast((Dog) a);
+            dogsQueue.addLast((Dog) a);
         } else if (a instanceof Cat) {
-            cats.addLast((Cat) a);
+            catsQueue.addLast((Cat) a);
         }
     }
 
     public Animal dequeueAny() {
-        if (dogs.isEmpty()) {
+        if (dogsQueue.isEmpty()) {
             return dequeueCats();
-        } else if (cats.isEmpty()) {
+        } else if (catsQueue.isEmpty()) {
             return dequeueDogs();
         }
-        Dog dog = dogs.peek();
-        Cat cat = cats.peek();
-        return dog.isOlderThan(cat) ? dogs.poll() : cats.poll();
+        final Dog dog = dogsQueue.peek();
+        final Cat cat = catsQueue.peek();
+        return dog.isOlderThan(cat) ? dogsQueue.poll() : catsQueue.poll();
     }
 
     public Animal peek() {
-        if (dogs.isEmpty()) {
-            return cats.peek();
-        } else if (cats.isEmpty()) {
-            return dogs.peek();
+        if (dogsQueue.isEmpty()) {
+            return catsQueue.peek();
+        } else if (catsQueue.isEmpty()) {
+            return dogsQueue.peek();
         }
-        Dog dog = dogs.peek();
-        Cat cat = cats.peek();
+        final Dog dog = dogsQueue.peek();
+        final Cat cat = catsQueue.peek();
         return dog.isOlderThan(cat) ? dog : cat;
     }
 
     public int size() {
-        return dogs.size() + cats.size();
+        return dogsQueue.size() + catsQueue.size();
     }
 
     private Dog dequeueDogs() {
-        return dogs.poll();
+        return dogsQueue.poll();
     }
 
     public Dog peekDogs() {
-        return dogs.peek();
+        return dogsQueue.peek();
     }
 
     private Cat dequeueCats() {
-        return cats.poll();
+        return catsQueue.poll();
     }
 
     public Cat peekCats() {
-        return cats.peek();
+        return catsQueue.peek();
     }
 
-    private abstract class Animal {
+    private abstract static class Animal {
         private int order;
         String name;
 
@@ -89,7 +89,7 @@ public class AnimalQueue {
         }
     }
 
-    private class Cat extends Animal {
+    private static class Cat extends Animal {
         public Cat(String n) {
             super(n);
         }
@@ -99,7 +99,7 @@ public class AnimalQueue {
         }
     }
 
-    private class Dog extends Animal {
+    private static class Dog extends Animal {
         public Dog(String n) {
             super(n);
         }
