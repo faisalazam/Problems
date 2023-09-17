@@ -116,7 +116,7 @@ public class ElementWithLeftSideSmallerAndRightSideGreater {
      * A simple solution is to consider every element one by one. For every element, compare it with all elements on
      * the left and all elements on right.
      * <p>
-     * Time Complexity: O(n^2), Time complexity of the given program is O(n^2) as there are two nested while loops in
+     * Time Complexity: O(n²), Time complexity of the given program is O(n²) as there are two nested while loops in
      * the check function, which are iterating over at most n-2 elements each, and they are being called for each
      * element in the array except the first and last elements.
      * Auxiliary Space: O(1), Space complexity of the program is O(1) as no extra space is being used, except for the

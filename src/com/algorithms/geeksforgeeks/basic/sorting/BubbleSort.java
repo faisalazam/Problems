@@ -10,7 +10,7 @@ package com.algorithms.geeksforgeeks.basic.sorting;
  */
 public class BubbleSort {
     /**
-     * Time Complexity: O(N^2).
+     * Time Complexity: O(N²).
      * Auxiliary Space: O(1).
      */
     static void bubbleSort(int[] arr, int n) {

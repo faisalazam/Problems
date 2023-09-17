@@ -96,7 +96,7 @@ public class HouseRobber {
     /**
      * Brute Force
      * <p>
-     * Time Complexity: O(N^2).
+     * Time Complexity: O(N²).
      * Space Complexity: O(N).
      */
     public int robV0(int[] nums) { // It results in Time Limit Exceeded

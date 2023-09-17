@@ -6,7 +6,7 @@ public class LongestPalindromicSubstring {
      * <p>
      * https://leetcode.com/problems/longest-palindromic-substring/
      * <p>
-     * O(N^2) and O(1)
+     * O(N²) and O(1)
      */
     public String longestPalindrome(String s) {
         if (s == null || s.length() < 1) {

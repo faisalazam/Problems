@@ -8,7 +8,7 @@ public class SortStack {
      * You can use an additional temporary stack, but you may not copy the elements into any other
      * data structure (such as an array). The stack supports the following operations: push, pop, peek, and is Empty.
      * <p>
-     * This algorithm is 0( N^2) time and 0(N) space.
+     * This algorithm is 0( N²) time and 0(N) space.
      */
     public static Stack<Integer> sort(Stack<Integer> originalStack) {
         Stack<Integer> sortedStack = new Stack<>();

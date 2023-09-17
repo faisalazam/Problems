@@ -10,7 +10,7 @@ public class InsertionSort {
      * <p>
      * https://practice.geeksforgeeks.org/problems/insertion-sort/1
      * <p>
-     * Time Complexity: O(N^2) Two loops are required for the comparison and sorting.
+     * Time Complexity: O(N²) Two loops are required for the comparison and sorting.
      * Auxiliary Space: O(1) Since No extra Array or space is used.
      */
     static void insertionSort(int[] arr, int n) {

@@ -3,21 +3,21 @@ package com.algorithms.misc;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/*
+/**
  * Given a matrix of dimension r*c where each cell in the matrix can have values 0, 1 or 2 which has the following meaning:
  * 0 : Empty cell
  * 1 : Cells have fresh oranges
  * 2 : Cells have rotten oranges
- *
+ * <p>
  * So, we have to determine what is the minimum time required to rot all oranges.
  * A rotten orange at index [i,j] can rot other fresh orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1]
  * (up, down, left and right) in unit time. If it is impossible to rot every orange then simply return -1.
  */
 public class RotOranges {
     public static void main(String[] args) {
-        int rows = 3;
-        int columns = 5;
-        int[][] oranges = {
+        final int rows = 3;
+        final int columns = 5;
+        final int[][] oranges = {
                 {2, 1, 0, 2, 1},
                 {1, 0, 1, 2, 1},
                 {1, 0, 0, 2, 1}
@@ -35,7 +35,7 @@ public class RotOranges {
         if (rows <= 0 || columns <= 0) {
             return -1;
         }
-        Queue<Integer[]> queue = new LinkedList<>();
+        final Queue<Integer[]> queue = new LinkedList<>();
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
                 if (oranges[row][column] == 2) {
@@ -48,10 +48,10 @@ public class RotOranges {
         while (!queue.isEmpty()) {
             boolean orangesGotRotten = false;
             while (!isEndOfPass(queue.peek())) {
-                Integer[] rowColumnPair = queue.peek();
-                int row = rowColumnPair[0];
-                int column = rowColumnPair[1];
-                boolean flag = rotOrange(row - 1, column, rows, columns, oranges, queue)
+                final Integer[] rowColumnPair = queue.peek();
+                final int row = rowColumnPair[0];
+                final int column = rowColumnPair[1];
+                final boolean flag = rotOrange(row - 1, column, rows, columns, oranges, queue)
                         | rotOrange(row + 1, column, rows, columns, oranges, queue)
                         | rotOrange(row, column - 1, rows, columns, oranges, queue)
                         | rotOrange(row, column + 1, rows, columns, oranges, queue);
@@ -69,7 +69,12 @@ public class RotOranges {
         return isFresh(oranges, rows, columns) ? -1 : minTime;
     }
 
-    private static boolean rotOrange(int row, int column, int rows, int columns, int[][] oranges, Queue<Integer[]> queue) {
+    private static boolean rotOrange(int row,
+                                     int column,
+                                     int rows,
+                                     int columns,
+                                     int[][] oranges,
+                                     Queue<Integer[]> queue) {
         if (isValid(row, column, rows, columns) && oranges[row][column] == 1) {
             oranges[row][column]++;
             queue.add(new Integer[]{row, column});

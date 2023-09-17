@@ -41,9 +41,9 @@ public class StringCompression {
     }
 
     /**
-     * The runtime is 0(p + k^2), where p is the size of the original string and k is the number of character sequences.
+     * The runtime is 0(p + k²), where p is the size of the original string and k is the number of character sequences.
      * For example, if the string is aabccdeeaa, then there are six character sequences.
-     * It's slow because string concatenation operates in 0(n^2) time
+     * It's slow because string concatenation operates in 0(n²) time
      */
     public static String compressBad(String str) {
         int size = countCompression(str);

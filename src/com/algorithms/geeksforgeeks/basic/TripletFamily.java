@@ -13,7 +13,7 @@ public class TripletFamily {
      * <p>
      * https://practice.geeksforgeeks.org/problems/triplet-family/1
      * <p>
-     * Time Complexity: O(N^2)
+     * Time Complexity: O(N²)
      * Auxiliary Space: O(1)
      */
     public static ArrayList<Integer> findTriplet(int[] arr, int n) {
@@ -41,7 +41,7 @@ public class TripletFamily {
         return result;
     }
 
-    // O(n^2)
+    // O(n²)
     public static List<Integer> findTripletV2(int[] arr, int n) {
         final Set<Integer> nums = new HashSet<>();
         for (int i = 0; i < n; i++) {
@@ -63,7 +63,7 @@ public class TripletFamily {
         return result;
     }
 
-    // Time Complexity: O(N^2*log N)
+    // Time Complexity: O(N² * logN)
     // Auxiliary Space: O(1)
     public static void findTripletV1(int[] arr, int n) {
 

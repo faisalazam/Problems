@@ -1,15 +1,27 @@
 package com.algorithms.leetcode.easy;
 
+/**
+ * Given an integer array nums, you need to find one continuous subarray such that if you only sort this subarray
+ * in non-decreasing order, then the whole array will be sorted in non-decreasing order.
+ * <p>
+ * Return the shortest such subarray and output its length.
+ * <p>
+ * Example 1:
+ * Input: nums = [2,6,4,8,10,9,15]
+ * Output: 5
+ * Explanation: You need to sort [6, 4, 8, 10, 9] in ascending order to make the whole array sorted in ascending order.
+ * <p>
+ * Example 2:
+ * Input: nums = [1,2,3,4]
+ * Output: 0
+ * <p>
+ * Example 3:
+ * Input: nums = [1]
+ * Output: 0
+ * <p>
+ * https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
+ */
 public class ShortestUnsortedContinuousSubarray {
-    /**
-     * Given an integer array, you need to find one continuous subarray
-     * that if you only sort this subarray in ascending order,
-     * then the whole array will be sorted in ascending order, too.
-     * <p>
-     * You need to find the shortest such subarray and output its length.
-     * <p>
-     * https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
-     */
     public int findUnsortedSubarray(int[] nums) {
         int left = findLeftBoundary(nums);
         int right = findRightBoundary(nums);

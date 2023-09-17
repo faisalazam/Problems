@@ -37,7 +37,7 @@ public class LongestConsecutiveSequence {
 
 
     /*
-     * O(N^2) & O(N)
+     * O(N²) & O(N)
      */
     public int longestConsecutiveV2(int[] nums) {
         Set<Integer> numsSet = new HashSet<>();
