@@ -11,6 +11,9 @@ public class NumberSwapperWithoutTempVariable {
         a = a - b; 4 - 9 = -5
         b = b + a; 9 + (-5) = 4
         a = b - a; 4 - (-5) = 9;
+
+        if swapping array elements using this approach, then ensure that i != j, because this approach will result
+        in 0 when i == j.
     */
     public void swap(int a, int b) {
         a = a - b;

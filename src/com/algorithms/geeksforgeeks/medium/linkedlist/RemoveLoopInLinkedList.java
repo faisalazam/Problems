@@ -51,6 +51,32 @@ public class RemoveLoopInLinkedList {
         // Move slow to Head. Keep fast at Meeting Point. Each are k steps from the Loop Start. If they move at the
         // same pace, they must meet at Loop Start.
         // See this for more information: https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
+        //
+        // n --> Length of the loop cycle
+        // m --> Distance of first node of the loop cycle from the head of the list
+        // k --> Distance of point where slow and fast pointers meet
+        //
+        // Distance traveled by fast pointer = 2 * (Distance traveled by slow pointer)
+        //                     (m + n*x + k) = 2*(m + n*y + k)
+        //
+        // Note that before meeting the point shown above, fast was moving at twice speed.
+        //
+        // x --> Number of complete cyclic rounds made by fast pointer before they meet first time
+        // y --> Number of complete cyclic rounds made by slow pointer before they meet first time
+        // From the above equation, we can conclude below
+        //
+        //    (m + n*x + k) = 2*(m + n*y + k) = 2m + 2n*y + 2k
+        //    n*x = 2m + 2n*y + 2k - k - m = m + 2n*y + k
+        //    m + k = n*x - 2n*y = (x-2y)*n
+        //
+        // Which means m+k is a multiple of n.
+        //
+        // So if we start moving both pointers again at the same speed such that one pointer (say slow) begins from the
+        // head node of the linked list and other pointers (say fast) begins from the meeting point. When the slow
+        // pointer reaches the beginning of the loop (has made m steps), the fast pointer would have made also moved
+        // m steps as they are now moving the same pace. Since m+k is a multiple of n and fast starts from k, they
+        // would meet at the beginning. Can they meet before also? No, because the slow pointer enters the cycle first
+        // time after m steps.
         Node slow = head;
         if (slow == fast) { // That means fast and slow pointer met at first position.
             while (fast.next != slow) {

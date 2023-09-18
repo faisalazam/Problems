@@ -58,6 +58,9 @@ public class SelectSort {
      * a = a - b;
      * b = b + a;
      * a = b - a;
+     * <p>
+     * if swapping array elements using this approach, then ensure that i != j, because this approach will result
+     * in 0 when i == j.
      */
     private void swap(int i, int j, int[] arr) { // swapping without temp variable
         if (i != j) {

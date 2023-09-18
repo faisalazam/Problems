@@ -31,7 +31,7 @@ public class CheckForBST {
      * Our first thought might be to do an in-order traversal, copy the elements to an array,
      * and then check to see if the array is sorted. This solution takes up a bit of extra memory, but it works—mostly.
      * The only problem is that it can't handle duplicate values in the tree properly.
-     *
+     * <p>
      * When we examine this solution, we find that the array is not actually necessary. We never use it other
      * than to compare an element to the previous element. So why not just track the last element we saw
      * and compare it as we go (and that's what is implemented below)?
@@ -53,7 +53,7 @@ public class CheckForBST {
         return checkBST(n.right);
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node left;
         Node right;

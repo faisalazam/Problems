@@ -23,6 +23,8 @@ public class SortArrayByPeaksAndValleys {
      * then the even-numbered elements (the valleys) must be smaller than the adjacent elements.
      * <p>
      * This algorithm runs in 0(n log n) time.
+     * <p>
+     * This problem is also known as the Sort an array in wave form
      */
     void sortValleyPeak(int[] array) {
         Arrays.sort(array);
@@ -35,24 +37,57 @@ public class SortArrayByPeaksAndValleys {
      * a = a - b;
      * b = b + a;
      * a = b - a;
+     * <p>
+     * if swapping array elements using this approach, then ensure that i != j, because this approach will result
+     * in 0 when i == j.
      */
     private void swap(int[] array, int left, int right) {
-        int temp = array[left];
+        final int temp = array[left];
         array[left] = array[right];
         array[right] = temp;
     }
 
     /**
      * Optimal Solution
-     * To optimize past the prior solution, we need to cut out the sorting step. The algorithm must operate on an unsorted array.
+     * <p>
+     * To optimize past the prior solution, we need to cut out the sorting step.
+     * <p>
+     * The idea is based on the fact that if we make sure that all even positioned (at index 0, 2, 4, ..) elements are
+     * greater than their adjacent odd elements, we don’t need to worry about oddly positioned elements.
+     * <p>
+     * Follow the steps mentioned below to implement the idea:
+     * <p>
+     * Traverse all even positioned elements of the input array, and do the following.
+     * If the current element is smaller than the previous odd element, swap the previous and current.
+     * If the current element is smaller than the next odd element, swap next and current.
+     * <p>
+     * This algorithm runs in 0(n) time.
+     */
+    void sortValleyPeakV1(int[] array) {
+        final int n = array.length;
+        for (int i = 0; i < n - 1; i += 2) {
+            //swap odd and even positions
+            if (i > 0 && array[i - 1] > array[i]) {
+                swap(array, i, i - 1);
+            }
+            if (i < n - 1 && array[i + 1] > array[i]) {
+                swap(array, i, i + 1);
+            }
+        }
+    }
+
+    /**
+     * Optimal Solution - just another way
+     * To optimize past the prior solution, we need to cut out the sorting step. The algorithm must operate on an
+     * unsorted array.
      * <p>
      * We can fix the sequence by swapping the center element with the largest adjacent element.
      * <p>
      * This algorithm runs in 0(n) time.
      */
-    void sortValleyPeakV1(int[] array) {
+    void sortValleyPeakV0(int[] array) {
         for (int i = 1; i < array.length; i += 2) {
-            int biggestIndex = maxIndex(array, i - 1, i, i + 1);
+            final int biggestIndex = maxIndex(array, i - 1, i, i + 1);
             if (i != biggestIndex) {
                 swap(array, i, biggestIndex);
             }
@@ -60,12 +95,12 @@ public class SortArrayByPeaksAndValleys {
     }
 
     private int maxIndex(int[] array, int a, int b, int c) {
-        int length = array.length;
-        int aValue = getValue(array, a, length);
-        int bValue = getValue(array, b, length);
-        int cValue = getValue(array, c, length);
+        final int length = array.length;
+        final int aValue = getValue(array, a, length);
+        final int bValue = getValue(array, b, length);
+        final int cValue = getValue(array, c, length);
 
-        int max = Math.max(aValue, Math.max(bValue, cValue));
+        final int max = Math.max(aValue, Math.max(bValue, cValue));
         if (aValue == max) {
             return a;
         } else if (bValue == max) {

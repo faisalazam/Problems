@@ -17,9 +17,9 @@ public class CharFrequenciesTemplate {
         final int[] charFrequencies = new int[NO_OF_ALPHABETS];
         Arrays.fill(charFrequencies, 0);
 
-        for (int i = 0; i < text.length(); i++) {
+        for (char character : text.toCharArray()) {
             // Subtracting 'a' from the Character will make the character's int value zero based
-            charFrequencies[text.charAt(i) - 'a']++;
+            charFrequencies[character - 'a']++;
         }
         return charFrequencies;
     }

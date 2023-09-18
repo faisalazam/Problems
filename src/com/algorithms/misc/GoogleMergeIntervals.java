@@ -44,7 +44,7 @@ union([{10, 20}, {50, 60}],
         System.out.println();
     }
 
-    private static Comparator<Interval> inRangeComp = (a, b) -> (
+    private static final Comparator<Interval> inRangeComp = (a, b) -> (
             a.getFinish() < b.getStart())
             ? -1 // i.e. first argument is less than second argument
             : (
@@ -54,10 +54,10 @@ union([{10, 20}, {50, 60}],
     );
 
     private static List<Interval> unionImproved(List<Interval> intervals, Interval newInterval) {
-        int intervalStartIndex = insertIfPossible(intervals, newInterval.getStart());
-        int intervalFinishIndex = insertIfPossible(intervals, newInterval.getFinish());
+        final int intervalStartIndex = insertIfPossible(intervals, newInterval.getStart());
+        final int intervalFinishIndex = insertIfPossible(intervals, newInterval.getFinish());
         if (intervalStartIndex != intervalFinishIndex) {
-            Interval interval = intervals.get(intervalStartIndex);
+            final Interval interval = intervals.get(intervalStartIndex);
             interval.finish = intervals.get(intervalFinishIndex).getFinish();
             intervals.set(intervalStartIndex, interval);
             intervals.subList(intervalStartIndex + 1, intervalFinishIndex + 1).clear();
@@ -66,7 +66,7 @@ union([{10, 20}, {50, 60}],
     }
 
     private static int insertIfPossible(List<Interval> intervals, int startFinish) {
-        Interval interval = new Interval(startFinish, startFinish);
+        final Interval interval = new Interval(startFinish, startFinish);
         int index = Collections.binarySearch(intervals, interval, inRangeComp);
         if (index < 0) {
             index = -(index + 1);
@@ -75,8 +75,8 @@ union([{10, 20}, {50, 60}],
         return index;
     }
 
-    private static class Interval { //immutable
-        private int start;
+    private static class Interval { // immutable - not - because finish is not final
+        private final int start;
         private int finish;
 
         private Interval(int start, int finish) {
@@ -97,10 +97,10 @@ union([{10, 20}, {50, 60}],
     private static List<Interval> union(List<Interval> intervals, Interval targetInterval) {
         //place some null/empty checks -> return emptylist
         boolean isTargetProcessed = false;
-        List<Interval> results = new ArrayList<>();
+        final List<Interval> results = new ArrayList<>();
 
         for (int i = 0; i < intervals.size(); i++) {
-            Interval interval = intervals.get(i);
+            final Interval interval = intervals.get(i);
             if (isTargetProcessed || interval.getFinish() < targetInterval.getStart()) {
                 results.add(interval);
             } else if (interval.getStart() > targetInterval.getFinish()) { //

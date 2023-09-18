@@ -189,6 +189,9 @@ public class TwoDInPlaceMatrixRotation {
      * a = a - b;
      * b = b + a;
      * a = b - a;
+     * <p>
+     * if swapping array elements using this approach, then ensure that i != j, because this approach will result
+     * in 0 when i == j.
      */
     private static void swap(int row, int column, int[][] matrix) {
         if (row >= 0 && row < matrix.length && column >= 0 && column < matrix[row].length) {

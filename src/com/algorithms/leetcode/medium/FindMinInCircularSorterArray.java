@@ -1,52 +1,53 @@
 package com.algorithms.leetcode.medium;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array
+ * nums = [0,1,2,4,5,6,7] might become:
+ * <p>
+ * [4,5,6,7,0,1,2] if it was rotated 4 times.
+ * [0,1,2,4,5,6,7] if it was rotated 7 times.
+ * <p>
+ * Notice that rotating an array [a[0], a[1], a[2], ..., a[n-1]] 1 time results in the array
+ * [a[n-1], a[0], a[1], a[2], ..., a[n-2]].
+ * <p>
+ * Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+ * <p>
+ * You must write an algorithm that runs in O(log n) time.
+ * <p>
+ * Find the minimum element.
+ * <p>
+ * You may assume no duplicate exists in the array.
+ * <p>
+ * https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+ */
 public class FindMinInCircularSorterArray {
-    public static void main(String[] args) {
-        List<Integer> a = new ArrayList<>();
-        a.add(5);
-        a.add(6);
-        a.add(7);
-        a.add(8);
-        a.add(1);
-        a.add(2);
-        a.add(3);
-        a.add(4);
-        System.out.println(findMin(a));
+    /**
+     * Time complexity : O(logN)
+     * Auxiliary space : O(1)
+     */
+    private static int findMin(final int[] nums) {
+        if (nums.length == 0) {
+            return -1;
+        }
+        final int pivotIndex = findPivotIndex(nums);
+        return nums[pivotIndex];
     }
 
     /**
-     * Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
+     * This will find the index of the smallest number in the rotated sorted collection
      * <p>
-     * (i.e.,  [0,1,2,4,5,6,7] might become  [4,5,6,7,0,1,2]).
-     * <p>
-     * Find the minimum element.
-     * <p>
-     * You may assume no duplicate exists in the array.
-     * <p>
-     * https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+     * See {@link FindMinInCircularSorterArray} for more variations
      */
-    private static int findMin(final List<Integer> a) {
-        if (a.isEmpty()) {
-            return -1;
-        }
-        final int pivotIndex = findPivotIndex(a);
-        return a.get(pivotIndex);
-    }
-
-    // This will find the index of the smallest number in the rotated sorted collection
-    private static int findPivotIndex(final List<Integer> a) {
-        if (a.size() == 1) {
+    private static int findPivotIndex(final int[] nums) {
+        if (nums.length == 1) {
             return 0;
         }
 
         int low = 0;
-        int high = a.size() - 1;
+        int high = nums.length - 1;
         while (low < high) {
-            int mid = low + (high - low) / 2;
-            if (a.get(mid) > a.get(high)) {
+            int mid = low + ((high - low) / 2);
+            if (nums[mid] > nums[high]) {
                 low = mid + 1;
             } else {
                 high = mid;
@@ -55,24 +56,34 @@ public class FindMinInCircularSorterArray {
         return low;
     }
 
-    //Second variation
-    private static int findPivotIndexV2(final List<Integer> a) {
-        if (a.size() == 1) {
+    /**
+     * Second variation
+     * <p>
+     * See {@link FindMinInCircularSorterArray} for more variations
+     */
+    private static int findPivotIndexV2(final int[] nums) {
+        if (nums.length == 1) {
             return 0;
         }
 
         int low = 0;
-        int high = a.size() - 1;
+        int high = nums.length - 1;
         while (low < high) {
-            int mid = low + (high - low) / 2;
-            if (mid > 0 && a.get(mid) < a.get(mid - 1)) {
+            int mid = low + ((high - low) / 2);
+            final int midValue = nums[mid];
+            if (mid > 0 && midValue < nums[mid - 1]) {
                 return mid;
-            } else if (a.get(low) <= a.get(mid) && a.get(mid) > a.get(high)) {
+            } else if (nums[low] <= midValue && midValue > nums[high]) {
                 low = mid + 1;
             } else {
                 high = mid - 1;
             }
         }
         return low;
+    }
+
+    public static void main(String[] args) {
+        final int[] nums = new int[]{5, 6, 7, 8, 1, 2, 3, 4};
+        System.out.println(findMin(nums));
     }
 }

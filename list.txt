@@ -146,7 +146,7 @@ src/com/algorithms
 │	    │	    ├── LongestContinuousIncreasingSubsequence.java
 │	    │	    ├── LongestWordInDictionary.java
 │	    │	    ├── MaximumDepthOfNAryTree.java
-│	    │	    ├── MaximumNumberofBalloons.java
+│	    │	    ├── MaximumNumberOfBalloons.java
 │	    │	    ├── MinimumAbsoluteDifference.java
 │	    │	    └── ShortestUnsortedContinuousSubarray.java
 │	    ├── hard
@@ -211,8 +211,8 @@ src/com/algorithms
 │	    ├── TargetSumWays.java
 │	    └── XTotalShapes.java
 └── templates
-        ├── Backtracking.java
         ├── BFSOfGraphTemplate.java
+        ├── Backtracking.java
         ├── BinarySearchTemplate.java
         ├── BinaryTreeDFSTemplate.java
         ├── CharFrequenciesTemplate.java
