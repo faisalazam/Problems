@@ -48,7 +48,7 @@ public class PartitionList {
     }
 
     /**
-     * Similar solution as V1 but with just two pointers
+     * Similar solution as {@link #partitionV1(LinkedListNode, int)} but with just two pointers
      */
     public static LinkedListNode partitionV2(LinkedListNode node, int x) {
         LinkedListNode beforeStart = null;

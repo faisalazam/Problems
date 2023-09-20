@@ -22,7 +22,7 @@ public class SortedMatrixSearch {
      * <p>
      * The simple idea is to traverse the array and search elements one by one
      * <p>
-     * Time Complexity: O(N²)
+     * Time Complexity: O(N²), assuming M = N, otherwise O(M + N)
      * Auxiliary Space: O(1), since no extra space has been taken
      */
     boolean findElementV0(int[][] matrix, int targetValue) {
@@ -157,5 +157,7 @@ public class SortedMatrixSearch {
     /*
      * See for more details / solutions:
      * https://www.geeksforgeeks.org/search-element-sorted-matrix/
+     *
+     * Another solution is "Binary Search Every Row => O(m log n)"
      */
 }

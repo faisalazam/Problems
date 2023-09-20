@@ -17,7 +17,9 @@ public class MinimumTimeDifference {
         for (String timePoint : timePoints) {
             int timeInMinutes = getTimeInMinutes(timePoint);
             if (timeSeen[timeInMinutes]) {
-                return 0; // as we've seen the exact same time twice, so they won't have any difference
+                // as we've seen the exact same time twice, so they won't have any difference as no other difference can
+                // be smaller than 0 (i.e. difference between the same times is 0).
+                return 0;
             }
             timeSeen[timeInMinutes] = true;
         }
@@ -36,7 +38,7 @@ public class MinimumTimeDifference {
                 }
             }
         }
-        // minDifference should have already been calculated by the previous for loop, unless the first time is more closer
+        // minDifference should have already been calculated by the previous for loop, unless the first time is closer
         // to prev time, i.e. (23:59, 00:00)
         minDifference = calculateMinDifference(minDifference, firstTimeSeen, prevTimeSeen);
         return minDifference;
