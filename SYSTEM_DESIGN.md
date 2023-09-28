@@ -2,15 +2,21 @@
 
 ## Back-of-the-envelope capacity estimation / planning - warehouse-scale computing
 
+Back-of-the-envelope calculations are estimates you create using a combination of thought experiments and common
+performance numbers to get a good feel for which designs will meet your requirements - Jeff Dean
+
 One part of system design interview is the back-of-the-envelope calculations. You have to estimate how many servers with
 which specs you need. I tried to find any manuals with calculations, bit didn't find anything better than
 https://servebolt.com/articles/calculate-how-many-simultaneous-website-visitors/
 I would appreciate if you share your experience with such calculations.
 Below I publish my humble effort to estimate Twitter (processing servers).
 
+Remember, while doing these calculations, consider the peak hours load, because otherwise the system might break during
+peak hours if the calculations were just good enough for the off-peak hours.
+
 Preconditions and assumptions:
 
-* 330 millions MAU;
+* 330 millions MAU (Monthly Active Users);
 * 5700 tweets per second in average;
 * uniform distribution around the world;
 * feed update requests are more frequent (say 10 times);
@@ -123,6 +129,69 @@ Summary
 
 ----------------------------------------------------------------
 
+### Example: Estimate Twitter QPS and storage requirements
+
+Requests per second (RPS) for service level
+Queries per second (QPS) for database level
+
+Please note the following numbers are for this exercise only as they are not real numbers from Twitter.
+
+Assumptions:
+
+- 300 million MAU (Monthly Active Users).
+- 50% of users use Twitter daily => 150 millions DAU (Daily Active Users).
+- Users post 2 tweets per day on average.
+- 10% of tweets contain pictures of size ~100KB each
+- 1% of tweets contain videos of size ~100MB each
+- Data is stored for 5 years.
+- files are replicated, with 3 copies each
+
+#### Storage calculation for multimedia files for twitter
+
+i.e. for storing pictures:
+
+``` 
+Picture Storage  = 150 millions tweets * (10% pictures * 100KB) * 3 copies * (400 days per year * 5 years)
+                 = 15 * 10^6 tweets * (0.1 pictures * 100 * 10^3 B) * 3 copies * (4 * 10^2 days per year * 5 years)
+                 = 1.5 * 10^8 * (10^-1 * 10^5 B) * 3 copies * (20 * 10^2)
+           Group all the powers of 10 together and other numbers together for easy calculation
+                 = 1.5 * 3 * 20 * 10^8 * 10^-1 * 10^5 * 10^2
+                 = 90 * 10^(8-1+5+2)
+                 = 90 * 10^14
+                 = 9 * 10^15
+                 = 9PB
+```
+
+now for videos, as video are like 1/10th of pictures (i.e. 1% vs 10%), so their storage can be calculated as:
+
+```
+Video Storage = (1% * 100MB / (10% * 100KB)) * Picture Storage
+              = (10^-2 * 100 * 10^6 B / (10^-1 * 100 * 10^3 B)) * 9PB
+              = (10^6 B / (10 * 10^3 B)) * 9PB
+              = 10^2 B * 9PB
+              = 100 * 9PB
+              = 900PB
+```
+
+### Tips
+
+Back-of-the-envelope estimation is all about the process. Solving the problem is more important than obtaining results.
+Interviewers may test your problem-solving skills. Here are a few tips to follow:
+
+* Rounding and Approximation. It is difficult to perform complicated math operations during the interview. For example,
+  what is the result of "99987 / 9.1"? There is no need to spend valuable time to solve complicated math problems.
+  Precision is not expected. Use round numbers and approximation to your advantage. The division question can be
+  simplified as follows: "100,000 / 10".
+* Write down your assumptions. It is a good idea to write down your assumptions to be referenced later.
+* Label your units. When you write down "5", does it mean 5 KB or 5 MB? You might confuse yourself with this. Write down
+  the units because "5 MB" helps to remove ambiguity.
+* Commonly asked back-of-the-envelope estimations: QPS, peak QPS, storage, cache, number of servers, etc. You can
+  practice these calculations when preparing for an interview. Practice makes perfect.
+
+https://bytebytego.com/courses/system-design-interview/back-of-the-envelope-estimation
+https://www.youtube.com/watch?v=UC5xf8FbdJc&list=PLCRMIe5FDPseVvwzRiCQBmNOVUIZSSkP8&index=4
+----------------------------------------------------------------
+
 Some ideas to recall from memory the "magic formula"
 
 * Start with the simple mental image of exact stability:
@@ -152,7 +221,7 @@ Reference:
 https://leetcode.com/discuss/interview-question/system-design/357656/Experience-with-back-of-the-envelope-calculations
 
 How {fast, reliable, available, ...} a service should be is fundamentally a product question
-● “100% is the wrong reliability target for (nearly) everything”
+● "100% is the wrong reliability target for (nearly) everything"
 ○ cost of marginal improvements grows ~exponentially
 ● Can always make service better on some dimension, but involves tradeoffs with $, people, time, and other priorities
 
@@ -175,6 +244,8 @@ Latency Numbers Every Programmer Should Know
 | Read 1 MB sequentially from disk   | 20,000,000  ns  | 20,000 us  | 20 ms  | 80x memory, 20X SSD         |
 | Send packet CA->Netherlands->CA    | 150,000,000  ns | 150,000 us | 150 ms |                             |
 
+https://www.youtube.com/watch?v=FqR5vESuKe0&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=3&pp=iAQB
+
 Notes
 -----
 1 ns = 10^-9 seconds
@@ -190,6 +261,14 @@ To work with larger numbers, round both of them towards a small multiple of a po
 * 27*14 ~= 30*10 = 300.
 * 6500/250 ~= 6400/256 ~= 100 * 2^6 / 2^8 ~= 100 / 2^2 = 25.
 
+By analyzing the numbers, we get the following conclusions:
+
+- Memory is fast but the disk is slow.
+- Avoid disk seeks if possible.
+- Simple compression algorithms are fast.
+- Compress data before sending it over the internet if possible.
+- Data centers are usually in different regions, and it takes time to send data between them.
+
 Credit
 ------
 By Jeff Dean:               http://research.google.com/people/jeff/
@@ -197,31 +276,55 @@ Originally by Peter Norvig: http://norvig.com/21-days.html#answers
 
 ### Data Volumes
 
-|       |                                    |       |             |                                    |
-|-------|------------------------------------|-------|-------------|------------------------------------|
-| Kilo  | 1,000;                             | 10^3  | Thousand    | a Kilobyte is one thousand bytes.  |
-| Mega  | 1,000,000;                         | 10^6  | Million     | a Megabyte is a million bytes.     |
-| Giga  | 1,000,000,000;                     | 10^9  | Billion     | a Gigabyte is a billion bytes.     |
-| Tera  | 1,000,000,000,000;                 | 10^12 | Trillion    | a Terabyte is a trillion bytes.    |
-| Peta  | 1,000,000,000,000,000;             | 10^15 | Quadrillion | a Petabyte is 1,000 Terabytes.     |
-| Exa   | 1,000,000,000,000,000,000;         | 10^18 | Quintillion | an Exabyte is 1,000 Petabytes.     |
-| Zetta | 1,000,000,000,000,000,000,000;     | 10^21 | Sextillion  | a Zetta-byte is 1,000 Exabytes.    |
-| Yotta | 1,000,000,000,000,000,000,000,000; | 10^24 | Septillion  | a Yotta-byte is 1,000 Zetta bytes. |
+Although data volume can become enormous when dealing with distributed systems, calculation all boils down to the
+basics. To obtain correct calculations, it is critical to know the data volume unit using the power of 2. A byte is a
+sequence of 8 bits. An ASCII character uses one byte of memory (8 bits).
+
+|                                    | Scientific Notation | Memory Units | Number Units |                                    |
+|------------------------------------|---------------------|--------------|--------------|------------------------------------|
+| 1,000;                             | 10^3                | KB - Kilo    | Thousand     | a Kilobyte is one thousand bytes.  |
+| 1,000,000;                         | 10^6                | MB - Mega    | Million      | a Megabyte is a million bytes.     |
+| 1,000,000,000;                     | 10^9                | GB - Giga    | Billion      | a Gigabyte is a billion bytes.     |
+| 1,000,000,000,000;                 | 10^12               | TB - Tera    | Trillion     | a Terabyte is a trillion bytes.    |
+| 1,000,000,000,000,000;             | 10^15               | PB - Peta    | Quadrillion  | a Petabyte is 1,000 Terabytes.     |
+| 1,000,000,000,000,000,000;         | 10^18               | EB - Exa     | Quintillion  | an Exabyte is 1,000 Petabytes.     |
+| 1,000,000,000,000,000,000,000;     | 10^21               | ZB - Zetta   | Sextillion   | a Zetta-byte is 1,000 Exabytes.    |
+| 1,000,000,000,000,000,000,000,000; | 10^24               | YB - Yotta   | Septillion   | a Yotta-byte is 1,000 Zetta bytes. |
 
 #### Examples of Data Volumes
 
-| Unit	            | Value	            | Example                                                                    |
-|------------------|-------------------|----------------------------------------------------------------------------|
-| Kilobytes (KB)   | 1,000 bytes       | a paragraph of a text document                                             |
-| Megabytes (MB)   | 1,000 Kilobytes   | a small novel                                                              |
-| Gigabytes (GB)   | 1,000 Megabytes   | Beethoven’s 5th Symphony                                                   |
-| Terabytes (TB)   | 1,000 Gigabytes   | all the X-rays in a large hospital                                         |
-| Petabytes (PB)   | 1,000 Terabytes   | half the contents of all US academic research libraries                    |
-| Exabytes (EB)    | 1,000 Petabytes   | about one fifth of the words people have ever spoken                       |
-| Zetta-bytes (ZB) | 1,000 Exabytes    | as much information as there are grains of sand on all the world’s beaches |
-| Yotta-bytes (YB) | 1,000 Zetta-bytes | as much information as there are atoms in 7,000 human bodies               |
+| Unit	            | Power of 2 | Scientific Notation | Value	            | Example                                                                    |
+|------------------|------------|---------------------|-------------------|----------------------------------------------------------------------------|
+| Kilobytes (KB)   | 2^10       | 10^3                | 1,000 bytes       | a paragraph of a text document                                             |
+| Megabytes (MB)   | 2^20       | 10^6                | 1,000 Kilobytes   | a small novel                                                              |
+| Gigabytes (GB)   | 2^30       | 10^9                | 1,000 Megabytes   | Beethoven’s 5th Symphony                                                   |
+| Terabytes (TB)   | 2^40       | 10^12               | 1,000 Gigabytes   | all the X-rays in a large hospital                                         |
+| Petabytes (PB)   | 2^50       | 10^15               | 1,000 Terabytes   | half the contents of all US academic research libraries                    |
+| Exabytes (EB)    |            | 10^18               | 1,000 Petabytes   | about one fifth of the words people have ever spoken                       |
+| Zetta-bytes (ZB) |            | 10^21               | 1,000 Exabytes    | as much information as there are grains of sand on all the world’s beaches |
+| Yotta-bytes (YB) |            | 10^24               | 1,000 Zetta-bytes | as much information as there are atoms in 7,000 human bodies               |
 
-### Availability Formula
+If there are `10 million` products in the system, can we store each (along with a count) in a hash table? Yes. If each
+product ID is four bytes {which is big enough to hold up to 4 billion unique IDs) and each count is four bytes (more
+than enough), then such a hash table would only take about 40 megabytes.
+
+### Availability numbers
+
+High availability is the ability of a system to be continuously operational for a desirably long period of time. High
+availability is measured as a percentage, with 100% means a service that has 0 downtime. Most services fall between 99%
+and 100%.
+
+Uptime is traditionally measured in nines. The more the nines, the better. As shown in Table below, the number of nines
+correlate to the expected system downtime.
+
+| Availability % | Downtime per day   | Downtime per week | Downtime per month | Downtime per year |
+|----------------|--------------------|-------------------|--------------------|-------------------|
+| 99%            | 14.40 minutes      | 1.68 hours        | 7.31 hours         | 3.65 days         |
+| 99.99%         | 8.64 seconds       | 1.01 minutes      | 4.38 minutes       | 52.60 minutes     |
+| 99.999%        | 864.00             | 6.05 seconds      | 26.30 seconds      | 5.26 minutes      |
+| 99.9999%       | 86.40 milliseconds | 604.80            | 2.63 seconds       | 31.56 seconds     |
+
+#### Availability Formula
 
 99.9999% availability means the system can be unavailable only for 31.5 seconds in a whole year:
 
@@ -236,11 +339,19 @@ number of seconds per year = number of seconds per day * 365 = 31,536,000
 (number of seconds per year) - ((number of seconds per year) * 99%)      = 31,536,000 - (31,536,000 * 99%)      = 315360 seconds = 5256 minutes = 87.6 hours
 ```
 
-## Process vs Thread
+## Program vs Process vs Thread vs Coroutines
+
+### Program
+
+A 𝐏𝐫𝐨𝐠𝐫𝐚𝐦 is an executable file containing a set of instructions and passively stored on disk. One program can have
+multiple processes. For example, the Chrome browser creates a different process for every single tab.
 
 Processes and threads are related to each other but are fundamentally different.
 
 ### Process
+
+A 𝐏𝐫𝐨𝐜𝐞𝐬𝐬 means a program is in execution. When a program is loaded into the memory and becomes active, the program
+becomes a process. The process requires some essential resources such as registers, program counter, and stack.
 
 A process can be thought of as an instance of a program in execution. A process is an independent entity to which system
 resources (e.g., CPU time and memory) are allocated. Each process is executed in a separate address space, and one
@@ -255,7 +366,137 @@ memory of another process. Each thread still has its own registers and its own s
 write the heap memory. A thread is a particular execution path of a process. When one thread modifies a process
 resource, the change is immediately visible to sibling threads.
 
-Consistent Hashing - https://www.toptal.com/big-data/consistent-hashing
+### Coroutines
+
+Kotlin's documentation often refers to coroutines as lightweight threads. This is mostly because, like threads,
+coroutines define the execution of a set of instructions for a processor to execute. Also, coroutines have a similar
+life cycle to that of threads.
+
+A coroutine is executed inside a thread. One thread can have many coroutines inside it, but as already mentioned, only
+one instruction can be executed in a thread at a given time. This means that if you have ten coroutines in the same
+thread, only one of them will be running at a given point in time.
+
+The biggest difference between threads and coroutines, though, is that coroutines are fast and cheap to create. Spawning
+thousands of coroutines can be easily done, it is faster and requires fewer resources than spawning thousands of
+threads.
+
+It's important to understand that even though a coroutine is executed inside a thread, it's not bound to it. As a matter
+of fact, it's possible to execute part of a coroutine in a thread, suspend the execution, and later continue in a
+different thread.
+
+### Consistent Hashing
+
+Consistent Hashing is a distributed hashing scheme that operates independently of the number of servers or objects in a
+distributed hash table. It powers many high-traffic dynamic websites and web applications.
+
+#### What Is Hashing?
+
+What is "hashing" all about? Merriam-Webster defines the noun hash as "chopped meat mixed with potatoes and browned,"
+and the verb as "to chop (as meat and potatoes) into small pieces." So, culinary details aside, hash roughly means "chop
+and mix", and that’s precisely where the technical term comes from.
+
+A hash function is a function that maps one piece of data, typically describing some kind of object, often of arbitrary
+size, to another piece of data, typically an integer, known as hash code, or simply hash. A suitable hash function can
+be used to map an arbitrary piece of data to an integer. A good hash function generally has a wide output range.
+
+For instance, some hash function designed to hash strings, with an output range of 0 .. 100, may map the string Hello
+to, say, the number 57, Hasta la vista, baby to the number 33, and any other possible string to some number within that
+range. Since there are way more possible inputs than outputs, any given number (i.e. hash code or hashed value) will
+have many different strings mapped to it, a phenomenon known as collision. Good hash functions should somehow
+"chop and mix" (hence the term) the input data in such a way that the outputs for different input values are spread as
+evenly as possible over the output range.
+
+#### Scaling Out: Distributed Hashing
+
+In some situations, it may be necessary or desirable to split a hash table into several parts, hosted by different
+servers. One of the main motivations for this is to bypass the memory limitations of using a single computer, allowing
+for the construction of arbitrarily large hash tables (given enough servers).
+
+In such a scenario, the objects (and their keys) are distributed among several servers, hence the name.
+
+A typical use case for this is the implementation of in-memory caches, such as Memcached.
+
+##### How does distribution take place? What criteria are used to determine which keys to host in which servers?
+
+The simplest way is to take the hash modulo of the number of servers. That is, `server = hash(key) mod N`, where N is
+the size of the pool. To store or retrieve a key, the client first computes the hash, applies a modulo N operation, and
+uses the resulting index to contact the appropriate server (probably by using a lookup table of IP addresses). Note that
+the hash function used for key distribution must be the same one across all clients, but it need not be the same one
+used internally by the caching servers.
+
+##### The Rehashing Problem
+
+This distribution scheme is simple, intuitive, and works fine. That is, until the number of servers changes. What
+happens if one of the servers crashes or becomes unavailable? Keys need to be redistributed to account for the missing
+server, of course. The same applies if one or more new servers are added to the pool;keys need to be redistributed to
+include the new servers. This is true for any distribution scheme, but the problem with our simple modulo distribution
+is that when the number of servers changes, most `hashes modulo N` will change, so most keys will need to be moved to a
+different server. So, even if a single server is removed or added, all keys will likely need to be rehashed into a
+different server.
+
+#### The Solution: Consistent Hashing
+
+So, how can this problem be solved? We need a distribution scheme that does not depend directly on the number of
+servers, so that, when adding or removing servers, the number of keys that need to be relocated is minimized. One such
+scheme—a clever, yet surprisingly simple one—is called consistent hashing.
+
+Consistent Hashing is a distributed hashing scheme that operates independently of the number of servers or objects in a
+distributed hash table by assigning them a position on an abstract circle, or hash ring. This allows servers and objects
+to scale without affecting the overall system.
+
+Imagine we mapped the hash output range onto the edge of a circle. That means that the minimum possible hash value,
+zero, would correspond to an angle of zero, the maximum possible value (some big integer we’ll call INT_MAX) would
+correspond to an angle of 2𝝅 radians (or 360 degrees), and all other hash values would linearly fit somewhere in
+between. So, we could take a key, compute its hash, and find out where it lies on the circle’s edge.
+
+Now imagine we also placed the servers on the edge of the circle, by pseudo-randomly assigning them angles too. This
+should be done in a repeatable way (or at least in such a way that all clients agree on the servers’ angles). A
+convenient way of doing this is by hashing the server name (or IP address, or some ID)—as we’d do with any other key—to
+come up with its angle.
+
+Since we have the keys for both the objects and the servers on the same circle, we may define a simple rule to associate
+the former with the latter: Each object key will belong in the server whose key is closest, in a counterclockwise
+direction (or clockwise, depending on the conventions used). In other words, to find out which server to ask for a given
+key, we need to locate the key on the circle and move in the ascending angle direction until we find a server.
+
+From a programming perspective, what we would do is keep a sorted list of server values (which could be angles or
+numbers in any real interval), and walk this list (or use a binary search) to find the first server with a value greater
+than, or equal to, that of the desired key. If no such value is found, we need to wrap around, taking the first one from
+the list.
+
+To ensure object keys are evenly distributed among servers, we need to apply a simple trick: To assign not one, but many
+labels (angles) to each server. So instead of having labels A, B and C, we could have, say, A0 .. A9, B0 .. B9 and C0 ..
+C9, all interspersed along the circle. The factor by which to increase the number of labels (server keys), known as
+weight, depends on the situation (and may even be different for each server) to adjust the probability of keys ending up
+on each. For example, if server B were twice as powerful as the rest, it could be assigned twice as many labels, and as
+a result, it would end up holding twice as many objects (on average).
+
+For our example we’ll assume all three servers have an equal weight of 10 (this works well for three servers, for 10 to
+50 servers, a weight in the range 100 to 500 would work better, and bigger pools may need even higher weights).
+
+##### So, what’s the benefit of all this circle approach?
+
+Imagine server C is removed. To account for this, we must remove labels C0 .. C9 from the circle. This results in the
+object keys formerly adjacent to the deleted labels now being randomly labeled Ax and Bx, reassigning them to servers A
+and B.
+
+But what happens with the other object keys, the ones that originally belonged in A and B? Nothing! That’s the beauty of
+it: The absence of Cx labels does not affect those keys in any way. So, removing a server results in its object keys
+being randomly reassigned to the rest of the servers, leaving all other keys untouched.
+
+Something similar happens if, instead of removing a server, we add one. If we wanted to add server D to our example (
+say, as a replacement for C), we would need to add labels D0 .. D9. The result would be that roughly one-third of the
+existing keys (all belonging to A or B) would be reassigned to D, and, again, the rest would stay the same.
+
+This is how consistent hashing solves the rehashing problem.
+
+In general, only k/N keys need to be remapped when k is the number of keys and N is the number of servers
+(more specifically, the maximum of the initial and final number of servers).
+
+There are clients for several systems, such as Memcached and Redis, that include support for consistent hashing out of
+the box.
+
+https://www.toptal.com/big-data/consistent-hashing
 
 CAP Theorem:
 In reality, we choose between CP and AP because CA is a monolith without partitions. For large-scale systems, designers
@@ -324,7 +565,7 @@ strategy, all factors contributing to an overall positive application experience
 #### Performance
 
 As touched on briefly, database caching improves the performance of a database by making data more easily accessed. The
-cache acts as a sort of “keyboard short-cut” or “hot-key” for the application to reference data that it frequently is
+cache acts as a sort of "keyboard short-cut" or "hot-key" for the application to reference data that it frequently is
 calling upon.
 
 This speedier request can minimize the workload of the database, keeping it from spending inefficient amounts of time
@@ -348,6 +589,22 @@ database workload, therefore distributing backend queries across entities.
 This distribution lightens the load on a primary database and can reduce costs and provide more flexibility in the
 processing of your data. This result alleviates the need to scale and does more with the resources you already have on
 hand, potentially pushing the need to scale into the future.
+
+### 𝐂𝐚𝐜𝐡𝐞 𝐌𝐢𝐬𝐬 𝐀𝐭𝐭𝐚𝐜𝐤
+
+One of the issues is 𝐂𝐚𝐜𝐡𝐞 𝐌𝐢𝐬𝐬 𝐀𝐭𝐭𝐚𝐜𝐤. Correct me if this is not the right term. It refers to the scenario where data
+to fetch doesn't exist in the database and the data isn’t cached either. So every request hits the database eventually,
+defeating the purpose of using a cache. If a malicious user initiates lots of queries with such keys, the database can
+easily be overloaded.
+
+One solution for the Cache Penetration attack would be to store the missing key in the cache (let's say with null
+value), so that the DB is not hit next time as the key would've been found in the cache. Set a short TTL (Time to Live)
+for keys with null value.
+
+Another solution would be to use use Bloom filter. A Bloom filter is a data structure that can rapidly tell us whether
+an element is present in a set or not. If the key exists, the request first goes to the cache and then queries the
+database if needed. If the key doesn't exist in the data set, it means the key doesn’t exist in the cache/database. In
+this case, the query will not hit the cache or database layer.
 
 ### What are the different database caching strategies?
 
@@ -573,11 +830,7 @@ data.
 
 #### Popular NoSQL databases:
 
-*
-
-MongoDB[README.md](..%2F..%2FAtlassian%2FUsers%2Fmfaisal%2FDocuments%2FAtlassian%2FWebStorm-Projects%2Fpollinator%2FREADME.md)
-[run_tests.bash](..%2F..%2FAtlassian%2FUsers%2Fmfaisal%2FDocuments%2FAtlassian%2FWebStorm-Projects%2Fpollinator%2Frun_tests.bash)
-
+* MongoDB
 * Redis
 * Cassandra
 * HBASE
@@ -601,6 +854,7 @@ Key-value stores/dbs - DynamoDB, Redis, memcached, etcd
 Columnar dbs - Cassandra, HBase
 Time series dbs - OpenTSDB, Prometheus, InfluxDB, TimescaleDB
 Wide column dbs
+Geo-spatial dbs - Redis GeoHash, PostgreSQL with PostGIS extension
 Object/Blob storage (for things like images/videos) - Amazon S3, but as such objects are usually static in nature,
 so they might be cached in CDN, so see if CDN can be used for S3 data, but it really depends on the problem you're
 solving
@@ -724,22 +978,34 @@ be a useful approach that allows the query to run in parallel on all shards.
 ### Comparing common database infrastructure patterns
 
 Master/master vs Master/slave vs active/passive setup
+
+A master database generally only supports write operations. A slave database gets copies of the data from the master
+database and only supports read operations. All the data-modifying commands like insert, delete, or update must be sent
+to the master database. Most applications require a much higher ratio of reads to writes; thus, the number of slave
+databases in a system is usually larger than the number of master databases.
+
 Sharding => Shard key? => High Cardinality, Low Frequency and good for query patterns
 
-L1 vs L2 caching
+### L1 vs L2 vs L3 caching
+
+L1 is smallest and fastest typically integrated into the CPU itself
+L2 is larger but slower than L1
+L3 is larger but slower than L2, and is often shared between multiple CPU cores
 
 TCP vs HTTP vs Websocket vs UDP
 When to Use Webhooks, WebSocket, Pub/Sub, and Polling...
-Long-Polling vs WebSockets vs Server-Sent Events
+Long-Polling vs pub/sub vs WebSockets vs Server-Sent Events
 No. of Websocket connections: https://josephmate.github.io/2022-04-14-max-connections/
 
 graphql-vs-rest
 
-Proxy vs ReverseProxy
+Proxy vs ReverseProxy - https://www.youtube.com/watch?v=4NB0NDtOwIQ&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=19
 Load-balancing (at different levels like web server, app server, db etc. as it should not be single point of failure)
 Scaling
 Caching
-CDN - one technique used for caching the static content
+
+Kafka - it uses the sequential I/O and Zero copy (among others) principles which make it really
+fast - https://www.youtube.com/watch?v=UNUz1-msbOM&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=21
 
 Single point of failure - could be any if no backup e.g. loadbalancer, power source, server, db, router, network
 switches etc.
@@ -765,6 +1031,37 @@ Stack
 Permgen
 Garbage collection etc.
 
+## Message Queues
+
+### At-most once, at-least once, and exactly once
+
+In modern architecture, systems are broken up into small and independent building blocks with well-defined interfaces
+between them. Message queues provide communication and coordination for those building blocks.
+
+#### 𝐀𝐭-𝐦𝐨𝐬𝐭 𝐨𝐧𝐜𝐞
+
+As the name suggests, at-most once means a message will be delivered not more than once. Messages may be lost but are
+not redelivered. This is how at-most once delivery works at the high level.
+
+Use cases: It is suitable for use cases like monitoring metrics, where a small amount of data loss is acceptable.
+
+#### 𝐀𝐭-𝐥𝐞𝐚𝐬𝐭 𝐨𝐧𝐜𝐞
+
+With this data delivery semantic, it’s acceptable to deliver a message more than once, but no message should be lost.
+
+Use cases: With at-least once, messages won’t be lost but the same message might be delivered multiple times. While not
+ideal from a user perspective, at-least once delivery semantics are usually good enough for use cases where data
+duplication is not a big issue or deduplication is possible on the consumer side. For example, with a unique key in each
+message, a message can be rejected when writing duplicate data to the database.
+
+#### 𝐄𝐱𝐚𝐜𝐭𝐥𝐲 𝐨𝐧𝐜𝐞
+
+Exactly once is the most difficult delivery semantic to implement. It is friendly to users, but it has a high cost for
+the system’s performance and complexity.
+
+Use cases: Financial-related use cases (payment, trading, accounting, etc.). Exactly once is especially important when
+duplication is not acceptable and the downstream service or third party doesn’t support idempotency.
+
 ## How to decide on the number of tiers your app should have
 
 * You should choose a single tier architecture when you do not want any network latency
@@ -774,10 +1071,185 @@ Garbage collection etc.
   want it to be secure, and you need control over data in your application.
 * You should choose a N tier architecture when you need your application to scale and handle large amounts of data.
 
-## Horizontal or vertical scaling… Which is right for my app?
+## The Secret To 10 Million Concurrent Connections -The Kernel Is The Problem, Not The Solution
+
+http://highscalability.com/blog/2013/5/13/the-secret-to-10-million-concurrent-connections-the-kernel-i.html?currentPage=2
+
+## Scale From Zero To Millions Of Users
+
+### Horizontal or vertical scaling… Which is right for my app?
 
 Build to deploy it on the cloud & always have horizontal scalability in mind right from the start. Here is a good
 website for learning more about scalability. http://highscalability.com/
 
-The Secret To 10 Million Concurrent Connections -The Kernel Is The Problem, Not The Solution
-http://highscalability.com/blog/2013/5/13/the-secret-to-10-million-concurrent-connections-the-kernel-i.html?currentPage=2
+### CDN - one technique used for caching the static content
+
+A content delivery network (CDN) refers to a geographically distributed servers (also called edge servers) which provide
+fast delivery of static and dynamic content.
+
+A CDN is a network of geographically dispersed servers used to deliver static content. CDN servers cache static content
+like images, videos, CSS, JavaScript files, etc. When a user visits a website, a CDN server closest to the user will
+deliver static content. Intuitively, the further users are from CDN servers, the slower the website loads.
+
+Dynamic content caching: it enables the caching of HTML pages that are based on request path, query strings, cookies,
+and request headers.
+
+https://www.youtube.com/watch?v=RI9np1LWzqw&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=15
+
+### Stateless web tier
+
+Now it is time to consider scaling the web tier horizontally. For this, we need to move state (for instance user session
+data) out of the web tier. A good practice is to store session data in the persistent storage such as relational
+database or NoSQL. Each web server in the cluster can access state data from databases. This is called stateless web
+tier.
+
+### Stateful architecture
+
+A stateful server and stateless server has some key differences. A stateful server remembers client data (state) from
+one request to the next. A stateless server keeps no state information.
+
+The issue is that every request from the same client must be routed to the same server. This can be done with sticky
+sessions in most load balancers; however, this adds the overhead. Adding or removing servers is much more difficult with
+this approach. It is also challenging to handle server failures.
+
+### Stateless architecture
+
+In the stateless architecture, HTTP requests from users can be sent to any web servers, which fetch state data from a
+shared data store. State data is stored in a shared data store and kept out of web servers. A stateless system is
+simpler, more robust, and scalable.
+
+### Message queue
+
+To further scale our system, we need to decouple different components of the system so they can be scaled independently.
+Messaging queue is a key strategy employed by many real-world distributed systems to solve this problem.
+
+A message queue is a durable component, stored in memory, that supports asynchronous communication. It serves as a
+buffer and distributes asynchronous requests. The basic architecture of a message queue is simple. Input services,
+called producers/publishers, create messages, and publish them to a message queue. Other services or servers, called
+consumers/subscribers, connect to the queue, and perform actions defined by the messages.
+
+Decoupling makes the message queue a preferred architecture for building a scalable and reliable application. With the
+message queue, the producer can post a message to the queue when the consumer is unavailable to process it. The consumer
+can read messages from the queue even when the producer is unavailable.
+
+### Logging, metrics, automation
+
+#### Logging
+
+Monitoring error logs is important because it helps to identify errors and problems in the system. You can monitor error
+logs at per server level or use tools to aggregate them to a centralized service for easy search and viewing.
+
+#### Metrics
+
+Collecting different types of metrics help us to gain business insights and understand the health status of the system.
+Some of the following metrics are useful:
+
+* Host level metrics: CPU, Memory, disk I/O, etc.
+* Aggregated level metrics: for example, the performance of the entire database tier, cache tier, etc.
+* Key business metrics: daily active users, retention, revenue, etc.
+
+### Database scaling
+
+As the data grows every day, your database gets more overloaded. It is time to scale the data tier.
+
+There are two broad approaches for database scaling: vertical scaling and horizontal scaling.
+
+### A summary of how we scale our system to support millions of users
+
+* Keep web tier stateless
+* Build redundancy at every tier
+* Cache data as much as you can
+* Support multiple data centers
+* Host static assets in CDN
+* Scale your data tier by sharding
+* Split tiers into individual services
+* Monitor your system and use automation tools
+
+https://bytebytego.com/courses/system-design-interview/scale-from-zero-to-millions-of-users
+
+## A Framework For System Design Interviews
+
+Many think that system design interview is all about a person's technical design skills. It is much more than that. An
+effective system design interview gives strong signals about a person's ability to collaborate, to work under pressure,
+and to resolve ambiguity constructively. The ability to ask good questions is also an essential skill, and many
+interviewers specifically look for this skill.
+
+A good interviewer also looks for red flags. Over-engineering is a real disease of many engineers as they delight in
+design purity and ignore tradeoffs. They are often unaware of the compounding costs of over-engineered systems, and many
+companies pay a high price for that ignorance. You certainly do not want to demonstrate this tendency in a system design
+interview. Other red flags include narrow mindedness, stubbornness, etc.
+
+### A 4-step process for effective system design interview
+
+Every system design interview is different. A great system design interview is open-ended and there is no
+one-size-fits-all solution. However, there are steps and common ground to cover in every system design interview.
+
+#### Step 1 - Understand the problem and establish design scope (3 - 10 minutes)
+
+##### What kind of questions to ask?
+
+Ask questions to understand the exact requirements. Here is a list of some sample questions to help you get started:
+
+* What specific features are we going to build? Or, What are the most important features for the product?
+* How many users does the product have?
+* How fast does the company anticipate to scale up? What are the anticipated scales in 3 months, 6 months, and a year?
+* What is the company’s technology stack? What existing services you might leverage to simplify the design?
+* Is this a mobile app? Or a web app? Or both?
+* What is the traffic volume?
+* Can feed contain images, videos, or just text?
+
+#### Step 2 - Propose high-level design and get buy-in (10 - 15 minutes)
+
+In this step, we aim to develop a high-level design and reach an agreement with the interviewer on the design. It is a
+great idea to collaborate with the interviewer during the process.
+
+#### Step 3 - Design deep dive (10 - 25 minutes)
+
+Time management is essential as it is easy to get carried away with minute details that do not demonstrate your
+abilities.
+
+#### Step 4 - Wrap up (3 - 5 minutes)
+
+In this final step, the interviewer might ask you a few follow-up questions or give you the freedom to discuss other
+additional points. Here are a few directions to follow:
+
+* The interviewer might want you to identify the system bottlenecks and discuss potential improvements. Never say your
+  design is perfect and nothing can be improved. There is always something to improve upon. This is a great opportunity
+  to show your critical thinking and leave a good final impression.
+* It could be useful to give the interviewer a recap of your design. This is particularly important if you suggested a
+  few solutions. Refreshing your interviewer’s memory can be helpful after a long session.
+* Error cases (server failure, network loss, etc.) are interesting to talk about.
+* Operation issues are worth mentioning. How do you monitor metrics and error logs? How to roll out the system?
+* How to handle the next scale curve is also an interesting topic. For example, if your current design supports 1
+  million users, what changes do you need to make to support 10 million users?
+* Propose other refinements you need if you had more time.
+
+#### Summary
+
+To wrap up, we summarize a list of the Dos and Don’ts.
+
+##### Dos
+
+* Always ask for clarification. Do not assume your assumption is correct.
+* Understand the requirements of the problem.
+* There is neither the right answer nor the best answer. A solution designed to solve the problems of a young startup is
+  different from that of an established company with millions of users. Make sure you understand the requirements.
+* Let the interviewer know what you are thinking. Communicate with your interview.
+* Suggest multiple approaches if possible.
+* Once you agree with your interviewer on the blueprint, go into details on each component. Design the most critical
+  components first.
+* Bounce ideas off the interviewer. A good interviewer works with you as a teammate.
+* Never give up.
+
+##### Don’ts
+
+* Don't be unprepared for typical interview questions.
+* Don’t jump into a solution without clarifying the requirements and assumptions.
+* Don’t go into too much detail on a single component in the beginning. Give the high-level design first then drills
+  down.
+* If you get stuck, don't hesitate to ask for hints.
+* Again, communicate. Don't think in silence.
+* Don’t think your interview is done once you give the design. You are not done until your interviewer says you are
+  done. Ask for feedback early and often.
+
+https://bytebytego.com/courses/system-design-interview/a-framework-for-system-design-interviews
