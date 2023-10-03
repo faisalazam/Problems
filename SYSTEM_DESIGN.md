@@ -868,6 +868,20 @@ servers to handle the same volume of data. Many of these databases also have cus
 for the analysis of time-series data that are much easier to use than SQL. Some even provide features to manage data
 retention and data aggregation. Here are a few examples of time-series databases.
 
+OpenTSDB is a distributed time-series database, but since it is based on Hadoop and HBase, running a Hadoop/HBase
+cluster adds complexity. Twitter uses MetricsDB, and Amazon offers Timestream as a time-series database. According to
+DB-engines, the two most popular time-series databases are InfluxDB and Prometheus, which are designed to store large
+volumes of time-series data and quickly perform real-time analysis on that data. Both of them primarily rely on an
+in-memory cache and on-disk storage. And they both handle durability and performance quite well. According to the
+benchmark, an InfluxDB with 8 cores and 32GB RAM can handle over 250,000 writes per second.
+
+Another feature of a strong time-series database is efficient aggregation and analysis of a large amount of time-series
+data by labels, also known as tags in some databases. For example, InfluxDB builds indexes on labels to facilitate the
+fast lookup of time-series by labels. It provides clear best-practice guidelines on how to use labels, without
+overloading the database. The key is to make sure each label is of low cardinality (having a small set of possible
+values). This feature is critical for visualization, and it would take a lot of effort to build this with a
+general-purpose database.
+
 ### Sharding
 
 #### What is database sharding?
