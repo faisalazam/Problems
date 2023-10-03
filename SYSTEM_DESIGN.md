@@ -947,6 +947,18 @@ that multiple connection strings need to be managed and utilized depending on th
 Plus, sharding at this stage sets you up for future growth and you don't have to come back and shard later when write
 throughput or data size would otherwise become an issue.
 
+Why does Vitess recommend 250GB per MySQL server?
+Performance is not limited to insert performance. Specifically, some management tasks become more difficult with
+larger databases:
+
+* Taking a full backup
+* Provisioning a new read replica
+* Restoring a backup
+* Making a schema change
+* Reducing replica delay
+
+https://vitess.io/blog/2019-09-03-why-250gb-shards/#okay-why-the-limit
+
 #### Shard Key
 
 The shard key is either a single indexed field or multiple fields covered by a compound index that determines the
