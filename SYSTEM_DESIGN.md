@@ -861,6 +861,13 @@ solving
 Replication
 Redundancy
 
+#### Time series dbs
+
+There are many storage systems available that are optimized for time-series data. The optimization lets us use far fewer
+servers to handle the same volume of data. Many of these databases also have custom query interfaces specially designed
+for the analysis of time-series data that are much easier to use than SQL. Some even provide features to manage data
+retention and data aggregation. Here are a few examples of time-series databases.
+
 ### Sharding
 
 #### What is database sharding?
