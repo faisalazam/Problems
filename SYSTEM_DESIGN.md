@@ -910,6 +910,43 @@ increased RAM, or increased storage capacity.
 2. Complexity of administration
 3. Increased infrastructure costs
 
+#### When to shard
+
+So, how do you know when to shard your database? Some good indicators that it may be time to consider sharding are when
+you've started to max out data size, write throughput, and/or read throughput. Let's walk through each of these
+categories.
+
+##### Data Size
+
+Data size can still be a driving factor for sharding though. One thing to consider is how large your working set is, and
+how much of that fits into RAM. As less of your active data fits in memory and more queries need to read from disk,
+query latency will increase.
+
+Other database operations are also affected by the data size of a single MySQL cluster. The larger the database, the
+longer backups (and restores!) take. The same is true for other operational tasks like provisioning new replicas and
+making schema changes. This is the logic behind guidelines Vitess has made for shard sizing. Smaller data size per shard
+improves manageability.
+
+##### Write throughput
+
+Another reason to consider sharding is when you've maxed out the write throughput of your cluster. This can show up in a
+couple of ways.
+
+When the primary is maxed on IOPS, writes will become less performant. Usually before that, however, replication lag
+becomes a problem.
+
+##### Read throughput
+
+While running out of read throughput capacity can be solved through read-write splitting and the addition of read
+replicas, that isn't without its own challenges. As mentioned in the previous section, replication lag can make this
+complex or lead to a poor experience for your users.
+
+Typically, this is earlier than we often think about sharding. However, by scaling read capacity through horizontal
+sharding instead of by using replicas, application code does not need to account for the potential replication lag or
+that multiple connection strings need to be managed and utilized depending on the data set you are trying to access.
+Plus, sharding at this stage sets you up for future growth and you don't have to come back and shard later when write
+throughput or data size would otherwise become an issue.
+
 #### Shard Key
 
 The shard key is either a single indexed field or multiple fields covered by a compound index that determines the
