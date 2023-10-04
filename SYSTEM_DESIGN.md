@@ -1096,10 +1096,12 @@ There will be a connection opened till the server has a response to send back or
 ##### Advantages
 
 * Low HTTP Overhead
+* Easy to implement, good for small-scale projects.
 
 ##### Disadvantages
 
 * A server has no good way to tell if a client is disconnected.
+* Reliable message ordering can be an issue for multiple requests.
 * It is inefficient for designing chat applications. If a user does not chat much, long polling still makes periodic
   connections after timeouts.
 * Sender and receiver may not connect to the same chat server. HTTP based servers are usually stateless. If you use
@@ -1125,7 +1127,14 @@ no strong technical reason not to use it also for sending.
 ##### Advantages
 
 * Realtime data transfer
+* Better origin-based security model
+* Lightweight for both client and server
 * Low communication overhead as we are doing the handshaking only once at the beginning.
+
+##### Disadvantages
+
+* Terminated connections aren't automatically recovered.
+* Older browsers don't support WebSockets (becoming less relevant).
 
 ##### Applications
 
