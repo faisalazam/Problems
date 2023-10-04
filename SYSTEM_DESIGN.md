@@ -848,6 +848,16 @@ data.
 | Query Handling        | Can handle simple queries with ease and fails when they get complex in nature | Better than SQL for processing complex queries                                                | Highly efficient in processing complex queries and smaller queries.           |
 | Distributed Databases | N0                                                                            | Yes                                                                                           | Yes                                                                           |
 
+### How to choose between SQL and NoSQL databases
+
+| Consider SQL databases when…                                                          | Consider NoSQL databases when…                                                                                  |
+|---------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Your data is highly structured, and that structure doesn’t change frequently          | You’re working with large amounts of unstructured or semi-structured data that doesn’t fit the relational model |
+| You support transaction-oriented systems such as accounting or financial applications | You require the flexibility of a dynamic schema or want more choice over the data model                         |
+| You require a high degree of data integrity and security                              | You require a database system that can be scaled horizontally, perhaps across multiple geographic locations     |
+| You routinely perform complex queries, including ad hoc requests                      | You want to streamline development and avoid the overhead of a more structured approach                         |
+| You don’t require the scale-out capabilities that NoSQL offers                        | Your applications don’t require the level of data integrity offered by SQL databases                            |
+
 Document oriented stores/dbs - mongoDB - https://neetcode.io/courses/lessons/mongodb
 Graph dbs - Neo4j, DGraph
 Key-value stores/dbs - DynamoDB, Redis, memcached, etcd
