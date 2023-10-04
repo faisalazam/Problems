@@ -1432,6 +1432,7 @@ Ask questions to understand the exact requirements. Here is a list of some sampl
 * Is this a mobile app? Or a web app? Or both?
 * What is the traffic volume?
 * Can feed contain images, videos, or just text?
+* What are the metrics for success? i.e. how would we know/measure that we've built the required system?
 
 #### Step 2 - Propose high-level design and get buy-in (10 - 15 minutes)
 
