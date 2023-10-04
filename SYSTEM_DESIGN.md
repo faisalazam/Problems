@@ -1062,10 +1062,97 @@ L1 is smallest and fastest typically integrated into the CPU itself
 L2 is larger but slower than L1
 L3 is larger but slower than L2, and is often shared between multiple CPU cores
 
-TCP vs HTTP vs Websocket vs UDP
-When to Use Webhooks, WebSocket, Pub/Sub, and Polling...
-Long-Polling vs pub/sub vs WebSockets vs Server-Sent Events
+TCP vs HTTP vs Websocket vs UDP ?
+When to Use Webhooks, WebSocket, Pub/Sub, and Polling... ?
+Long-Polling vs pub/sub vs WebSockets vs Server-Sent Events ?
+
+### HTTP Short vs Long Polling vs WebSockets vs SSE
+
+Web applications were originally designed as a simple client-server model where the web client initiates an HTTP request
+requesting some data from the server.
+
+As developers began to explore ways to implement more “real-time” applications. The HTTP protocol made these sorts of
+use cases very challenging. As a result, creative ways to manipulate HTTP request-response model into a more real-time
+model began to emerge.
+
+#### HTTP Short Polling
+
+In HTTP short polling, the client keeps making the HTTP requests at a regular interval for example every 1–2 seconds. In
+this case, most of the requests might get an empty response because the server might not have any updates which are
+useful for the client.
+
+##### Disadvantages
+
+* High HTTP Overhead
+* Unnecessary network calls. Lots of requests going back and forth.
+* Not suitable for real-time communication applications.
+
+#### HTTP Long Polling
+
+Because polling could be inefficient, the next progression is long polling. The client can make a request to the server
+for the data using the HTTP request. But, here is the catch, the client waits for the server to provide the response.
+There will be a connection opened till the server has a response to send back or a timeout occurs.
+
+##### Advantages
+
+* Low HTTP Overhead
+
+##### Disadvantages
+
+* A server has no good way to tell if a client is disconnected.
+* It is inefficient for designing chat applications. If a user does not chat much, long polling still makes periodic
+  connections after timeouts.
+* Sender and receiver may not connect to the same chat server. HTTP based servers are usually stateless. If you use
+  round robin for load balancing, the server that receives the message might not have a long-polling connection with the
+  client who receives the message.
+
+#### WebSocket
+
+WebSocket is the most common solution for sending asynchronous updates from server to client.
+
+A WebSocket is a persistent connection between a client and a server. WebSockets provide a bidirectional, full-duplex
+communications channel that operates over HTTP through a single TCP/IP socket connection. At its core, the WebSocket
+protocol facilitates message passing between a client and server. It is initiated by the client.
+
+It starts its life as a HTTP connection and could be “upgraded” via some well-defined handshake to a WebSocket
+connection. Through this persistent connection, a server could send updates to a client. WebSocket connections generally
+work even if a firewall is in place. This is because they use port 80 or 443 which are also used by HTTP/HTTPS
+connections. Since WebSocket connections are persistent, efficient connection management is critical on the server-side.
+
+Earlier we said that on the sender side HTTP is a fine protocol to use, but since WebSocket is bidirectional, there is
+no strong technical reason not to use it also for sending.
+
+##### Advantages
+
+* Realtime data transfer
+* Low communication overhead as we are doing the handshaking only once at the beginning.
+
+##### Applications
+
+* Stock market ticker
+* Live experiences
+* Multi-player games
+* Chat
+
 No. of Websocket connections: https://josephmate.github.io/2022-04-14-max-connections/
+
+#### Server Side Events
+
+SSE is a server-push technology enabling a client to receive automatic updates from a server. Using SSE, the clients
+make a persistent long-term connection with the server. Then, the server uses this connection to send the data to the
+client. It is important to note that the client can’t send the data to the server using the SSE.
+
+Hence unlike WebSockets, Server-Sent Events are a one-way communication channel where events flow from server to client
+only.
+
+##### Applications
+
+* Deployment logs streaming like in Jenkins
+* Breaking news 
+* Sports Score updates
+* Real-time notifications
+* Instagram live interactions
+* Stock market updates
 
 graphql-vs-rest
 
