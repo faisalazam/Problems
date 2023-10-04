@@ -969,7 +969,7 @@ larger databases:
 
 https://vitess.io/blog/2019-09-03-why-250gb-shards/#okay-why-the-limit
 
-#### Shard Key
+#### Shard Key => should be High Cardinality, Low Frequency and good for query patterns
 
 The shard key is either a single indexed field or multiple fields covered by a compound index that determines the
 distribution of the collection's documents among the cluster's shards.
@@ -1064,7 +1064,17 @@ database and only supports read operations. All the data-modifying commands like
 to the master database. Most applications require a much higher ratio of reads to writes; thus, the number of slave
 databases in a system is usually larger than the number of master databases.
 
-Sharding => Shard key? => High Cardinality, Low Frequency and good for query patterns
+#### Database Replication
+
+This involves copying data to multiple sources to prevent data loss and improve system performance. Different strategies
+exist, like leader-follower, multi-leader, and leaderless replication, each with their own trade-offs.
+
+Synchronous replication ensures data consistency but can be slow, while asynchronous replication sacrifices consistency
+for speed. Multi-leader replication mitigates leader failures, but complexity increases.
+
+Leaderless replication eliminates the leader-follower hierarchy but requires managing read and write capable replicas.
+Including replicas is generally recommended for distributed systems, and the choice of strategy depends on your specific
+needs.
 
 ### L1 vs L2 vs L3 caching
 
