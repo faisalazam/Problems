@@ -1063,8 +1063,6 @@ L2 is larger but slower than L1
 L3 is larger but slower than L2, and is often shared between multiple CPU cores
 
 TCP vs HTTP vs Websocket vs UDP ?
-When to Use Webhooks, WebSocket, Pub/Sub, and Polling... ?
-Long-Polling vs pub/sub vs WebSockets vs Server-Sent Events ?
 
 ### HTTP Short vs Long Polling vs WebSockets vs SSE vs Webhooks
 
@@ -1203,6 +1201,26 @@ and subscribers express interest in subscribing to the topics.
 
 Webhooks are a direct form of communication between the producer and consumer while pub/sub is a middle-man framework
 that routes messages from publishers to subscribers.
+
+#### gRPC
+
+A remote procedural call (RPC) implementation developed by Google, supporting both uni and bidirectional communication.
+
+##### Advantages:
+
+* Enables efficient communication by making function calls between different systems.
+* Faster and lighter compared to REST communication.
+* Provides enhanced security features.
+
+##### Disadvantages:
+
+* Implementation complexity is high, requiring the definition of protobufs (data structures and services).
+* Limited support on platforms especially on browsers
+
+##### Appropriate Use Case:
+
+Suitable for microservice communication where security and speed are high priorities and there is sufficient time for
+implementation.
 
 graphql-vs-rest
 
