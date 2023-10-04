@@ -1064,7 +1064,7 @@ L3 is larger but slower than L2, and is often shared between multiple CPU cores
 
 TCP vs HTTP vs Websocket vs UDP ?
 
-### HTTP Short vs Long Polling vs WebSockets vs SSE vs Webhooks
+### HTTP Short vs Long Polling vs WebSockets vs SSE vs Webhooks vs gRPC
 
 Web applications were originally designed as a simple client-server model where the web client initiates an HTTP request
 requesting some data from the server.
