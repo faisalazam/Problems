@@ -1317,7 +1317,7 @@ like images, videos, CSS, JavaScript files, etc. When a user visits a website, a
 deliver static content. Intuitively, the further users are from CDN servers, the slower the website loads.
 
 Dynamic content caching: it enables the caching of HTML pages that are based on request path, query strings, cookies,
-and request headers.
+and request headers. Amazon’s CloudFront is an example of CDN.
 
 https://www.youtube.com/watch?v=RI9np1LWzqw&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=15
 
