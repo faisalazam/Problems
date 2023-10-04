@@ -1066,7 +1066,7 @@ TCP vs HTTP vs Websocket vs UDP ?
 When to Use Webhooks, WebSocket, Pub/Sub, and Polling... ?
 Long-Polling vs pub/sub vs WebSockets vs Server-Sent Events ?
 
-### HTTP Short vs Long Polling vs WebSockets vs SSE
+### HTTP Short vs Long Polling vs WebSockets vs SSE vs Webhooks
 
 Web applications were originally designed as a simple client-server model where the web client initiates an HTTP request
 requesting some data from the server.
@@ -1121,6 +1121,8 @@ connection. Through this persistent connection, a server could send updates to a
 work even if a firewall is in place. This is because they use port 80 or 443 which are also used by HTTP/HTTPS
 connections. Since WebSocket connections are persistent, efficient connection management is critical on the server-side.
 
+WebSocket uses its own custom WS protocol for communication.
+
 Earlier we said that on the sender side HTTP is a fine protocol to use, but since WebSocket is bidirectional, there is
 no strong technical reason not to use it also for sending.
 
@@ -1154,14 +1156,53 @@ client. It is important to note that the client can’t send the data to the ser
 Hence unlike WebSockets, Server-Sent Events are a one-way communication channel where events flow from server to client
 only.
 
+##### Advantages
+
+* Simple to implement and use for both client and server.
+* Supported by most browsers.
+* No trouble with firewalls.
+
+##### Disadvantages
+
+* Unidirectional nature can be limiting.
+* Limitation for the maximum number of open connections.
+* Does not support binary data.
+
 ##### Applications
 
 * Deployment logs streaming like in Jenkins
-* Breaking news 
+* Breaking news
 * Sports Score updates
 * Real-time notifications
 * Instagram live interactions
 * Stock market updates
+
+#### Webhooks
+
+One of the simplest ways online applications share data is through the use of webhooks, a one-way communication format
+for moving data from one application to another. It is used when you require Real-time one-way communication (from
+source to destination).
+
+Webhook communication is achieved by sending an HTTP request from a source application to a destination application.
+When an event takes place in the source application, an HTTP request which might contain data relating to the event is
+triggered. This HTTP request is sent to the destination application's endpoint (often referred to as the webhook URL).
+Webhook requests can be sent using the POST or GET request methods. This depends on the webhook provider's preferences.
+
+Webhooks close the socket connection on the receiving application once a response has been sent back. They use regular
+HTTP protocol and synchronous.
+
+Webhooks make calls to APIs. An API provides webhooks with the entry point to push data to an application. When an event
+occurs in a source application, a webhook request is triggered to one of the API endpoints.
+
+#### Pub/Sub
+
+Pub/sub, which is short for publish/subscribe, is a communication system for distributing messages between a set of
+publishers (message producers) and subscribers (message consumers). A pub/sub system buffers messages from producers and
+routes them to subscribers through the use of dedicated channels known as topics. Publishers publish messages to topics
+and subscribers express interest in subscribing to the topics.
+
+Webhooks are a direct form of communication between the producer and consumer while pub/sub is a middle-man framework
+that routes messages from publishers to subscribers.
 
 graphql-vs-rest
 
