@@ -1454,6 +1454,12 @@ great idea to collaborate with the interviewer during the process.
 Time management is essential as it is easy to get carried away with minute details that do not demonstrate your
 abilities.
 
+If you still have some time left, then may be consider talking about the deployment and operational side of things, e.g.
+how would you deploy and achieve zero down time?
+building and using some automated logging, monitoring and alerting systems which can help proactively resolve issues
+if they occur.
+Such approaches will help you stay ahead of the game.
+
 #### Step 4 - Wrap up (3 - 5 minutes)
 
 In this final step, the interviewer might ask you a few follow-up questions or give you the freedom to discuss other
@@ -1499,3 +1505,8 @@ To wrap up, we summarize a list of the Dos and Don’ts.
   done. Ask for feedback early and often.
 
 https://bytebytego.com/courses/system-design-interview/a-framework-for-system-design-interviews
+
+## How to Negotiate Your Tech Salary?
+
+https://www.levels.fyi/
+https://www.youtube.com/watch?v=fyn0CKPuPlA&list=PLrtCHHeadkHrrX6rxS2sbcMU5Em6L1i5Y&index=3
