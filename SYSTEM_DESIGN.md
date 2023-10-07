@@ -1242,9 +1242,31 @@ A remote procedural call (RPC) implementation developed by Google, supporting bo
 Suitable for microservice communication where security and speed are high priorities and there is sufficient time for
 implementation.
 
+### What’s the Difference Between a Reverse Proxy and a Load Balancer?
+
+Reverse proxies and load balancers both enhance the performance of application delivery networks, but the roles they
+play in this optimization aren’t quite the same.
+
+A reverse proxy is specifically a Level 7 load balancer, dealing exclusively with web requests. A load balancer can
+operate on Levels 3-7 of the OSI model, handling numerous types of requests on top of web requests, e.g., DNS, SSL, TCP.
+
+A reverse proxy can perform additional roles to that of a load balancer. For example, a reverse proxy can also:
+
+* Operate as a WAF
+* Perform web acceleration, e.g. caching, TLS/SSL offloading, compression
+* Provide cyber security mechanisms, e.g. threat protection, IP concealment, web filtering
+
+A load balancer’s main role is to distribute user requests across multiple servers. A reverse proxy can be used to
+facilitate requests between users and a single server.
+
+https://www.upguard.com/blog/reverse-proxy-vs-load-balancer
+
 graphql-vs-rest
 
 Proxy vs ReverseProxy - https://www.youtube.com/watch?v=4NB0NDtOwIQ&list=PLCRMIe5FDPsd0gVs500xeOewfySTsmEjf&index=19
+Reverse proxy's benefits include Increased security, Increased scalability and flexibility, as well as web
+acceleration (i.e. caching, SSL termination, compression etc.)
+
 Load-balancing (at different levels like web server, app server, db etc. as it should not be single point of failure)
 Scaling
 Caching
@@ -1265,7 +1287,7 @@ How many requests are they handling?
 Are they providing the functionality we expect?
 No, we don’t actually stare at screens all day. That’s what automated alerts are for.
 
-Application Server vs Web Server
+Application Server (fitted for dynamic content.) vs Web Server (fitted for static content.)
 
 CI/CD
 Zero Downtime Deployments (ZDD)
