@@ -1547,3 +1547,7 @@ https://bytebytego.com/courses/system-design-interview/a-framework-for-system-de
 
 https://www.levels.fyi/
 https://www.youtube.com/watch?v=fyn0CKPuPlA&list=PLrtCHHeadkHrrX6rxS2sbcMU5Em6L1i5Y&index=3
+
+## Couple of days before the System Design Interview
+
+https://www.youtube.com/@ByteByteGo/playlists
