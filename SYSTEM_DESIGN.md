@@ -503,7 +503,18 @@ In reality, we choose between CP and AP because CA is a monolith without partiti
 cannot abandon P and therefore have a difficult choice between C and A. In fact, the choice between consistency and
 availability is really only made when partitioning or failure occurs. At other times, no tradeoffs are required.
 
-PACELC Theorem
+PACELC Theorem:
+
+The PACELC theorem states that in a system that replicates data:
+
+* if there is a partition ('P'), a distributed system can tradeoff between availability and consistency (i.e., 'A' and '
+  C');
+* else ('E'), when the system is running normally in the absence of partitions, the system can tradeoff between
+  latency ('L') and consistency ('C').
+
+The first part of the theorem (PAC) is the same as the CAP theorem, and the ELC is the extension. The whole thesis is
+assuming we maintain high availability by replication. So, when there is a failure, CAP theorem prevails. But if not, we
+still have to consider the tradeoff between consistency and latency of a replicated system.
 
 ### Eventual Consistency vs Strong Consistency
 
