@@ -1562,3 +1562,4 @@ https://www.youtube.com/watch?v=fyn0CKPuPlA&list=PLrtCHHeadkHrrX6rxS2sbcMU5Em6L1
 ## Couple of days before the System Design Interview
 
 https://www.youtube.com/@ByteByteGo/playlists
+https://www.youtube.com/playlist?list=PLPkuArhPxxQGkbl-_STo8FFxBBB4ri-tl
