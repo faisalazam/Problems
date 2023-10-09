@@ -67,7 +67,7 @@ My 2 variables are down to 1.
 
 I also make sure, I never talk on the specifics of the functionality and instead talk/focus on the raw/common server
 requirements. That is instead of saying, the server receives 10 tweets per second, I will say the server receives 10
-"requests" per second. Converting tweets to requests helps me memorize the same logic across twitter design where the
+"requests" per second. Converting tweets to requests helps me memorize the same logic across Twitter design where the
 server receives tweets and facebook design where the server receives photo upload and comments requests. Everything is
 incoming request no differentiation.
 
@@ -76,13 +76,13 @@ Ok so focusing on the twitter calculations, I would start something like this.
 I will start saying, I will at minimum calculate servers, memory, and storage requirements
 
 Starting small, I will say, assuming, the application gets 1000 requests per second, (1000 is an easy nice number for
-any calculation and we can scale up or down easily depending on the requirement. The real twitter number would be much
+any calculation, and we can scale up or down easily depending on the requirement. The real twitter number would be much
 higher)
 
 * 1000 requests/sec
 * 3600 seconds per hour, it will be 1000 * 4000 (approximating 3600 to nearest whole number 4000 as multiplication by 4K
   is much easier orally than 3.6K) => we get 4 million requests/hr
-* 4M requests/hr translates to 4M * 30 hours (instead of 24 hours in a day as its much easier to multiply by 30 than 24)
+* 4M requests/hr translates to 4M * 30 hours (instead of 24 hours in a day as it's much easier to multiply by 30 than 24)
   => 120 million requests/day
 * 120 million requests/day translates to 120M * 400 days (instead of 365) = 50 billion requests/year (instead of 48B)
 * Assuming the capacity planning estimates are for 5 years, we get 50B * 5 = 250 Billion request data is what we may end
@@ -116,7 +116,7 @@ For Storage requirement, assuming we need to store data for 5 years
 * 20% Photos: 250 Billion request data * 20 % => 50 GB * 1MB => 50000 MB * 1MB => 50000 MB => 50GB
 * 70% Tweets: 250 Billion request data * 70% ~~ 200 GB * 200 bytes => 200000MB * 0.002MB => 400MB
 * Total (1.2TB + 50 GB + 400 MB) ~~ 1.2TB (in reality this capacity will be much higher as video/photo storage size
-  requirements will be much higher but I hope reader gets the point)
+  requirements will be much higher, but I hope reader gets the point)
 
 Summary
 
@@ -305,7 +305,7 @@ sequence of 8 bits. An ASCII character uses one byte of memory (8 bits).
 | Yotta-bytes (YB) |            | 10^24               | 1,000 Zetta-bytes | as much information as there are atoms in 7,000 human bodies               |
 
 If there are `10 million` products in the system, can we store each (along with a count) in a hash table? Yes. If each
-product ID is four bytes {which is big enough to hold up to 4 billion unique IDs) and each count is four bytes (more
+product ID is four bytes (which is big enough to hold up to 4 billion unique IDs) and each count is four bytes (more
 than enough), then such a hash table would only take about 40 megabytes.
 
 ### Availability numbers
@@ -399,7 +399,7 @@ A hash function is a function that maps one piece of data, typically describing 
 size, to another piece of data, typically an integer, known as hash code, or simply hash. A suitable hash function can
 be used to map an arbitrary piece of data to an integer. A good hash function generally has a wide output range.
 
-For instance, some hash function designed to hash strings, with an output range of 0 .. 100, may map the string Hello
+For instance, some hash function designed to hash strings, with an output range of 0 ... 100, may map the string Hello
 to, say, the number 57, Hasta la vista, baby to the number 33, and any other possible string to some number within that
 range. Since there are way more possible inputs than outputs, any given number (i.e. hash code or hashed value) will
 have many different strings mapped to it, a phenomenon known as collision. Good hash functions should somehow
@@ -476,7 +476,7 @@ For our example we’ll assume all three servers have an equal weight of 10 (thi
 
 ##### So, what’s the benefit of all this circle approach?
 
-Imagine server C is removed. To account for this, we must remove labels C0 .. C9 from the circle. This results in the
+Imagine server C is removed. To account for this, we must remove labels C0 ... C9 from the circle. This results in the
 object keys formerly adjacent to the deleted labels now being randomly labeled Ax and Bx, reassigning them to servers A
 and B.
 
@@ -485,7 +485,7 @@ it: The absence of Cx labels does not affect those keys in any way. So, removing
 being randomly reassigned to the rest of the servers, leaving all other keys untouched.
 
 Something similar happens if, instead of removing a server, we add one. If we wanted to add server D to our example (
-say, as a replacement for C), we would need to add labels D0 .. D9. The result would be that roughly one-third of the
+say, as a replacement for C), we would need to add labels D0 ... D9. The result would be that roughly one-third of the
 existing keys (all belonging to A or B) would be reassigned to D, and, again, the rest would stay the same.
 
 This is how consistent hashing solves the rehashing problem.
@@ -507,9 +507,9 @@ PACELC Theorem:
 
 The PACELC theorem states that in a system that replicates data:
 
-* if there is a partition ('P'), a distributed system can tradeoff between availability and consistency (i.e., 'A' and '
+* if there is a partition ('P'), a distributed system can trade off between availability and consistency (i.e., 'A' and '
   C');
-* else ('E'), when the system is running normally in the absence of partitions, the system can tradeoff between
+* else ('E'), when the system is running normally in the absence of partitions, the system can trade off between
   latency ('L') and consistency ('C').
 
 The first part of the theorem (PAC) is the same as the CAP theorem, and the ELC is the extension. The whole thesis is
@@ -547,7 +547,7 @@ applications. Some examples of distributed systems that employ strong consistenc
 However, strong consistency can come at the cost of performance and scalability since it requires more coordination and
 communication between nodes to maintain consistency.
 
-Thing about the trade off for data accuracy, performance, and availability while choosing between strong vs eventual
+Thing about the trade-off for data accuracy, performance, and availability while choosing between strong vs eventual
 consistency.
 
 https://medium.com/@abhirup.acharya009/strong-consistency-vs-eventual-consistency-19ce6f87c112
@@ -580,7 +580,7 @@ cache acts as a sort of "keyboard short-cut" or "hot-key" for the application to
 calling upon.
 
 This speedier request can minimize the workload of the database, keeping it from spending inefficient amounts of time
-doing repetitive tasks. Instead making these tasks more efficient and simplifying data access.
+doing repetitive tasks. Instead, making these tasks more efficient and simplifying data access.
 
 #### Availability
 
@@ -612,7 +612,7 @@ One solution for the Cache Penetration attack would be to store the missing key 
 value), so that the DB is not hit next time as the key would've been found in the cache. Set a short TTL (Time to Live)
 for keys with null value.
 
-Another solution would be to use use Bloom filter. A Bloom filter is a data structure that can rapidly tell us whether
+Another solution would be to use Bloom filter. A Bloom filter is a data structure that can rapidly tell us whether
 an element is present in a set or not. If the key exists, the request first goes to the cache and then queries the
 database if needed. If the key doesn't exist in the data set, it means the key doesn’t exist in the cache/database. In
 this case, the query will not hit the cache or database layer.
@@ -674,7 +674,7 @@ writes, the application will still go directly to the database.
 Read-through caches are also good for **read-heavy workloads**. The main differences between read-through and
 cache-aside is that in a cache-aside strategy the application is responsible for fetching the data and populating the
 cache, while in a read-through setup, the logic is done by a library or some separate cache provider. A read-through
-setup is similar to a cache-aside in regards to potential **data inconsistency between cache and database**.
+setup is similar to a cache-aside in regard to potential **data inconsistency between cache and database**.
 
 A read-through caching strategy also has the disadvantage of needing to go to the database to get the data anytime a new
 read request comes through. This data has never been cached before so the data needs to be loaded. It is common for
@@ -759,7 +759,7 @@ References: https://www.prisma.io/dataguide/managing-databases/introduction-data
 NewSQL databases follow the relational structure and semantics, but are built using more modern, scalable designs. The
 goal is to offer greater scalability than relational databases and greater consistency guarantees than NoSQL
 alternatives. They achieve this by sacrificing certain amounts of availability in the event of a networking partition.
-The trade offs between consistency and availability is a fundamental problem of distributed databases described by the
+The trade-offs between consistency and availability is a fundamental problem of distributed databases described by the
 CAP theorem. In other words, these systems want to achieve the scalability of NoSQL without having to discard the
 relational model with SQL and transaction support of the legacy DBMS.
 
@@ -787,7 +787,7 @@ disruptive to your whole system.
 
 SQL databases are vertically scalable in most situations.
 
-If you are writing a stock trading, banking or a Finance-based app or you need to store a lot of relationships, for
+If you are writing a stock trading, banking or a Finance-based app, or you need to store a lot of relationships, for
 instance, when writing a social networking app like Facebook, then you should pick a relational database. Here’s why:
 
 #### Transactions & Data Consistency
@@ -965,7 +965,7 @@ complex or lead to a poor experience for your users.
 Typically, this is earlier than we often think about sharding. However, by scaling read capacity through horizontal
 sharding instead of by using replicas, application code does not need to account for the potential replication lag or
 that multiple connection strings need to be managed and utilized depending on the data set you are trying to access.
-Plus, sharding at this stage sets you up for future growth and you don't have to come back and shard later when write
+Plus, sharding at this stage sets you up for future growth, and you don't have to come back and shard later when write
 throughput or data size would otherwise become an issue.
 
 Why does Vitess recommend 250GB per MySQL server?
@@ -1134,7 +1134,7 @@ There will be a connection opened till the server has a response to send back or
 * It is inefficient for designing chat applications. If a user does not chat much, long polling still makes periodic
   connections after timeouts.
 * Sender and receiver may not connect to the same chat server. HTTP based servers are usually stateless. If you use
-  round robin for load balancing, the server that receives the message might not have a long-polling connection with the
+  round-robin for load balancing, the server that receives the message might not have a long-polling connection with the
   client who receives the message.
 
 #### WebSocket
@@ -1145,7 +1145,7 @@ A WebSocket is a persistent connection between a client and a server. WebSockets
 communications channel that operates over HTTP through a single TCP/IP socket connection. At its core, the WebSocket
 protocol facilitates message passing between a client and server. It is initiated by the client.
 
-It starts its life as a HTTP connection and could be “upgraded” via some well-defined handshake to a WebSocket
+It starts its life as an HTTP connection and could be “upgraded” via some well-defined handshake to a WebSocket
 connection. Through this persistent connection, a server could send updates to a client. WebSocket connections generally
 work even if a firewall is in place. This is because they use port 80 or 443 which are also used by HTTP/HTTPS
 connections. Since WebSocket connections are persistent, efficient connection management is critical on the server-side.
@@ -1171,18 +1171,18 @@ no strong technical reason not to use it also for sending.
 
 * Stock market ticker
 * Live experiences
-* Multi-player games
+* Multiplayer games
 * Chat
 
 No. of Websocket connections: https://josephmate.github.io/2022-04-14-max-connections/
 
-#### Server Side Events
+#### Server Sent Events
 
 SSE is a server-push technology enabling a client to receive automatic updates from a server. Using SSE, the clients
 make a persistent long-term connection with the server. Then, the server uses this connection to send the data to the
 client. It is important to note that the client can’t send the data to the server using the SSE.
 
-Hence unlike WebSockets, Server-Sent Events are a one-way communication channel where events flow from server to client
+Hence, unlike WebSockets, Server-Sent Events are a one-way communication channel where events flow from server to client
 only.
 
 ##### Advantages
@@ -1265,7 +1265,7 @@ A reverse proxy can perform additional roles to that of a load balancer. For exa
 
 * Operate as a WAF
 * Perform web acceleration, e.g. caching, TLS/SSL offloading, compression
-* Provide cyber security mechanisms, e.g. threat protection, IP concealment, web filtering
+* Provide cyber-security mechanisms, e.g. threat protection, IP concealment, web filtering
 
 A load balancer’s main role is to distribute user requests across multiple servers. A reverse proxy can be used to
 facilitate requests between users and a single server.
@@ -1358,11 +1358,11 @@ duplication is not acceptable and the downstream service or third party doesn’
 ## How to decide on the number of tiers your app should have
 
 * You should choose a single tier architecture when you do not want any network latency
-* Choose a two tier application when you need to minimize network latency and you need more control of data within your
+* Choose a two tier application when you need to minimize network latency, and you need more control of data within your
   application
 * You should choose a three tier architecture when you need control over the code/business logic of your application &
   want it to be secure, and you need control over data in your application.
-* You should choose a N tier architecture when you need your application to scale and handle large amounts of data.
+* You should choose an N tier architecture when you need your application to scale and handle large amounts of data.
 
 ## The Secret To 10 Million Concurrent Connections -The Kernel Is The Problem, Not The Solution
 
@@ -1413,7 +1413,8 @@ simpler, more robust, and scalable.
 
 ### Message queue
 
-To further scale our system, we need to decouple different components of the system so they can be scaled independently.
+To further scale our system, we need to decouple different components of the system, so they can be scaled
+independently.
 Messaging queue is a key strategy employed by many real-world distributed systems to solve this problem.
 
 A message queue is a durable component, stored in memory, that supports asynchronous communication. It serves as a
@@ -1470,7 +1471,7 @@ interviewers specifically look for this skill.
 A good interviewer also looks for red flags. Over-engineering is a real disease of many engineers as they delight in
 design purity and ignore tradeoffs. They are often unaware of the compounding costs of over-engineered systems, and many
 companies pay a high price for that ignorance. You certainly do not want to demonstrate this tendency in a system design
-interview. Other red flags include narrow mindedness, stubbornness, etc.
+interview. Other red flags include narrow-mindedness, stubbornness, etc.
 
 ### A 4-step process for effective system design interview
 
@@ -1503,9 +1504,9 @@ Time management is essential as it is easy to get carried away with minute detai
 abilities.
 
 If you still have some time left, then may be consider talking about the deployment and operational side of things, e.g.
-how would you deploy and achieve zero down time?
-building and using some automated logging, monitoring and alerting systems which can help proactively resolve issues
-if they occur.
+how would you deploy and achieve zero downtime?
+Building and using some automated logging, monitoring and alerting systems which can help proactively resolve issues if
+they occur.
 Such approaches will help you stay ahead of the game.
 
 #### Step 4 - Wrap up (3 - 5 minutes)
@@ -1534,7 +1535,7 @@ To wrap up, we summarize a list of the Dos and Don’ts.
 * Understand the requirements of the problem.
 * There is neither the right answer nor the best answer. A solution designed to solve the problems of a young startup is
   different from that of an established company with millions of users. Make sure you understand the requirements.
-* Let the interviewer know what you are thinking. Communicate with your interview.
+* Let the interviewer know what you are thinking. Communicate with your interviewer.
 * Suggest multiple approaches if possible.
 * Once you agree with your interviewer on the blueprint, go into details on each component. Design the most critical
   components first.
