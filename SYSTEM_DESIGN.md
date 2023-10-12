@@ -82,7 +82,8 @@ higher)
 * 1000 requests/sec
 * 3600 seconds per hour, it will be 1000 * 4000 (approximating 3600 to nearest whole number 4000 as multiplication by 4K
   is much easier orally than 3.6K) => we get 4 million requests/hr
-* 4M requests/hr translates to 4M * 30 hours (instead of 24 hours in a day as it's much easier to multiply by 30 than 24)
+* 4M requests/hr translates to 4M * 30 hours (instead of 24 hours in a day as it's much easier to multiply by 30 than
+  24)
   => 120 million requests/day
 * 120 million requests/day translates to 120M * 400 days (instead of 365) = 50 billion requests/year (instead of 48B)
 * Assuming the capacity planning estimates are for 5 years, we get 50B * 5 = 250 Billion request data is what we may end
@@ -507,7 +508,8 @@ PACELC Theorem:
 
 The PACELC theorem states that in a system that replicates data:
 
-* if there is a partition ('P'), a distributed system can trade off between availability and consistency (i.e., 'A' and '
+* if there is a partition ('P'), a distributed system can trade off between availability and consistency (i.e., 'A'
+  and '
   C');
 * else ('E'), when the system is running normally in the absence of partitions, the system can trade off between
   latency ('L') and consistency ('C').
@@ -1564,3 +1566,20 @@ https://www.youtube.com/watch?v=fyn0CKPuPlA&list=PLrtCHHeadkHrrX6rxS2sbcMU5Em6L1
 
 https://www.youtube.com/@ByteByteGo/playlists
 https://www.youtube.com/playlist?list=PLPkuArhPxxQGkbl-_STo8FFxBBB4ri-tl
+
+Agoda's motto is Less Hassle, More Travel
+
+Agoda's Values
+
+* Do things the right way
+* Be a scientist, experiment and measure
+* Move fast and be efficient
+* Take ownership and make a difference
+* Be direct and respectful
+
+Why do you want to work for Agoda?
+I am interested in working at agoda.com because it is a leading online travel company that offers a great work
+environment and opportunities for career development. Additionally, agoda.com is a company with a strong international
+presence, which would allow me to further develop my cross-cultural skills.
+
+agoda.com's top 5 competitors in August 2023 are: booking.com, hotels.com, tripadvisor.com, expedia.com, and more.
