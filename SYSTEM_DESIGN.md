@@ -189,6 +189,7 @@ Interviewers may test your problem-solving skills. Here are a few tips to follow
 * Commonly asked back-of-the-envelope estimations: QPS, peak QPS, storage, cache, number of servers, etc. You can
   practice these calculations when preparing for an interview. Practice makes perfect.
 
+https://www.youtube.com/watch?v=-frNQkRz_IU
 https://bytebytego.com/courses/system-design-interview/back-of-the-envelope-estimation
 https://www.youtube.com/watch?v=UC5xf8FbdJc&list=PLCRMIe5FDPseVvwzRiCQBmNOVUIZSSkP8&index=4
 ----------------------------------------------------------------
