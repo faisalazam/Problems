@@ -21,7 +21,10 @@ public class MatrixOrGridBFSTemplate {
 
         final int rows = grid.length;           // grid.size();
         final int columns = grid[0].length;     // grid.get(0).size();
-        // This extra space usage can be avoided by updating the input array if thats allowed
+        // This extra space usage can be avoided by updating the input array if that's allowed
+        // If the input array is of int, then think about using Euclidean Division and update the values in the input
+        // array. You can use ((rows * columns) + 1) as multiplier/divisor. If updating input array is not allowed,
+        // then you can iterate over the input array in the end again to put back the original values. Think about it...
         final boolean[][] visited = new boolean[rows][columns];
         for (int row = 0; row < rows; row++) {
             final char[] rowValues = grid[row]; // grid.get(row);
