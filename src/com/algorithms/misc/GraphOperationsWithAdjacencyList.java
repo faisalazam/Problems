@@ -155,6 +155,30 @@ public class GraphOperationsWithAdjacencyList {
         System.out.println();
     }
 
+    private int shortestPathBFS(final int startingVertex, final int target) {
+        final boolean[] visited = new boolean[vertices];
+        final Queue<Pair<Integer, Integer>> queue = new LinkedList<>(); // Pair will contain the vertex and the distance
+        queue.offer(Pair.of(startingVertex, 0));
+        visited[startingVertex] = true;
+
+        while (!queue.isEmpty()) {
+            final Pair<Integer, Integer> currentPair = queue.poll();
+            final int currentVertex = currentPair.fst;
+            final int distance = currentPair.snd;
+
+            if (currentVertex == target) {
+                return distance;
+            }
+            for (int adjacentVertex : adjacentVertices[currentVertex]) {
+                if (!visited[adjacentVertex]) {
+                    visited[currentVertex] = true;
+                    queue.offer(Pair.of(adjacentVertex, distance + 1));
+                }
+            }
+        }
+        return -1;
+    }
+
     private boolean isCyclicGraph() {
         final int[] visited = new int[vertices];
         final int startingVertex = adjacentVertices[0].get(0); //check for emptiness
@@ -288,5 +312,7 @@ public class GraphOperationsWithAdjacencyList {
         System.out.println("BFS => Does path exists between (3, 3) => " + graphOperations.isReachableUsingBFS(3, 3));
         System.out.println("BFS => Does path exists between (0, 3) => " + graphOperations.isReachableUsingBFS(0, 3));
         System.out.println("BFS => Does path exists between (3, 1) => " + graphOperations.isReachableUsingBFS(3, 1));
+        System.out.println("BFS => Shortest path between (0, 3) => " + graphOperations.shortestPathBFS(0, 3));
+        System.out.println("BFS => Shortest path between (3, 1) => " + graphOperations.shortestPathBFS(3, 1));
     }
 }
