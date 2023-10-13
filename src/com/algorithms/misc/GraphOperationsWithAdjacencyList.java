@@ -1,7 +1,10 @@
 package com.algorithms.misc;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -39,6 +42,27 @@ public class GraphOperationsWithAdjacencyList {
     }
 
     /*
+     * Let's say you are provided with a 2D array of undirected edges where the inner array is of size 2 to hold an edge,
+     * then it'll be better to convert it to AdjacencyList before solving the actual problem
+     */
+    private void convertEdgesToAdjacencyList(int[][] edges) {
+        final Map<Integer, List<Integer>> adjList = new HashMap<>();
+        for (int[] edge : edges) {
+            final int vertexA = edge[0];
+            final int vertexB = edge[1];
+            if (!adjList.containsKey(vertexA)) {
+                adjList.put(vertexA, new ArrayList<>());
+            }
+            if (!adjList.containsKey(vertexB)) {
+                adjList.put(vertexB, new ArrayList<>());
+            }
+            adjList.get(vertexA).add(vertexB);
+            adjList.get(vertexB).add(vertexA);
+        }
+    }
+
+
+    /*
      * To do complete DFS traversal of such graphs, we must call depthFirstSearch() for every vertex.
      * This will work even for disconnect graphs
      */
@@ -55,6 +79,7 @@ public class GraphOperationsWithAdjacencyList {
     }
 
     private void depthFirstSearch(int startingVertex, boolean[] visited) {
+        // visited array will avoid visiting the same vertex multiple times as well as avoid getting into cycles
         visited[startingVertex] = true;
         System.out.print(startingVertex + " ");
 
