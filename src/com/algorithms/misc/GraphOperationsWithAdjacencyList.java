@@ -13,7 +13,7 @@ public class GraphOperationsWithAdjacencyList {
     // Array  of lists for Adjacency List Representation or we could use Map<Integer, List<Integer>>
     private LinkedList<Integer>[] adjacentVertices;
 
-    private GraphOperationsWithAdjacencyList(int vertices) {
+    private GraphOperationsWithAdjacencyList(final int vertices) {
         this.vertices = vertices;
         initialiseAdjacencyList(vertices);
     }
@@ -54,9 +54,9 @@ public class GraphOperationsWithAdjacencyList {
      * The above code traverses only the vertices reachable from a given source vertex.
      * All the vertices may not be reachable from a given vertex (example Disconnected graph).
      */
-    private void depthFirstSearch(int startingVertex) {
+    private void depthFirstSearch(final int startingVertex) {
         System.out.print("Recursive Depth First Traversal (starting from vertex " + startingVertex + ") => ");
-        boolean[] visited = new boolean[vertices];
+        final boolean[] visited = new boolean[vertices];
         depthFirstSearch(startingVertex, visited);  //TODO what if startingIndex does not exist in the graph?
         System.out.println();
     }
@@ -67,7 +67,7 @@ public class GraphOperationsWithAdjacencyList {
      */
     private void depthFirstSearch() {
         System.out.print("Recursive Depth First Traversal => ");
-        boolean[] visited = new boolean[vertices];
+        final boolean[] visited = new boolean[vertices];
 
         for (int vertex = 0; vertex < vertices; vertex++) {
             if (!visited[vertex]) {
@@ -77,27 +77,27 @@ public class GraphOperationsWithAdjacencyList {
         System.out.println();
     }
 
-    private void depthFirstSearch(int startingVertex, boolean[] visited) {
+    private void depthFirstSearch(final int startingVertex, final boolean[] visited) {
         // visited array will avoid visiting the same vertex multiple times as well as avoid getting into cycles
         visited[startingVertex] = true;
         System.out.print(startingVertex + " ");
 
-        for (Integer adjacentVertex : adjacentVertices[startingVertex]) {
+        for (int adjacentVertex : adjacentVertices[startingVertex]) {
             if (!visited[adjacentVertex]) {
                 depthFirstSearch(adjacentVertex, visited);
             }
         }
     }
 
-    private void depthFirstSearchIteratively(int startingVertex) {
+    private void depthFirstSearchIteratively(final int startingVertex) {
         System.out.print("Iterative Depth First Traversal (starting from vertex " + startingVertex + ") => ");
 
-        boolean[] visited = new boolean[vertices];
-        Stack<Integer> stack = new Stack<>();
+        final boolean[] visited = new boolean[vertices];
+        final Stack<Integer> stack = new Stack<>();
         stack.push(startingVertex);
 
         while (!stack.isEmpty()) {
-            int currentVertex = stack.pop();
+            final int currentVertex = stack.pop();
             if (!visited[currentVertex]) {
                 System.out.print(currentVertex + " ");
                 visited[currentVertex] = true;
@@ -105,7 +105,7 @@ public class GraphOperationsWithAdjacencyList {
             // this implementation (as compared to the commented one) looks more like BFS with the only difference of iterating the adjacentVertices in reverse order
             List<Integer> adjacentVerticesToCurrentVertex = adjacentVertices[currentVertex];
             for (int adjacentVertexIndex = adjacentVerticesToCurrentVertex.size() - 1; adjacentVertexIndex >= 0; adjacentVertexIndex--) {
-                Integer adjacentVertex = adjacentVerticesToCurrentVertex.get(adjacentVertexIndex);
+                final int adjacentVertex = adjacentVerticesToCurrentVertex.get(adjacentVertexIndex);
                 if (!visited[adjacentVertex]) {
                     stack.push(adjacentVertex);
                 }
@@ -133,20 +133,20 @@ public class GraphOperationsWithAdjacencyList {
         System.out.println();
     }
 
-    private void breadthFirstSearch(int startingVertex) {
+    private void breadthFirstSearch(final int startingVertex) {
         System.out.print("Iterative Breadth First Traversal (starting from vertex " + startingVertex + ") => ");
 
-        boolean[] visited = new boolean[vertices];
-        Queue<Integer> queue = new LinkedList<>();
+        final boolean[] visited = new boolean[vertices];
+        final Queue<Integer> queue = new LinkedList<>();
         queue.offer(startingVertex);
 
         while (!queue.isEmpty()) {
-            Integer currentVertex = queue.poll();
+            final int currentVertex = queue.poll();
             if (!visited[currentVertex]) {
                 System.out.print(currentVertex + " ");
                 visited[currentVertex] = true;
             }
-            for (Integer adjacentVertex : adjacentVertices[currentVertex]) {
+            for (int adjacentVertex : adjacentVertices[currentVertex]) {
                 if (!visited[adjacentVertex]) {
                     queue.offer(adjacentVertex);
                 }
@@ -156,14 +156,14 @@ public class GraphOperationsWithAdjacencyList {
     }
 
     private boolean isCyclicGraph() {
-        int[] visited = new int[vertices];
-        int startingVertex = adjacentVertices[0].get(0); //check for emptiness
+        final int[] visited = new int[vertices];
+        final int startingVertex = adjacentVertices[0].get(0); //check for emptiness
         return isCyclicGraph(startingVertex, visited);
     }
 
     private boolean isCyclicGraph(int startingVertex, int[] visited) {
         visited[startingVertex] = 1;
-        for (Integer adjacentVertex : adjacentVertices[startingVertex]) {
+        for (int adjacentVertex : adjacentVertices[startingVertex]) {
             if (visited[adjacentVertex] == 1 || isCyclicGraph(adjacentVertex, visited)) {
                 return true;
             }
@@ -173,7 +173,7 @@ public class GraphOperationsWithAdjacencyList {
     }
 
     private boolean isReachableUsingDFS(int fromVertex, int toVertex) {
-        boolean[] visited = new boolean[vertices];
+        final boolean[] visited = new boolean[vertices];
         return isReachableUsingDFS(fromVertex, toVertex, visited);
     }
 
@@ -183,7 +183,7 @@ public class GraphOperationsWithAdjacencyList {
         }
         visited[fromVertex] = true;
 
-        for (Integer adjacentVertex : adjacentVertices[fromVertex]) {
+        for (int adjacentVertex : adjacentVertices[fromVertex]) {
             if (!visited[adjacentVertex] && isReachableUsingDFS(adjacentVertex, toVertex, visited)) {
                 return true;
             }
@@ -192,14 +192,14 @@ public class GraphOperationsWithAdjacencyList {
     }
 
     private boolean isReachableUsingBFS(int fromVertex, int toVertex) {
-        boolean[] visited = new boolean[vertices];
-        Queue<Integer> queue = new LinkedList<>();
+        final boolean[] visited = new boolean[vertices];
+        final Queue<Integer> queue = new LinkedList<>();
         queue.offer(fromVertex);
         visited[fromVertex] = true;
 
         while (!queue.isEmpty()) {
-            int currentVertex = queue.poll();
-            for (Integer adjacentVertex : adjacentVertices[currentVertex]) {
+            final int currentVertex = queue.poll();
+            for (int adjacentVertex : adjacentVertices[currentVertex]) {
                 if (adjacentVertex == toVertex) {
                     return true;
                 }
@@ -233,7 +233,7 @@ public class GraphOperationsWithAdjacencyList {
     }
 
     public static void main(String[] args) {
-        GraphOperationsWithAdjacencyList graphOperations = new GraphOperationsWithAdjacencyList(6);
+        final GraphOperationsWithAdjacencyList graphOperations = new GraphOperationsWithAdjacencyList(6);
         graphOperations.addEdge(0, 1);
         graphOperations.addEdge(0, 2);
         graphOperations.addEdge(1, 2);
