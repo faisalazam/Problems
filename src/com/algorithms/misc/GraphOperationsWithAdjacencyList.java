@@ -31,17 +31,6 @@ public class GraphOperationsWithAdjacencyList {
     }
 
     /*
-     * The above code traverses only the vertices reachable from a given source vertex.
-     * All the vertices may not be reachable from a given vertex (example Disconnected graph).
-     */
-    private void depthFirstSearch(int startingVertex) {
-        System.out.print("Recursive Depth First Traversal (starting from vertex " + startingVertex + ") => ");
-        boolean[] visited = new boolean[vertices];
-        depthFirstSearch(startingVertex, visited);  //TODO what if startingIndex does not exist in the graph?
-        System.out.println();
-    }
-
-    /*
      * Let's say you are provided with a 2D array of undirected edges where the inner array is of size 2 to hold an edge,
      * then it'll be better to convert it to AdjacencyList before solving the actual problem
      */
@@ -61,6 +50,16 @@ public class GraphOperationsWithAdjacencyList {
         }
     }
 
+    /*
+     * The above code traverses only the vertices reachable from a given source vertex.
+     * All the vertices may not be reachable from a given vertex (example Disconnected graph).
+     */
+    private void depthFirstSearch(int startingVertex) {
+        System.out.print("Recursive Depth First Traversal (starting from vertex " + startingVertex + ") => ");
+        boolean[] visited = new boolean[vertices];
+        depthFirstSearch(startingVertex, visited);  //TODO what if startingIndex does not exist in the graph?
+        System.out.println();
+    }
 
     /*
      * To do complete DFS traversal of such graphs, we must call depthFirstSearch() for every vertex.
@@ -213,20 +212,42 @@ public class GraphOperationsWithAdjacencyList {
         return false;
     }
 
+    /*
+     * Given an undirected graph which could consist of multiple sub-graphs, count the number of connected components or
+     * sub-graphs.
+     *
+     * We'll complete DFS traversal for this, i.e. we must call depthFirstSearch() for every vertex so the
+     * disconnected graphs can also be traversed.
+     */
+    private int connectedComponentsCount() {
+        int count = 0;
+        final boolean[] visited = new boolean[vertices];
+
+        for (int vertex = 0; vertex < vertices; vertex++) {
+            if (!visited[vertex]) {
+                depthFirstSearch(vertex, visited);
+                count++;
+            }
+        }
+        return count;
+    }
+
     public static void main(String[] args) {
-        GraphOperationsWithAdjacencyList graphOperations = new GraphOperationsWithAdjacencyList(4);
+        GraphOperationsWithAdjacencyList graphOperations = new GraphOperationsWithAdjacencyList(6);
         graphOperations.addEdge(0, 1);
         graphOperations.addEdge(0, 2);
         graphOperations.addEdge(1, 2);
         graphOperations.addEdge(2, 0);
         graphOperations.addEdge(2, 3);
         graphOperations.addEdge(3, 3);
+        graphOperations.addEdge(4, 5);
 
         graphOperations.depthFirstSearch(2);
         graphOperations.depthFirstSearchIteratively(2);
         graphOperations.depthFirstSearch();
         graphOperations.breadthFirstSearch(2);
         System.out.println("Is Cyclic Graph => " + graphOperations.isCyclicGraph());
+        System.out.println("Connected Components Count => " + graphOperations.connectedComponentsCount());
         System.out.println("DFS => Does path exists between (3, 3) => " + graphOperations.isReachableUsingDFS(3, 3));
         System.out.println("DFS => Does path exists between (0, 3) => " + graphOperations.isReachableUsingDFS(0, 3));
         System.out.println("DFS => Does path exists between (3, 1) => " + graphOperations.isReachableUsingDFS(3, 1));
