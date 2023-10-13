@@ -232,6 +232,39 @@ public class GraphOperationsWithAdjacencyList {
         return count;
     }
 
+    /*
+     * Given an undirected graph which could consist of multiple sub-graphs, return the number of vertices in the
+     * largest connected components/sub-graph.
+     *
+     * We'll complete DFS traversal for this, i.e. we must call depthFirstSearch() for every vertex so the
+     * disconnected graphs can also be traversed.
+     */
+    private int largestConnectedComponent() {
+        int largest = Integer.MIN_VALUE;
+        final boolean[] visited = new boolean[vertices];
+
+        for (int vertex = 0; vertex < vertices; vertex++) {
+            if (!visited[vertex]) {
+                final int count = exploreSize(vertex, visited);
+                largest = Math.max(largest, count);
+            }
+        }
+        return largest;
+    }
+
+    private int exploreSize(final int startingVertex, final boolean[] visited) {
+        // visited array will avoid visiting the same vertex multiple times as well as avoid getting into cycles
+        visited[startingVertex] = true;
+
+        int size = 1;
+        for (int adjacentVertex : adjacentVertices[startingVertex]) {
+            if (!visited[adjacentVertex]) {
+                size += exploreSize(adjacentVertex, visited);
+            }
+        }
+        return size;
+    }
+
     public static void main(String[] args) {
         final GraphOperationsWithAdjacencyList graphOperations = new GraphOperationsWithAdjacencyList(6);
         graphOperations.addEdge(0, 1);
@@ -248,6 +281,7 @@ public class GraphOperationsWithAdjacencyList {
         graphOperations.breadthFirstSearch(2);
         System.out.println("Is Cyclic Graph => " + graphOperations.isCyclicGraph());
         System.out.println("Connected Components Count => " + graphOperations.connectedComponentsCount());
+        System.out.println("Largest Connected Component => " + graphOperations.largestConnectedComponent());
         System.out.println("DFS => Does path exists between (3, 3) => " + graphOperations.isReachableUsingDFS(3, 3));
         System.out.println("DFS => Does path exists between (0, 3) => " + graphOperations.isReachableUsingDFS(0, 3));
         System.out.println("DFS => Does path exists between (3, 1) => " + graphOperations.isReachableUsingDFS(3, 1));
