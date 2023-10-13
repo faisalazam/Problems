@@ -6,8 +6,9 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class GraphOperationsWithAdjacencyList {
-    private int vertices;
-    private LinkedList<Integer>[] adjacentVertices; // Array  of lists for Adjacency List Representation
+    private final int vertices;
+    // Array  of lists for Adjacency List Representation or we could use Map<Integer, List<Integer>>
+    private LinkedList<Integer>[] adjacentVertices;
 
     private GraphOperationsWithAdjacencyList(int vertices) {
         this.vertices = vertices;

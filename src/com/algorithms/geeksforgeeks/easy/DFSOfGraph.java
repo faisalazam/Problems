@@ -79,7 +79,7 @@ public class DFSOfGraph {
         // Test Cases Passed:
         // 1115 /1120
         // Time Limit Exceeded
-        // Your program took more time than expected.Expected Time Limit
+        // Your program took more time than expected. Expected Time Limit
         final Stack<Integer> stack = new Stack<>();
         stack.push(src);
         while (!stack.isEmpty()) {
@@ -89,7 +89,9 @@ public class DFSOfGraph {
                 visited[currentVertex] = true;
             }
             // this implementation (as compared to the commented one) looks more like BFS with the only difference of
-            // iterating the adjacentVertices in reverse order
+            // iterating the adjacentVertices in reverse order.
+            // I think, it'd still be valid if we traverse the adjacent vertices in normal order instead of reverse
+            // order...It's just that the processing will be in little different order
             final List<Integer> adjacentVertices = adj.get(currentVertex);
             for (int adjacentVertexIndex = adjacentVertices.size() - 1; adjacentVertexIndex >= 0; adjacentVertexIndex--) {
                 Integer adjacentVertex = adjacentVertices.get(adjacentVertexIndex);
