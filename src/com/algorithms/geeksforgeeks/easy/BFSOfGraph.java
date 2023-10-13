@@ -33,6 +33,9 @@ import java.util.Queue;
  * <p>
  * Visited and
  * Not visited.
+ * <p>
+ * In DFS, before switching direction, we keep moving in one direction until we cannot move any further in that direction,
+ * whereas in BFS, all directions are explored quite evenly and that's why it's suited for finding shortest paths.
  */
 public class BFSOfGraph {
     /**
