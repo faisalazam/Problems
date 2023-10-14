@@ -26,6 +26,8 @@ public class FindNumberOfIslands {
         final char targetIslandChar = '1';
         final int rows = grid.length;
         final int columns = grid[0].length;
+        // visited array will avoid visiting the same cell multiple times as well as avoid getting into cycles (as this
+        // grid is essentially an undirected graph)
         final boolean[][] visited = new boolean[rows][columns];
         for (int row = 0; row < rows; row++) {
             final char[] rowValues = grid[row];
@@ -118,6 +120,8 @@ public class FindNumberOfIslands {
         final char targetIslandChar = '1';
         final int rows = grid.length;
         final int columns = grid[0].length;
+        // visited array will avoid visiting the same cell multiple times as well as avoid getting into cycles (as this
+        // grid is essentially an undirected graph)
         final boolean[][] visited = new boolean[rows][columns];
         for (int row = 0; row < rows; row++) {
             final char[] rowValues = grid[row];
@@ -184,6 +188,8 @@ public class FindNumberOfIslands {
         int numOfIslands = 0;
         final int rows = list.size();
         final int columns = list.get(0).size();
+        // visited array will avoid visiting the same cell multiple times as well as avoid getting into cycles (as this
+        // grid is essentially an undirected graph)
         final boolean[][] visited = new boolean[rows][columns];
         for (int row = 0; row < rows; row++) {
             final List<Integer> rowValues = list.get(row);

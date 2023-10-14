@@ -88,9 +88,17 @@ public class ReverseALinkedList {
      * Time Complexity: O(N), Visiting every node of the linked list of size N.
      * Auxiliary Space: O(N), Function call stack space
      */
-    Node reverseUti(Node head) {
-        // Not yet implemented
-        return null;
+    Node reverseUsingTailRecursive(Node head) {
+        return reverseUsingTailRecursive(head, null);
+    }
+
+    private Node reverseUsingTailRecursive(Node head, Node prev) {
+        if (head == null) {
+            return prev;
+        }
+        final Node next = head.next;
+        head.next = prev;
+        return reverseUsingTailRecursive(next, head);
     }
 
     /**

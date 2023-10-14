@@ -102,7 +102,8 @@ public class GraphOperationsWithAdjacencyList {
                 System.out.print(currentVertex + " ");
                 visited[currentVertex] = true;
             }
-            // this implementation (as compared to the commented one) looks more like BFS with the only difference of iterating the adjacentVertices in reverse order
+            // this implementation (as compared to the commented one) looks more like BFS with the only difference of
+            // iterating the adjacentVertices in reverse order
             List<Integer> adjacentVerticesToCurrentVertex = adjacentVertices[currentVertex];
             for (int adjacentVertexIndex = adjacentVerticesToCurrentVertex.size() - 1; adjacentVertexIndex >= 0; adjacentVertexIndex--) {
                 final int adjacentVertex = adjacentVerticesToCurrentVertex.get(adjacentVertexIndex);
@@ -242,6 +243,8 @@ public class GraphOperationsWithAdjacencyList {
      *
      * We'll complete DFS traversal for this, i.e. we must call depthFirstSearch() for every vertex so the
      * disconnected graphs can also be traversed.
+     *
+     * Similar to {@link com.algorithms.geeksforgeeks.medium.FindNumberOfIslands}
      */
     private int connectedComponentsCount() {
         int count = 0;
