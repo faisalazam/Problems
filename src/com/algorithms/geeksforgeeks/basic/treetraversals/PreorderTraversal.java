@@ -8,11 +8,11 @@ public class PreorderTraversal {
      * Given a binary tree, print preorder traversal of it. The task is to complete the function preorder(),
      * which accept root of the tree as argument.
      * For example: preorder traversal of below tree is "1 10 5 39"
-     *         1
-     *      /    \
-     *    10     39
-     *   /
-     *  5
+     * 1
+     * /    \
+     * 10     39
+     * /
+     * 5
      * <p>
      * https://practice.geeksforgeeks.org/problems/preorder-traversal/1
      * <p>
@@ -27,6 +27,32 @@ public class PreorderTraversal {
     }
 
     private static void preorderIterative(final Node root, final ArrayList<Integer> result) {
+        final Stack<Node> stack = new Stack<>();
+        if (root != null) {
+            stack.push(root);
+        }
+
+        while (!stack.isEmpty()) {
+            final Node currentNode = stack.pop();
+            processNode(currentNode, stack, result);
+        }
+    }
+
+    private static void processNode(final Node current,
+                                    final Stack<Node> stack,
+                                    final ArrayList<Integer> result) {
+        result.add(current.data);
+        addNode(current.right, stack);
+        addNode(current.left, stack);
+    }
+
+    private static void addNode(final Node node, final Stack<Node> stack) {
+        if (node != null) {
+            stack.push(node);
+        }
+    }
+
+    private static void preorderIterativeV1(final Node root, final ArrayList<Integer> result) {
         Node currentNode = root;
         final Stack<Node> stack = new Stack<>();
 
