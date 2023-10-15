@@ -15,6 +15,9 @@ import com.algorithms.geeksforgeeks.easy.BFSOfGraph;
  * to both the source node and the destination nodes, which is not always the case.
  * <p>
  * See {@link BFSOfGraph} for further details
+ * <p>
+ * Helpful video on Graph Operations:
+ * https://www.youtube.com/watch?v=tWVWeAqZ0WU&list=RDCMUC8butISFwT-Wl7EV0hUK0BQ&start_radio=1&t=1s
  */
 public class BFSOfGraphTemplate {
 }

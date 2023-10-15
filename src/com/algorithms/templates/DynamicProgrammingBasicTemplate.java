@@ -4,6 +4,9 @@ public class DynamicProgrammingBasicTemplate {
     /**
      * Optimisation: based on your problem, see if you need the dp array or you can replace it by having couple of extra
      * variables to maintain the states...
+     * <p>
+     * Helpful video on Dynamic Programming:
+     * https://www.youtube.com/watch?v=oBt53YbR9Kk&list=RDCMUC8butISFwT-Wl7EV0hUK0BQ&index=3
      */
     public int basicDPTemplate(int[] nums) {
         if (nums == null || nums.length == 0) {

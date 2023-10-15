@@ -4,6 +4,10 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class BinaryTreeDFSTemplate {
+    /**
+     * Helpful video on Tree Operations:
+     * https://www.youtube.com/watch?v=fAAZixBzIAI
+     */
     private void template(final Node root) { // iterative DFS
         Node currentNode = root;
         // This 'ArrayDeque' class is likely to be faster than Stack when used as a stack, and faster than LinkedList
