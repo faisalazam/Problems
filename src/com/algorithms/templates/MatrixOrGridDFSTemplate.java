@@ -5,7 +5,7 @@ public class MatrixOrGridDFSTemplate {
      * The idea is to apply Depth First Search from every cell ...
      * <p>
      * Time Complexity: O(n*m), as the grid is having n*m cells, and each cell is visited at max of one time.
-     * Auxiliary Space: O(n*m), as max number of stack frames in the recursion tree can go up to n*m,
+     * Auxiliary Space: O(n*m), as max number of stack frames in the recursion tree can go up to n*m (or n + m ????),
      * also the visited vector is of size n*m.
      */
     // Input can be in the form of the 2D array or List<List<?>>
