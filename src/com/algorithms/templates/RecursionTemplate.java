@@ -7,8 +7,11 @@ public class RecursionTemplate {
      * First step: Brute Force Solution:
      *   => Come up with basic recursive solution, which will consist of some base condition/s and recursive call/s
      *   => e.g. Like the Fibonacci problem, if each recursive call branches out to more calls, the runtime of such
-     *        algorithm will be exponential, i.e. (roughly 0(noOfCalls^n))
-     *   => Space Complexity: O(N).Auxiliary Space required by the recursive call stack is O(depth of recursion tree).
+     *        algorithm will be exponential, i.e. (roughly 0(noOfCalls^n)). If you draw a tree for Fibonacci problem,
+     *        you'll notice that the nodes at each level of the tree will be doubling up because it branches out twice,
+     *        i.e. 1, 2, 4, 8, 16, and so on. So, basically, you gonna end up multiplying noOfCalls with itself n times,
+     *        and hence the time complexity is 0(noOfCalls^n).
+     *   => Space Complexity: O(N). Auxiliary Space required by the recursive call stack is O(depth of recursion tree).
      *
      * Next: DP using Memoization (Top-down approach)
      *   => We can avoid the repeated work done in method 1(recursion) by storing the number of ways calculated so far.
