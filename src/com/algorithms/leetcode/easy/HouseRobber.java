@@ -72,51 +72,45 @@ public class HouseRobber {
         }
         final int[] dp = new int[nums.length];
         Arrays.fill(dp, -1);
-        return getMaxAmount(nums, nums.length - 1, dp);
+        return getMaxAmount(nums, 0, dp);
     }
 
 
-    private int getMaxAmount(int[] nums, int n, int[] dp) {
-        if (n < 0) {
+    private int getMaxAmount(int[] nums, int i, int[] dp) {
+        if (i >= nums.length) {
             return 0;
         }
-        if (n == 0) {
-            return nums[0];
+        if (dp[i] != -1) {
+            return dp[i];
         }
-        if (n == 1) {
-            return Integer.max(nums[1], nums[0]);
-        }
-        if (dp[n] != -1) {
-            return dp[n];
-        }
-        dp[n] = Integer.max(nums[n] + getMaxAmount(nums, n - 2, dp), getMaxAmount(nums, n - 1, dp));
-        return dp[n];
+        dp[i] = Integer.max(
+                nums[i] + getMaxAmount(nums, i + 2, dp),
+                getMaxAmount(nums, i + 1, dp)
+        );
+        return dp[i];
     }
 
     /**
      * Brute Force
      * <p>
-     * Time Complexity: O(N²).
-     * Space Complexity: O(N).
+     * Time Complexity: O(2^n).
+     * Space Complexity: O(n).
      */
     public int robV0(int[] nums) { // It results in Time Limit Exceeded
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        return getMaxAmount(nums, nums.length - 1);
+        return getMaxAmount(nums, 0);
     }
 
 
-    private int getMaxAmount(int[] nums, int n) {
-        if (n < 0) {
+    private int getMaxAmount(int[] nums, int i) {
+        if (i >= nums.length) {
             return 0;
         }
-        if (n == 0) {
-            return nums[0];
-        }
-        if (n == 1) {
-            return Integer.max(nums[1], nums[0]);
-        }
-        return Integer.max(nums[n] + getMaxAmount(nums, n - 2), getMaxAmount(nums, n - 1));
+        return Integer.max(
+                nums[i] + getMaxAmount(nums, i + 2),
+                getMaxAmount(nums, i + 1)
+        );
     }
 }
