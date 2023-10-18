@@ -21,9 +21,9 @@ public class HouseRobber {
             return nums[0];
         }
 
-        nums[1] = Math.max(nums[1], nums[0]);
+        nums[1] = Integer.max(nums[1], nums[0]);
         for (int i = 2; i < nums.length; i++) {
-            nums[i] = Math.max(nums[i] + nums[i - 2], nums[i - 1]);
+            nums[i] = Integer.max(nums[i] + nums[i - 2], nums[i - 1]);
         }
         return nums[nums.length - 1];
     }
@@ -39,26 +39,27 @@ public class HouseRobber {
         for (int i = 1; i < nums.length; i++) {
             final int newSum = prev2 + nums[i];
             prev2 = prev;
-            prev = Math.max(prev, newSum);
+            prev = Integer.max(prev, newSum);
         }
         return prev;
     }
 
     /**
-     * DP - Top Down (Optimise Memoized code using tabulation)
+     * DP - Top Down (Using tabulation)
      */
     public int robV2(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        int[] dp = new int[nums.length + 1];
+        final int size = nums.length;
+        final int[] dp = new int[size + 1];
         dp[0] = 0;
         dp[1] = nums[0];
 
-        for (int i = 1; i < nums.length; i++) {
-            dp[i + 1] = Math.max(dp[i], dp[i - 1] + nums[i]);
+        for (int i = 1; i < size; i++) {
+            dp[i + 1] = Integer.max(dp[i], dp[i - 1] + nums[i]);
         }
-        return dp[nums.length];
+        return dp[size];
     }
 
     /**
