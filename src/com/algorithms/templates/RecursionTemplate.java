@@ -42,5 +42,7 @@ public class RecursionTemplate {
      *   => Auxiliary Space: O(1), since no extra space has been taken.
      *
      * See {@link StaircaseThreeStepHopping} for implementation details
+     *
+     * Top-Down = Recursive and Bottom-Up = Iterative.
      */
 }
