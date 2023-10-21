@@ -17,9 +17,8 @@ import java.util.Stack;
  */
 public class AsteroidCollision {
     public int[] asteroidCollision(final int[] asteroids) {
-        final int noOfAsteroids = asteroids.length;
-        int len = processAsteroids(asteroids, noOfAsteroids) + 1;
-        return Arrays.copyOfRange(asteroids, 0, len);
+        final int noOfAsteroidsAfterCollision = processAsteroids(asteroids, asteroids.length) + 1;
+        return Arrays.copyOfRange(asteroids, 0, noOfAsteroidsAfterCollision);
     }
 
     private int processAsteroids(int[] asteroids, final int size) {
