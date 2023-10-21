@@ -11,7 +11,9 @@ package com.algorithms.leetcode.medium;
  * <p>
  * https://leetcode.com/problems/house-robber-iii/
  * <p>
- * Explanation: https://www.youtube.com/watch?v=nHR8ytpzz7c
+ * Explanation:
+ * https://www.youtube.com/watch?v=nHR8ytpzz7c
+ * https://leetcode.com/problems/house-robber-iii/solutions/79330/step-by-step-tackling-of-the-problem/
  */
 public class HouseRobberIII {
     public int rob(final TreeNode root) {
