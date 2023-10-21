@@ -1,4 +1,6 @@
-package com.algorithms.leetcode.easy;
+package com.algorithms.leetcode.medium;
+
+import com.algorithms.leetcode.easy.HouseRobber;
 
 /**
  * You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed.
