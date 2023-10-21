@@ -34,9 +34,11 @@ public class QueensThatCanAttackTheKing {
                 int row = king[0];
                 int column = king[1];
 
-                while (row + dRow >= 0 && row + dRow < boardSize && column + dColumn >= 0 && column + dColumn < boardSize) {
+                while (row + dRow >= 0 && row + dRow < boardSize
+                        && column + dColumn >= 0 && column + dColumn < boardSize) {
                     row += dRow;
                     column += dColumn;
+                    //If we found a queen then no needs to go further
                     if (seen[row][column]) {
                         results.add(Arrays.asList(row, column));
                         break;
