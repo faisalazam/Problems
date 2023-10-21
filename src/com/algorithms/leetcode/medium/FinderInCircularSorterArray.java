@@ -145,8 +145,8 @@ public class FinderInCircularSorterArray {
             }
             final int midValue = nums[mid];
             // Using the % just in case if mid is the last element in the list
-            // Added size so that index does not become -ve number in case mid is first element in the list
             final int nextValue = nums[((mid + 1) % size)];
+            // Added size so that index does not become -ve number in case mid is first element in the list
             final int previousValue = nums[((mid + size - 1) % size)];
             if (previousValue >= midValue && midValue <= nextValue) { // It's possible only for the min value
                 return mid;
