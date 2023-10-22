@@ -61,7 +61,7 @@ public class FindDuplicatesInArray {
     /*
      * Brute Force:
      * Compare all the values in the array with each other to check if there are any duplicates.
-     * Time Complexity: O(N^2)
+     * Time Complexity: O(N²)
      * Space Complexity: O(1)
      */
 
