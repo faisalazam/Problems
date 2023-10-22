@@ -4,6 +4,35 @@ import java.util.ArrayList;
 
 public class StockBuyAndSell {
     /**
+     * You are given an array prices where prices[i] is the price of a given stock on the ith day.
+     * <p>
+     * You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the
+     * future to sell that stock.
+     * <p>
+     * Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+     * <p>
+     * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+     * <p>
+     * Time Complexity: O(N)
+     * Auxiliary Space: O(1)
+     */
+    public int maxProfit(int[] prices) {
+        int left = 0;
+        int right = 1;
+        int maxProfit = Integer.MIN_VALUE;
+        while (right < prices.length) {
+            if (prices[right] > prices[left]) {
+                final int profit = prices[right] - prices[left];
+                maxProfit = Integer.max(maxProfit, profit);
+            } else {
+                left = right;
+            }
+            right++;
+        }
+        return Integer.max(maxProfit, 0);
+    }
+
+    /**
      * The cost of stock on each day is given in an array A[] of size N. Find all the segments of days on which you buy
      * and sell the stock so that in between those days for which profit can be generated.
      * <p>
@@ -15,7 +44,7 @@ public class StockBuyAndSell {
      * value represent the day on which you sell that stock. If there is No Profit, return an empty list.
      * <p>
      * Time Complexity: O(N)
-     * Expected Auxiliary Space: O(N)
+     * Auxiliary Space: O(N)
      */
     private static ArrayList<ArrayList<Integer>> stockBuySell(int A[], int n) {
         final ArrayList<ArrayList<Integer>> sales = new ArrayList<>();
@@ -90,7 +119,7 @@ public class StockBuyAndSell {
         // maxProfit adds up the difference between adjacent elements if they are in increasing order
         int maxProfit = 0;
 
-        // The loop starts from 1 as its comparing with the previous
+        // The loop starts from 1 as it's comparing with the previous
         for (int i = 1; i < size; i++) {
             if (prices[i] > prices[i - 1]) {
                 maxProfit += prices[i] - prices[i - 1];
