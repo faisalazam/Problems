@@ -47,7 +47,6 @@ public class KadanesAlgorithmContiguousSubArrayMaxSum {
      */
     public int maxSubArrayImproved(int[] nums) {
         int currentSum = 0;
-        final int size = nums.length;
         int maxSum = Integer.MIN_VALUE;
         for (int num : nums) {
             // if at any point sum becomes negative then no point keeping it because 0 is obviously greater than
