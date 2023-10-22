@@ -75,7 +75,7 @@ public class ProductOfArrayExceptSelf {
      * Maintain the count of zeroes in the array.
      * 1.) If count of zeroes is greater than 1 so the array will be empty (think about it)
      * 2.) If the count of zeroes is 0 then we need to just divide the product of array with every element
-     * 3.) Lastly if the count of zeroes if 1, then we need to find the index of zero and product of array without zero
+     * 3.) Lastly if the count of zeroes is 1, then we need to find the index of zero and product of array without zero
      * and then just place the product at index of zero and we are done
      * <p>
      * Time Complexity: O(N)

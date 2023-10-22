@@ -7,11 +7,12 @@ package com.algorithms.geeksforgeeks.medium;
  * Space Complexity: O(1)
  * <p>
  * https://practice.geeksforgeeks.org/problems/kadanes-algorithm/0
- *
+ * https://leetcode.com/problems/maximum-subarray/
+ * <p>
  * Kadane’s algorithm: This algorithm works on the principle of continuously adding the array value to the current sum
  * so far and update the max sum every time and whenever the current sum becomes negative then initialize it to zero
  * and continue the process, by this approach only one loop is required to compute the maximum sum contiguous subarray
- *
+ * <p>
  * Kadane’s Algorithm can be viewed both as greedy and DP. As we can see that we are keeping a running sum of integers
  * and when it becomes less than 0, we reset it to 0 (Greedy Part). This is because continuing with a negative sum is
  * way worse than restarting with a new range. Now it can also be viewed as a DP, at each stage we have 2 choices:
@@ -20,6 +21,9 @@ package com.algorithms.geeksforgeeks.medium;
  */
 public class KadanesAlgorithmContiguousSubArrayMaxSum {
     /**
+     * Kadane Algorithm
+     * Same as the below {@link #maxSubArrayImproved(int[])} method but just written little differently
+     * <p>
      * Time complexity : O(n)
      * Auxiliary space : O(1)
      */
@@ -35,6 +39,26 @@ public class KadanesAlgorithmContiguousSubArrayMaxSum {
             max = Math.max(max, currentMax);
         }
         return max;
+    }
+
+    /**
+     * Time Complexity: O(n)
+     * Space Complexity: O(1)
+     */
+    public int maxSubArrayImproved(int[] nums) {
+        int currentSum = 0;
+        final int size = nums.length;
+        int maxSum = Integer.MIN_VALUE;
+        for (int num : nums) {
+            // if at any point sum becomes negative then no point keeping it because 0 is obviously greater than
+            // negative, so just make your sum 0.
+            if (currentSum < 0) {
+                currentSum = 0;
+            }
+            currentSum += num;
+            maxSum = Integer.max(currentSum, maxSum);
+        }
+        return maxSum;
     }
 
     /**
@@ -61,12 +85,33 @@ public class KadanesAlgorithmContiguousSubArrayMaxSum {
     private static long contiguousSubArraySumV0(int[] arr, int n) { // Results in Time Limit Exceeded
         long max = arr[0];
         for (int i = 0; i < n; i++) {
-            long sum = 0;
+            long currentSum = 0;
             for (int j = i; j < n; j++) {
-                sum += arr[j];
-                max = Math.max(max, sum);
+                currentSum += arr[j];
+                max = Math.max(max, currentSum);
             }
         }
         return max;
+    }
+
+    /**
+     * Brute Force
+     * <p>
+     * Time Complexity: O(n^3)
+     * Space Complexity: O(1)
+     */
+    public int maxSubArrayBruteForce(int[] nums) { // Results in Time Limit Exceeded
+        final int size = nums.length;
+        int maxSum = Integer.MIN_VALUE;
+        for (int i = 0; i < size; i++) {
+            for (int j = i; j < size; j++) {
+                int currentSum = 0;
+                for (int k = i; k <= j; k++) {
+                    currentSum += nums[k];
+                }
+                maxSum = Integer.max(currentSum, maxSum);
+            }
+        }
+        return maxSum;
     }
 }
