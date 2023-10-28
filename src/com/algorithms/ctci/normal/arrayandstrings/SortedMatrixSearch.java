@@ -153,7 +153,8 @@ public class SortedMatrixSearch {
         return false;
     }
 
-    static boolean findElementUsingEuclideanDivision(int[][] matrix, int rows, int columns, int targetValue) { // Not tested
+    static boolean findElementUsingEuclideanDivision(int[][] matrix, int rows, int columns, int targetValue) { // Wrong Answer. !!!
+//        Possibly your code does not work correctly for multiple test-cases (TCs).
         int mid;
         int topLeft = 0;
         int bottomRight = ((rows - 1) * columns) + (columns - 1); // using Euclidean Division
