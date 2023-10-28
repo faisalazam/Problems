@@ -15,6 +15,8 @@ package com.algorithms.ctci.normal.arrayandstrings;
  * than the elements in row i between columns 0 and j - 1 and the elements in column j between rows 0 and i - 1.
  * This means that for any rectangle we draw in the matrix, the bottom right hand corner will always be the biggest.
  * Likewise, the top left hand corner will always be the smallest.
+ * <p>
+ * https://practice.geeksforgeeks.org/problems/search-in-a-matrix-1587115621/1
  */
 public class SortedMatrixSearch {
     /**
@@ -25,15 +27,14 @@ public class SortedMatrixSearch {
      * Time Complexity: O(N²), assuming M = N, otherwise O(M + N)
      * Auxiliary Space: O(1), since no extra space has been taken
      */
-    boolean findElementV0(int[][] matrix, int targetValue) {
-        final int n = matrix.length;
-        if (n == 0) {
+    boolean findElementV0(int[][] matrix, int rows, int columns, int targetValue) {
+        if (rows == 0 || columns == 0) {
             return false;
         }
 
-        for (int[] rows : matrix) {
-            for (int j = 0; j < n; j++) {
-                if (rows[j] == targetValue) {
+        for (int[] row : matrix) {
+            for (int j = 0; j < columns; j++) {
+                if (row[j] == targetValue) {
                     return true;
                 }
             }
@@ -61,10 +62,10 @@ public class SortedMatrixSearch {
      * O(M + N)
      * Auxiliary Space: O(1), No extra space is required
      */
-    boolean findElementV1(int[][] matrix, int targetValue) {
+    boolean findElementV1(int[][] matrix, int rows, int columns, int targetValue) {
         int row = 0;
-        int col = matrix[0].length - 1;
-        while (row < matrix.length && col >= 0) {
+        int col = columns - 1;
+        while (row < rows && col >= 0) {
             if (matrix[row][col] == targetValue) {
                 return true;
             } else if (matrix[row][col] > targetValue) {
@@ -104,7 +105,8 @@ public class SortedMatrixSearch {
         return findElement(matrix, matrix.length, matrix[0].length, targetValue);
     }
 
-    private static boolean findElement(int[][] matrix, int rows, int columns, int targetValue) {
+    private static boolean findElement(int[][] matrix, int rows, int columns, int targetValue) { // Wrong Answer. !!!
+//        Possibly your code does not work correctly for multiple test-cases (TCs).
         int middleRow;
         int low = 0;
         int high = rows - 1;
@@ -119,7 +121,7 @@ public class SortedMatrixSearch {
                 return true;
             }
 
-            if (firstValue < targetValue && targetValue < lastValue) { // this means the element must be within this row
+            if (firstValue <= targetValue && targetValue <= lastValue) { // this means the element must be within this row
                 return binarySearch(matrix, middleRow, columns, targetValue); // apply binary search as we do in 1-D array
             }
 
@@ -142,13 +144,37 @@ public class SortedMatrixSearch {
 
             if (matrix[row][mid] == targetValue) {
                 return true;
+            } else if (matrix[row][mid] > targetValue) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return false;
+    }
+
+    static boolean findElementUsingEuclideanDivision(int[][] matrix, int rows, int columns, int targetValue) { // Not tested
+        int mid;
+        int topLeft = 0;
+        int bottomRight = ((rows - 1) * columns) + (columns - 1); // using Euclidean Division
+        while (topLeft <= bottomRight) {
+            mid = topLeft + ((bottomRight - topLeft) / 2);
+            final int row;
+            final int column;
+            if (mid == 0) {
+                row = 0;
+                column = 0;
+            } else {
+                row = mid / columns;
+                column = mid % columns;
             }
 
-            if (matrix[row][mid] > targetValue) {
-                right = mid - 1;
-            }
-            if (matrix[row][mid] < targetValue) {
-                left = mid + 1;
+            if (matrix[row][column] == targetValue) {
+                return true;
+            } else if (matrix[row][column] > targetValue) {
+                bottomRight = mid - 1;
+            } else {
+                topLeft = mid + 1;
             }
         }
         return false;
