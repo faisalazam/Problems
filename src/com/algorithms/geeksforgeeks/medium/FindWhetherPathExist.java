@@ -5,7 +5,7 @@ import java.util.Queue;
 
 public class FindWhetherPathExist {
     /**
-     * Given a N X N matrix (M) filled with 1, 0, 2, 3. The task is to find whether there is a path possible
+     * Given a N X N matrix (grid) filled with 1, 0, 2, 3. The task is to find whether there is a path possible
      * from source to destination, while traversing through blank cells only. You can traverse up, down, right and left.
      * <p>
      * A value of cell 1 means Source.
@@ -16,30 +16,32 @@ public class FindWhetherPathExist {
      * <p>
      * https://practice.geeksforgeeks.org/problems/find-whether-path-exist/0
      */
-    private static int doesPathExist(int[][] M, int N) {
-        Integer[] src = find(M, N, 1);
-        Integer[] dest = find(M, N, 2);
-        if (src.length == 0 || dest.length == 0) {
-            return 0;
+    private static boolean doesPathExist(int[][] grid) {
+        final int size = grid.length;
+        final Integer[] srcCoordinates = findCell(grid, size, 1);
+        final Integer[] destCoordinates = findCell(grid, size, 2);
+        if (srcCoordinates.length == 0 || destCoordinates.length == 0) {
+            return false;
         }
-        boolean[][] visited = new boolean[N][N];
-        Queue<Integer[]> queue = new LinkedList<>();
-        queue.offer(src);
+        final boolean[][] visited = new boolean[size][size];
+        final Queue<Integer[]> queue = new LinkedList<>();
+        queue.offer(srcCoordinates);
         while (!queue.isEmpty()) {
-            Integer[] curr = queue.poll();
-            if (curr[0].equals(dest[0]) && curr[1].equals(dest[1])) {
-                return 1;
+            final Integer[] curr = queue.poll();
+            // check if the curr coordinates are same as the destination
+            if (curr[0].equals(destCoordinates[0]) && curr[1].equals(destCoordinates[1])) {
+                return true;
             }
             visited[curr[0]][curr[1]] = true;
-            addToQueue(curr[0] - 1, curr[1], M, N, visited, queue);
-            addToQueue(curr[0] + 1, curr[1], M, N, visited, queue);
-            addToQueue(curr[0], curr[1] - 1, M, N, visited, queue);
-            addToQueue(curr[0], curr[1] + 1, M, N, visited, queue);
+            addToQueue(curr[0] - 1, curr[1], grid, size, visited, queue);
+            addToQueue(curr[0] + 1, curr[1], grid, size, visited, queue);
+            addToQueue(curr[0], curr[1] - 1, grid, size, visited, queue);
+            addToQueue(curr[0], curr[1] + 1, grid, size, visited, queue);
         }
-        return 0;
+        return false;
     }
 
-    private static Integer[] find(int[][] M, int N, int value) {
+    private static Integer[] findCell(int[][] M, int N, int value) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
                 if (M[i][j] == value) {
