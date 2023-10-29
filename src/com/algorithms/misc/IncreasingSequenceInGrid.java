@@ -6,6 +6,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/**
+ * Given a matrix with n rows and m columns. Your task is to find the length of the longest increasing path in matrix,
+ * here increasing path means that the value in the specified path increases. For example if a path of length k has
+ * values a1, a2, a3, .... ak  , then for every i from [2,k] this condition must hold ai > ai-1.  No cell should be
+ * revisited in the path.
+ * <p>
+ * From each cell, you can either move in four directions: left, right, up, or down. You are not allowed to move
+ * diagonally or move outside the boundary.
+ * <p>
+ * https://practice.geeksforgeeks.org/problems/longest-increasing-path-in-a-matrix/1
+ * <p>
+ * Expected Time Complexity: O(n*m)
+ * Expected Auxiliary Space: O(n*m)
+ */
 public class IncreasingSequenceInGrid {
 //    e.g. Given:
 //
@@ -40,7 +54,6 @@ public class IncreasingSequenceInGrid {
         boolean[][] visited = new boolean[rows][columns];
         int maxLength = Integer.MIN_VALUE;
         for (int row = 0; row < rows; row++) {
-            int[] rowVals = grid[row];
             for (int column = 0; column < columns; column++) {
                 int currentCount = getSequenceCount(grid, row, column, visited);
                 maxLength = Math.max(maxLength, currentCount);
@@ -126,28 +139,29 @@ public class IncreasingSequenceInGrid {
         return mem[row][column];
     }
 
-    private static int[][] moves = new int[][]{
-            {1, 0}, {0, 1}, {-1, 0}, {0, -1}
-    };
-
     /**
      * OR Could have done this :(
      */
-    public int longestIncreasingPathAnother(int[][] matrix) {
-        if (matrix.length == 0)
+    public int longestIncreasingPathAnother(int[][] matrix, int rows, int columns) {
+        if (rows == 0 || columns == 0) {
             return 0;
+        }
 
-        int[][] longestPathAtPos = new int[matrix.length][matrix[0].length];
+        final int[][] longestPathAtPos = new int[rows][columns];
         for (int[] longestPathAtPo : longestPathAtPos) {
             Arrays.fill(longestPathAtPo, -1);
         }
 
+        final int[][] moves = new int[][]{
+                {1, 0}, {0, 1}, {-1, 0}, {0, -1}
+        };
 
         int lengthOfMaxSeq = Integer.MIN_VALUE;
-        for (int i = 0; i < matrix.length; i++)
-            for (int j = 0; j < matrix[0].length; j++) {
-                lengthOfMaxSeq = Math.max(lengthOfMaxSeq, dfsToMaxPath(i, j, matrix, longestPathAtPos));
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                lengthOfMaxSeq = Math.max(lengthOfMaxSeq, dfsToMaxPath(row, column, matrix, moves, longestPathAtPos));
             }
+        }
 
         // for(int i = 0; i < longestPathAtPos.length; i++)
         //     System.out.println(Arrays.toString(longestPathAtPos[i]));
@@ -155,9 +169,10 @@ public class IncreasingSequenceInGrid {
         return lengthOfMaxSeq;
     }
 
-    private int dfsToMaxPath(int row, int col, int[][] matrix, int[][] longestPathAtPos) {
-        if (longestPathAtPos[row][col] != -1)
+    private int dfsToMaxPath(int row, int col, int[][] matrix, int[][] moves, int[][] longestPathAtPos) {
+        if (longestPathAtPos[row][col] != -1) {
             return longestPathAtPos[row][col];
+        }
 
         longestPathAtPos[row][col] = 1;
 
@@ -170,7 +185,7 @@ public class IncreasingSequenceInGrid {
                     && matrix[nextRow][nextCol] > matrix[row][col]) {
                 longestPathAtPos[row][col] = Math.max(
                         longestPathAtPos[row][col],
-                        dfsToMaxPath(nextRow, nextCol, matrix, longestPathAtPos) + 1
+                        1 + dfsToMaxPath(nextRow, nextCol, matrix, moves, longestPathAtPos)
                 );
             }
         }
