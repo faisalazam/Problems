@@ -62,7 +62,7 @@ public class SortedMatrixSearch {
      * O(M + N)
      * Auxiliary Space: O(1), No extra space is required
      */
-    boolean findElementV1(int[][] matrix, int rows, int columns, int targetValue) {
+    static boolean findElementV1(int[][] matrix, int rows, int columns, int targetValue) {
         int row = 0;
         int col = columns - 1;
         while (row < rows && col >= 0) {
@@ -105,8 +105,9 @@ public class SortedMatrixSearch {
         return findElement(matrix, matrix.length, matrix[0].length, targetValue);
     }
 
-    private static boolean findElement(int[][] matrix, int rows, int columns, int targetValue) { // Wrong Answer. !!!
-//        Possibly your code does not work correctly for multiple test-cases (TCs).
+    // This solution works for sorted matrices where the first cell values of the current row is greater than the last
+    // cell value of the previous row
+    private static boolean findElement(int[][] matrix, int rows, int columns, int targetValue) {
         int middleRow;
         int low = 0;
         int high = rows - 1;
@@ -153,8 +154,9 @@ public class SortedMatrixSearch {
         return false;
     }
 
-    static boolean findElementUsingEuclideanDivision(int[][] matrix, int rows, int columns, int targetValue) { // Wrong Answer. !!!
-//        Possibly your code does not work correctly for multiple test-cases (TCs).
+    // This solution works for sorted matrices where the first cell values of the current row is greater than the last
+    // cell value of the previous row.
+    static boolean findElementUsingEuclideanDivision(int[][] matrix, int rows, int columns, int targetValue) {
         int mid;
         int topLeft = 0;
         int bottomRight = ((rows - 1) * columns) + (columns - 1); // using Euclidean Division
@@ -163,6 +165,7 @@ public class SortedMatrixSearch {
             final int row = mid / columns;
             final int column = mid % columns;
 
+//            System.out.println("mid=" + mid + ", (row, column)=(" + row + ", " + column + ")");
             if (matrix[row][column] == targetValue) {
                 return true;
             } else if (matrix[row][column] > targetValue) {
@@ -172,6 +175,23 @@ public class SortedMatrixSearch {
             }
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+        final int target = 63;
+        final int[][] matrix = new int[][]{
+                {3, 4, 5, 13, 13, 15, 15, 24, 30, 31},
+                {13, 14, 19, 19, 27, 31, 32, 33, 35, 62},
+                {14, 23, 24, 25, 36, 37, 38, 44, 44, 63},
+                {30, 34, 36, 38, 40, 42, 43, 47, 55, 65},
+                {36, 39, 40, 41, 42, 51, 51, 58, 59, 69},
+                {43, 44, 44, 49, 56, 59, 64, 64, 75, 82},
+                {46, 46, 47, 63, 64, 66, 67, 70, 85, 89},
+                {54, 57, 58, 65, 67, 70, 74, 88, 88, 93},
+                {70, 72, 75, 76, 90, 90, 91, 93, 93, 98},
+                {84, 85, 93, 95, 96, 97, 97, 99, 100, 100}
+        };
+        System.out.println(findElementV1(matrix, matrix.length, matrix[0].length, target));
     }
 
     /*
