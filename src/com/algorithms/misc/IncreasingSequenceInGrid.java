@@ -159,7 +159,7 @@ public class IncreasingSequenceInGrid {
         int lengthOfMaxSeq = Integer.MIN_VALUE;
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                lengthOfMaxSeq = Math.max(lengthOfMaxSeq, dfsToMaxPath(row, column, matrix, moves, longestPathAtPos));
+                lengthOfMaxSeq = Math.max(lengthOfMaxSeq, dfsToMaxPath(row, rows, column, columns, matrix, moves, longestPathAtPos));
             }
         }
 
@@ -169,7 +169,13 @@ public class IncreasingSequenceInGrid {
         return lengthOfMaxSeq;
     }
 
-    private int dfsToMaxPath(int row, int col, int[][] matrix, int[][] moves, int[][] longestPathAtPos) {
+    private int dfsToMaxPath(int row,
+                             int rows,
+                             int col,
+                             int cols,
+                             int[][] matrix,
+                             int[][] moves,
+                             int[][] longestPathAtPos) {
         if (longestPathAtPos[row][col] != -1) {
             return longestPathAtPos[row][col];
         }
@@ -180,12 +186,12 @@ public class IncreasingSequenceInGrid {
             int nextRow = row + move[0];
             int nextCol = col + move[1];
 
-            if ((nextRow >= 0 && nextRow < matrix.length)
-                    && (nextCol >= 0 && nextCol < matrix[0].length)
+            if ((nextRow >= 0 && nextRow < rows)
+                    && (nextCol >= 0 && nextCol < cols)
                     && matrix[nextRow][nextCol] > matrix[row][col]) {
                 longestPathAtPos[row][col] = Math.max(
                         longestPathAtPos[row][col],
-                        1 + dfsToMaxPath(nextRow, nextCol, matrix, moves, longestPathAtPos)
+                        1 + dfsToMaxPath(nextRow, rows, nextCol, cols, matrix, moves, longestPathAtPos)
                 );
             }
         }
