@@ -1,17 +1,21 @@
 package com.algorithms.misc;
 
+import com.algorithms.geeksforgeeks.medium.FindNumberOfIslands;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
  * Given N * M string array of O's and X's. The task is to find the number of 'X' total shapes.
  * 'X' shape consists of one or more adjacent X's (diagonals not included).
- *
+ * <p>
  * https://practice.geeksforgeeks.org/problems/x-total-shapes/0
+ * <p>
+ * Almost same as {@link FindNumberOfIslands}
  */
 public class XTotalShapes {
     public static void main(String[] args) {
-        char[][] matrix = {
+        final char[][] matrix = {
                 {'O', 'O', 'O', 'O', 'X', 'X', 'O'},
                 {'O', 'X', 'O', 'X', 'O', 'O', 'X'},
                 {'X', 'X', 'X', 'X', 'O', 'X', 'O'},
@@ -19,7 +23,7 @@ public class XTotalShapes {
         };
         System.out.println("Recursive: Total X shapes are => " + getTotalShapes(matrix));
 
-        char[][] clone = {
+        final char[][] clone = {
                 {'O', 'O', 'O', 'O', 'X', 'X', 'O'},
                 {'O', 'X', 'O', 'X', 'O', 'O', 'X'},
                 {'X', 'X', 'X', 'X', 'O', 'X', 'O'},
@@ -33,7 +37,7 @@ public class XTotalShapes {
         if (matrix == null || matrix.length == 0) {
             return totalShapes;
         }
-        Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
+        final Queue<Pair<Integer, Integer>> queue = new LinkedList<>();
         for (int row = 0; row < matrix.length; row++) {
             for (int column = 0; column < matrix[row].length; column++) {
                 if (matrix[row][column] == 'X') {
@@ -48,9 +52,9 @@ public class XTotalShapes {
 
     private static void handleAdjacentShapes(char[][] matrix, Queue<Pair<Integer, Integer>> queue) {
         while (!queue.isEmpty()) {
-            Pair<Integer, Integer> currentCell = queue.poll();
-            int row = currentCell.fst;
-            int column = currentCell.snd;
+            final Pair<Integer, Integer> currentCell = queue.poll();
+            final int row = currentCell.fst;
+            final int column = currentCell.snd;
 
             matrix[row][column] = 'O';
             if (row - 1 >= 0 && matrix[row - 1][column] == 'X') {
@@ -97,6 +101,8 @@ public class XTotalShapes {
     }
 
     private static boolean isNotValid(int row, int column, char[][] matrix) {
-        return row < 0 || row >= matrix.length || column < 0 || column >= matrix[row].length || matrix[row][column] == 'O';
+        return row < 0 || row >= matrix.length
+                || column < 0 || column >= matrix[row].length
+                || matrix[row][column] == 'O';
     }
 }
