@@ -160,15 +160,8 @@ public class SortedMatrixSearch {
         int bottomRight = ((rows - 1) * columns) + (columns - 1); // using Euclidean Division
         while (topLeft <= bottomRight) {
             mid = topLeft + ((bottomRight - topLeft) / 2);
-            final int row;
-            final int column;
-            if (mid == 0) {
-                row = 0;
-                column = 0;
-            } else {
-                row = mid / columns;
-                column = mid % columns;
-            }
+            final int row = mid / columns;
+            final int column = mid % columns;
 
             if (matrix[row][column] == targetValue) {
                 return true;
