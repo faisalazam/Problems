@@ -21,7 +21,7 @@ public class FindWhetherPathExist {
      * is O(n²).
      * Space Complexity: O(n*n). Space is required to create the queue.
      */
-    private static boolean doesPathExist(int[][] grid) {
+    private static boolean doesPathExistBFS(int[][] grid) {
         final int size = grid.length;
         final Integer[] srcCoordinates = findCell(grid, size, 1);
         if (srcCoordinates.length == 0) {
@@ -62,6 +62,50 @@ public class FindWhetherPathExist {
                 queue.offer(new Integer[]{i, j});
             }
         }
+    }
+
+    /**
+     * Time Complexity: O(n*n).In the worst case, every cell of the matrix is visited only once so the time complexity
+     * is O(n²).
+     * Space Complexity: O(n*n). Space is required to store the visited array
+     */
+    public static boolean doesPathExistDFS(int[][] grid) {
+        final int size = grid.length;
+        final Integer[] srcCoordinates = findCell(grid, size, 1);
+        if (srcCoordinates.length == 0) {
+            return false;
+        }
+        final boolean[][] visited = new boolean[size][size];
+        return isPath(grid, size, srcCoordinates[0], srcCoordinates[1], visited);
+    }
+
+    private static boolean isPath(int[][] grid, int size, int i, int j, boolean[][] visited) {
+        if (isNotValid(i, j, size, visited) || grid[i][j] == 0) {
+            return false;
+        }
+        visited[i][j] = true;
+
+        if (grid[i][j] == 2)
+            return true;
+
+        boolean up = isPath(grid, size, i - 1, j, visited);
+
+        if (up)
+            return true;
+
+        boolean left = isPath(grid, size, i, j - 1, visited);
+
+        if (left)
+            return true;
+
+        boolean down = isPath(grid, size, i + 1, j, visited);
+
+        if (down)
+            return true;
+
+        boolean right = isPath(grid, size, i, j + 1, visited);
+
+        return right;
     }
 
     private static boolean isNotValid(int i, int j, int N, boolean[][] visited) {
