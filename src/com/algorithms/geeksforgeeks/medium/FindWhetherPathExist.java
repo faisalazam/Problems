@@ -3,18 +3,23 @@ package com.algorithms.geeksforgeeks.medium;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * Given a N X N matrix (grid) filled with 1, 0, 2, 3. The task is to find whether there is a path possible
+ * from source to destination, while traversing through blank cells only. You can traverse up, down, right and left.
+ * <p>
+ * A value of cell 1 means Source.
+ * A value of cell 2 means Destination.
+ * A value of cell 3 means Blank cell.
+ * A value of cell 0 means Blank Wall.
+ * Note: there is only single source and single destination.
+ * <p>
+ * https://practice.geeksforgeeks.org/problems/find-whether-path-exist/0
+ */
 public class FindWhetherPathExist {
     /**
-     * Given a N X N matrix (grid) filled with 1, 0, 2, 3. The task is to find whether there is a path possible
-     * from source to destination, while traversing through blank cells only. You can traverse up, down, right and left.
-     * <p>
-     * A value of cell 1 means Source.
-     * A value of cell 2 means Destination.
-     * A value of cell 3 means Blank cell.
-     * A value of cell 0 means Blank Wall.
-     * Note: there is only single source and single destination.
-     * <p>
-     * https://practice.geeksforgeeks.org/problems/find-whether-path-exist/0
+     * Time Complexity: O(n*n).In the worst case, every cell of the matrix is visited only once so the time complexity
+     * is O(n²).
+     * Space Complexity: O(n*n). Space is required to create the queue.
      */
     private static boolean doesPathExist(int[][] grid) {
         final int size = grid.length;
