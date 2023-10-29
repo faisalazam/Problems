@@ -224,6 +224,7 @@ src/com/algorithms
         ├── MatrixOrGridBFSTemplate.java
         ├── MatrixOrGridDFSTemplate.java
         ├── RecursionTemplate.java
-        └── SlowFastPointerTemplate.java
+        ├── SlowFastPointerTemplate.java
+        └── TwoDArrayTo1DArrayUsingEuclideanDivisionTemplate.java
 
-28 directories, 199 files
+28 directories, 200 files
