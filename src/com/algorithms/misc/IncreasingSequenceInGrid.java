@@ -183,8 +183,8 @@ public class IncreasingSequenceInGrid {
         longestPathAtPos[row][col] = 1;
 
         for (int[] move : moves) {
-            int nextRow = row + move[0];
-            int nextCol = col + move[1];
+            final int nextRow = row + move[0];
+            final int nextCol = col + move[1];
 
             if ((nextRow >= 0 && nextRow < rows)
                     && (nextCol >= 0 && nextCol < cols)
