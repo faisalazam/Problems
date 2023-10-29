@@ -76,10 +76,10 @@ public class FindWhetherPathExist {
             return false;
         }
         final boolean[][] visited = new boolean[size][size];
-        return isPath(srcCoordinates[0], srcCoordinates[1], size, grid, visited);
+        return doesPathExistDFS(srcCoordinates[0], srcCoordinates[1], size, grid, visited);
     }
 
-    private static boolean isPath(int i, int j, int size, int[][] grid, boolean[][] visited) {
+    private static boolean doesPathExistDFS(int i, int j, int size, int[][] grid, boolean[][] visited) {
         if (isNotValid(i, j, size, visited) || grid[i][j] == 0) {
             return false;
         }
@@ -89,10 +89,10 @@ public class FindWhetherPathExist {
             return true;
         }
 
-        return isPath(i - 1, j, size, grid, visited)
-                || isPath(i, j - 1, size, grid, visited)
-                || isPath(i + 1, j, size, grid, visited)
-                || isPath(i, j + 1, size, grid, visited);
+        return doesPathExistDFS(i - 1, j, size, grid, visited)
+                || doesPathExistDFS(i, j - 1, size, grid, visited)
+                || doesPathExistDFS(i + 1, j, size, grid, visited)
+                || doesPathExistDFS(i, j + 1, size, grid, visited);
     }
 
     private static boolean isNotValid(int i, int j, int size, boolean[][] visited) {
