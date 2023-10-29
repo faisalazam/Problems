@@ -102,39 +102,35 @@ public class IncreasingSequenceInGrid {
     /**
      * Could have done this :(
      */
-    public int longestIncreasingPath(int[][] matrix) {
-        rows = matrix.length;
-        if (rows == 0) return 0;
-        columns = matrix[0].length;
-        mem = new int[rows][columns];
+    public int longestIncreasingPath(int[][] matrix, int rows, int columns) {
+        if (rows == 0 || columns == 0) {
+            return 0;
+        }
         int max = 0;
+        final int[][] mem = new int[rows][columns];
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                max = Math.max(max, DFS(matrix, row, column, Integer.MIN_VALUE));
+                max = Integer.max(max, DFS(matrix, mem, row, rows, column, columns, Integer.MIN_VALUE));
             }
         }
         return max;
     }
 
-    private int rows;
-    private int columns;
-    private int[][] mem;
-
-    private int DFS(int[][] mat, int row, int column, int prev) {
+    private int DFS(int[][] mat, int[][] mem, int row, int rows, int column, int columns, int prev) {
         if (row < 0 || row >= rows || column < 0 || column >= columns || mat[row][column] <= prev) {
             return 0;
         }
         if (mem[row][column] == 0) {
             prev = mat[row][column];
-            int len1 = Math.max(
-                    DFS(mat, row - 1, column, prev),
-                    DFS(mat, row + 1, column, prev)
+            int len1 = Integer.max(
+                    DFS(mat, mem, row - 1, rows, column, columns, prev),
+                    DFS(mat, mem, row + 1, rows, column, columns, prev)
             );
-            int len2 = Math.max(
-                    DFS(mat, row, column - 1, prev),
-                    DFS(mat, row, column + 1, prev)
+            int len2 = Integer.max(
+                    DFS(mat, mem, row, rows, column - 1, columns, prev),
+                    DFS(mat, mem, row, rows, column + 1, columns, prev)
             );
-            mem[row][column] = 1 + Math.max(len1, len2);
+            mem[row][column] = 1 + Integer.max(len1, len2);
         }
         return mem[row][column];
     }
@@ -159,7 +155,10 @@ public class IncreasingSequenceInGrid {
         int lengthOfMaxSeq = Integer.MIN_VALUE;
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                lengthOfMaxSeq = Math.max(lengthOfMaxSeq, dfsToMaxPath(row, rows, column, columns, matrix, moves, longestPathAtPos));
+                lengthOfMaxSeq = Math.max(
+                        lengthOfMaxSeq,
+                        dfsToMaxPath(row, rows, column, columns, matrix, moves, longestPathAtPos)
+                );
             }
         }
 
