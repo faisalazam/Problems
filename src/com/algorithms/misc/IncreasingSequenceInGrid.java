@@ -43,20 +43,20 @@ public class IncreasingSequenceInGrid {
 //    adjacent increasing numbers in the grid.  Note that this question is not completely defined.
 
 
-    List<Integer> getLongestSequence(int[][] grid) {
-        if (grid.length == 0) {
-            return new ArrayList<Integer>();
+    List<Integer> getLongestSequence(int[][] matrix) { // Not Working
+        if (matrix.length == 0) {
+            return new ArrayList<>();
         }
 
-        int rows = grid.length;
-        int columns = grid[0].length;
+        final int rows = matrix.length;
+        final int columns = matrix[0].length;
 
-        boolean[][] visited = new boolean[rows][columns];
+        final boolean[][] visited = new boolean[rows][columns];
         int maxLength = Integer.MIN_VALUE;
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                int currentCount = getSequenceCount(grid, row, column, visited);
-                maxLength = Math.max(maxLength, currentCount);
+                int currentCount = getSequenceCount(matrix, row, column, visited);
+                maxLength = Integer.max(maxLength, currentCount);
             }
         }
         return null;//maxLength;
@@ -64,7 +64,7 @@ public class IncreasingSequenceInGrid {
 
     private int getSequenceCount(int[][] grid, int row, int column, boolean[][] visited) {
 
-        Queue<Integer> queue = new LinkedList<Integer>();
+        final Queue<Integer> queue = new LinkedList<>();
         queue.offer(grid[row][column]);
         visited[row][column] = true;
 
