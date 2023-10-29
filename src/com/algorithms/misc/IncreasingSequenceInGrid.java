@@ -122,11 +122,11 @@ public class IncreasingSequenceInGrid {
         }
         if (mem[row][column] == 0) {
             prev = mat[row][column];
-            int len1 = Integer.max(
+            final int len1 = Integer.max(
                     DFS(mat, mem, row - 1, rows, column, columns, prev),
                     DFS(mat, mem, row + 1, rows, column, columns, prev)
             );
-            int len2 = Integer.max(
+            final int len2 = Integer.max(
                     DFS(mat, mem, row, rows, column - 1, columns, prev),
                     DFS(mat, mem, row, rows, column + 1, columns, prev)
             );
