@@ -24,8 +24,7 @@ public class FindWhetherPathExist {
     private static boolean doesPathExist(int[][] grid) {
         final int size = grid.length;
         final Integer[] srcCoordinates = findCell(grid, size, 1);
-        final Integer[] destCoordinates = findCell(grid, size, 2);
-        if (srcCoordinates.length == 0 || destCoordinates.length == 0) {
+        if (srcCoordinates.length == 0) {
             return false;
         }
         final boolean[][] visited = new boolean[size][size];
@@ -33,8 +32,8 @@ public class FindWhetherPathExist {
         queue.offer(srcCoordinates);
         while (!queue.isEmpty()) {
             final Integer[] curr = queue.poll();
-            // check if the curr coordinates are same as the destination
-            if (curr[0].equals(destCoordinates[0]) && curr[1].equals(destCoordinates[1])) {
+            // check if the curr value is same as the destination
+            if (grid[curr[0]][curr[1]] == 2) {
                 return true;
             }
             visited[curr[0]][curr[1]] = true;
