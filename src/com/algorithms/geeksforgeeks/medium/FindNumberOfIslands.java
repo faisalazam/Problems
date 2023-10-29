@@ -14,6 +14,7 @@ public class FindNumberOfIslands {
      * of the grid are having '1', also the visited vector is of size n*m.
      * <p>
      * https://practice.geeksforgeeks.org/problems/find-the-number-of-islands/1
+     * https://leetcode.com/problems/number-of-islands/description/
      * <p>
      * The idea is to apply Breadth First Search from every cell having '1' and not visited, mark all cells in their
      * connected components which is having '1' as visited and increase the answer by one.
@@ -54,16 +55,16 @@ public class FindNumberOfIslands {
         visited[row][column] = true;
 
         while (!queue.isEmpty()) {
-            final int currentPixel = queue.poll();
-            final int currentRow = currentPixel / columns;
-            final int currentColumn = currentPixel % columns;
+            final int currentCell = queue.poll();
+            final int currentRow = currentCell / columns;
+            final int currentColumn = currentCell % columns;
 
             // You may not need to visit all the neighbours, so choose the ones from below according to your requirements
-            // visit adjacent neighbours on left and right
+            // visit adjacent neighbours on up and down
             addCell(currentRow - 1, rows, currentColumn, columns, grid, queue, visited); // Top
             addCell(currentRow + 1, rows, currentColumn, columns, grid, queue, visited); // Down
 
-            // visit adjacent neighbours on up and down
+            // visit adjacent neighbours on left and right
             addCell(currentRow, rows, currentColumn - 1, columns, grid, queue, visited); // Left
             addCell(currentRow, rows, currentColumn + 1, columns, grid, queue, visited); // Right
 
