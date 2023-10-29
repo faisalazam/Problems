@@ -76,39 +76,26 @@ public class FindWhetherPathExist {
             return false;
         }
         final boolean[][] visited = new boolean[size][size];
-        return isPath(grid, size, srcCoordinates[0], srcCoordinates[1], visited);
+        return isPath(srcCoordinates[0], srcCoordinates[1], size, grid, visited);
     }
 
-    private static boolean isPath(int[][] grid, int size, int i, int j, boolean[][] visited) {
+    private static boolean isPath(int i, int j, int size, int[][] grid, boolean[][] visited) {
         if (isNotValid(i, j, size, visited) || grid[i][j] == 0) {
             return false;
         }
         visited[i][j] = true;
 
-        if (grid[i][j] == 2)
+        if (grid[i][j] == 2) {
             return true;
+        }
 
-        boolean up = isPath(grid, size, i - 1, j, visited);
-
-        if (up)
-            return true;
-
-        boolean left = isPath(grid, size, i, j - 1, visited);
-
-        if (left)
-            return true;
-
-        boolean down = isPath(grid, size, i + 1, j, visited);
-
-        if (down)
-            return true;
-
-        boolean right = isPath(grid, size, i, j + 1, visited);
-
-        return right;
+        return isPath(i - 1, j, size, grid, visited)
+                || isPath(i, j - 1, size, grid, visited)
+                || isPath(i + 1, j, size, grid, visited)
+                || isPath(i, j + 1, size, grid, visited);
     }
 
-    private static boolean isNotValid(int i, int j, int N, boolean[][] visited) {
-        return i < 0 || i >= N || j < 0 || j >= N || visited[i][j];
+    private static boolean isNotValid(int i, int j, int size, boolean[][] visited) {
+        return i < 0 || i >= size || j < 0 || j >= size || visited[i][j];
     }
 }
