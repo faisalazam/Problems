@@ -8,10 +8,13 @@ import java.util.Queue;
  * the array obtained after merging the given arrays.
  * <p>
  * https://practice.geeksforgeeks.org/problems/sum-of-middle-elements-of-two-sorted-arrays/0
+ * <p>
+ * Expected Time Complexity: O(log N)
+ * Expected Auxiliary Space: O(1)
  */
 public class SumOfMiddleElementsOfTwoSortedArrays {
 
-    // Time Complexity: O(k)
+    // Time Complexity: O(n)
     // Auxiliary Space: O(1)
     private static int findMidSum(int[] ar1, int[] ar2, int n) {
         int i = 0;
@@ -62,7 +65,7 @@ public class SumOfMiddleElementsOfTwoSortedArrays {
      * Time Complexity: O(NlogN)
      * Auxiliary Space: O(2n) => O(n)
      */
-    private static int findMidSumV1(int[] ar1, int[] ar2, int n) {
+    private static int findMidSumV1(int[] ar1, int[] ar2, int n) { // Results in Time Limit Exceeded sometimes
         final Queue<Integer> priorityQueue = new PriorityQueue<>();
         for (int i = 0; i < n; i++) {
             priorityQueue.offer(ar1[i]);
@@ -81,5 +84,30 @@ public class SumOfMiddleElementsOfTwoSortedArrays {
             x--;
         }
         return -1;
+    }
+
+    /**
+     * Time Complexity: O(n)
+     * Auxiliary Space : O(2n) => O(n)
+     */
+    private static int findMidSumV0(int[] ar1, int[] ar2, int n) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        final int[] merged = new int[2 * n];
+        while (i < n && j < n) {
+            if (ar1[i] < ar2[j]) {
+                merged[k++] = ar1[i++];
+            } else {
+                merged[k++] = ar2[j++];
+            }
+        }
+        while (i < n) {
+            merged[k++] = ar1[i++];
+        }
+        while (j < n) {
+            merged[k++] = ar2[j++];
+        }
+        return merged[n - 1] + merged[n];
     }
 }
