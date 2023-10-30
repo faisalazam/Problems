@@ -9,10 +9,10 @@ public class LevelOrderTraversalWithSeparator {
      * For the below tree the output will be 1 $ 2 3 $ 4 5 6 7 $ 8 $.
      *
      *           1
-     *        /     \
-     *      2        3
-     *    /    \     /   \
-     *   4     5   6    7
+     *        /    \
+     *      2       3
+     *     / \     / \
+     *    4   5   6   7
      *     \
      *      8
      * <p>
@@ -22,8 +22,8 @@ public class LevelOrderTraversalWithSeparator {
         if (node == null) {
             return;
         }
-        Node levelTerminationNode = new Node(Integer.MIN_VALUE);
-        Queue<Node> queue = new LinkedList<>();
+        final Node levelTerminationNode = new Node(Integer.MIN_VALUE);
+        final Queue<Node> queue = new LinkedList<>();
         queue.offer(node);
         queue.offer(levelTerminationNode);
         while (queue.size() != 1) {
@@ -44,7 +44,7 @@ public class LevelOrderTraversalWithSeparator {
         System.out.print("$");
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node left;
         Node right;
