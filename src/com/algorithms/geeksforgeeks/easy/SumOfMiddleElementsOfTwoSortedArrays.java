@@ -110,4 +110,34 @@ public class SumOfMiddleElementsOfTwoSortedArrays {
         }
         return merged[n - 1] + merged[n];
     }
+
+    /**
+     * Time Complexity: O(log N)
+     * Auxiliary Space: O(1)
+     */
+    private static int findMidSumOptimised(int[] ar1, int[] ar2, int n) {
+        int end = n;
+        int start = 0;
+        int l1, r1, l2, r2, mid1, mid2;
+
+        while (start <= end) {
+            mid1 = start + ((end - start) / 2);
+            mid2 = n - mid1;
+
+            l1 = (mid1 == 0) ? Integer.MIN_VALUE : ar1[mid1 - 1];
+            l2 = (mid2 == 0) ? Integer.MIN_VALUE : ar2[mid2 - 1];
+
+            r1 = (mid1 == n) ? Integer.MAX_VALUE : ar1[mid1];
+            r2 = (mid2 == n) ? Integer.MAX_VALUE : ar2[mid2];
+
+            if (l1 <= r2 && l2 <= r1) {
+                return Integer.max(l1, l2) + Integer.min(r1, r2);
+            } else if (l1 > r2) {
+                end = mid1 - 1;
+            } else {
+                start = mid1 + 1;
+            }
+        }
+        return -1;
+    }
 }
