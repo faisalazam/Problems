@@ -46,7 +46,7 @@ public class StringCompression {
      * It's slow because string concatenation operates in 0(n²) time
      */
     public static String compressBad(String str) {
-        int size = countCompression(str);
+        final int size = countCompression(str);
         if (size >= str.length()) {
             return str;
         }
@@ -69,13 +69,13 @@ public class StringCompression {
      * Improved by using StringBuilder
      */
     private static String compressBetter(String str) {
-        int size = countCompression(str);
+        final int size = countCompression(str);
         if (size >= str.length()) {
             return str;
         }
         int count = 1;
         char last = str.charAt(0);
-        StringBuilder stringBuilder = new StringBuilder();
+        final StringBuilder stringBuilder = new StringBuilder();
         for (int i = 1; i < str.length(); i++) {
             if (str.charAt(i) == last) {
                 count++;
@@ -89,14 +89,14 @@ public class StringCompression {
     }
 
     private static String compressAlternate(String str) {
-        int size = countCompression(str);
+        final int size = countCompression(str);
         if (size >= str.length()) {
             return str;
         }
         int index = 0;
         int count = 1;
         char last = str.charAt(0);
-        char[] array = new char[size];
+        final char[] array = new char[size];
         for (int i = 1; i < str.length(); i++) {
             if (str.charAt(i) == last) {
                 count++;
@@ -106,7 +106,7 @@ public class StringCompression {
                 count = 1;
             }
         }
-        index = setChar(array, last, index, count);
+        setChar(array, last, index, count);
         return String.valueOf(array);
     }
 
