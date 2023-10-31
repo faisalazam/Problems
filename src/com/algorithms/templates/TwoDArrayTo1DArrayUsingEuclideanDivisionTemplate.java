@@ -12,8 +12,8 @@ public class TwoDArrayTo1DArrayUsingEuclideanDivisionTemplate {
         final int rows = matrix.length;
         final int columns = matrix[0].length;
 
-        // the very last (bottom right) index using Euclidean Division
         final int euclideanMultiplierDivisor = columns;
+        // the very last (bottom right) index using Euclidean Division => (row * euclideanMultiplierDivisor) + column
         int oneDimensionalIndex = ((rows - 1) * euclideanMultiplierDivisor) + (columns - 1); // converting 2D index into 1D index
         while (oneDimensionalIndex >= 0) { // loop is just to print the row/col values. It's not part of the actual template
             final int row = oneDimensionalIndex / euclideanMultiplierDivisor; // extracting the row index
