@@ -28,6 +28,8 @@ public class CheckIfCircularLinkedList {
     }
 
     // This might be slower than the upper one as the fast pointer used above might find it in may be around n/2...
+    // well, it may not be the real solution too, because the loop does not really need to start at the head of the list
+    // as the loop can be anywhere in the list
     boolean isCircular1(Node head) {
         if (head == null || head.next == null) {
             return false;
