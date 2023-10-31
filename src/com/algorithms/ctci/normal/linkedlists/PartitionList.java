@@ -21,19 +21,17 @@ public class PartitionList {
             if (node.data < x) {
                 if (beforeStart == null) {
                     beforeStart = node;
-                    beforeEnd = node;
                 } else {
                     beforeEnd.next = node;
-                    beforeEnd = node;
                 }
+                beforeEnd = node;
             } else {
                 if (afterStart == null) {
                     afterStart = node;
-                    afterEnd = node;
                 } else {
                     afterEnd.next = node;
-                    afterEnd = node;
                 }
+                afterEnd = node;
             }
             node = next;
         }
