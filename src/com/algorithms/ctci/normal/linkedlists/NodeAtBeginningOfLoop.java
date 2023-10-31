@@ -57,8 +57,6 @@ public class NodeAtBeginningOfLoop {
         // same pace, they must meet at Loop Start.
         // After detecting the loop, if we start the slow pointer from the head and move both slow and fast pointers at
         // the same speed until fast don’t meet, they would meet at the beginning of the loop.
-        // Move slow to Head. Keep fast at Meeting Point. Each are k steps from the Loop Start. If they move at the
-        // same pace, they must meet at Loop Start.
         // See this for more information: https://www.geeksforgeeks.org/detect-and-remove-loop-in-a-linked-list/
         //
         // n --> Length of the loop cycle
@@ -82,8 +80,8 @@ public class NodeAtBeginningOfLoop {
         //
         // So if we start moving both pointers again at the same speed such that one pointer (say slow) begins from the
         // head node of the linked list and other pointers (say fast) begins from the meeting point. When the slow
-        // pointer reaches the beginning of the loop (has made m steps), the fast pointer would have made also moved
-        // m steps as they are now moving the same pace. Since m+k is a multiple of n and fast starts from k, they
+        // pointer reaches the beginning of the loop (has made m steps), the fast pointer would have also moved
+        // m steps as they are now moving at the same pace. Since m+k is a multiple of n and fast starts from k, they
         // would meet at the beginning. Can they meet before also? No, because the slow pointer enters the cycle first
         // time after m steps.
         slow = head;
