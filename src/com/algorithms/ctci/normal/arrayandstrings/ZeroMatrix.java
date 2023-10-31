@@ -1,20 +1,31 @@
 package com.algorithms.ctci.normal.arrayandstrings;
 
+/**
+ * Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
+ * <p>
+ * You must do it in place.
+ * <p>
+ * https://leetcode.com/problems/set-matrix-zeroes/description/
+ */
 public class ZeroMatrix {
-    /**
-     * Zero Matrix: Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0
-     */
     // Brute-force
-    private static void setZerosV0(int[][] matrix) {
+    private static void setZerosV0(int[][] matrix) { // fails for the matrices which contains Integer.MIN_VALUE as cell value
         final int rows = matrix.length;
         final int columns = matrix[0].length;
 
         for (int i = 0; i < rows; i++) {
-            final int[] row = matrix[i];
             for (int j = 0; j < columns; j++) {
-                if (row[j] == 0) {
-                    nullifyRow(matrix, i);
-                    nullifyColumn(matrix, j);
+                if (matrix[i][j] == 0) {
+                    nullifyRow(matrix, i, Integer.MIN_VALUE);
+                    nullifyColumn(matrix, j, Integer.MIN_VALUE);
+                }
+            }
+        }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (matrix[i][j] == Integer.MIN_VALUE) {
+                    matrix[i][j] = 0;
                 }
             }
         }
@@ -22,7 +33,7 @@ public class ZeroMatrix {
 
     // We can avoid visiting the rows and columns again and again after they are zeroed to improve the algo just a
     // little bit by using extra space to maintain a record of already zeroed rows and columns.
-    private static void setZerosV1(int[][] matrix) {
+    private static void setZerosV1(int[][] matrix) { // fails for the matrices which contains Integer.MIN_VALUE as cell value
         final int rows = matrix.length;
         final int columns = matrix[0].length;
         final boolean[] visitedRows = new boolean[rows];
@@ -33,11 +44,19 @@ public class ZeroMatrix {
                 final int[] row = matrix[i];
                 for (int j = 0; j < columns; j++) {
                     if (!visitedColumns[j] && row[j] == 0) {
-                        nullifyRow(matrix, i);
-                        nullifyColumn(matrix, j);
+                        nullifyRow(matrix, i, Integer.MIN_VALUE);
+                        nullifyColumn(matrix, j, Integer.MIN_VALUE);
                         visitedRows[i] = true;
                         visitedColumns[j] = true;
                     }
+                }
+            }
+        }
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (matrix[i][j] == Integer.MIN_VALUE) {
+                    matrix[i][j] = 0;
                 }
             }
         }
@@ -144,5 +163,31 @@ public class ZeroMatrix {
         for (int i = 0; i < matrix.length; i++) {
             matrix[i][col] = 0;
         }
+    }
+
+    private static void nullifyRow(int[][] matrix, int row, int value) {
+        for (int j = 0; j < matrix[0].length; j++) {
+            if (matrix[row][j] != 0) {
+                matrix[row][j] = value;
+            }
+        }
+    }
+
+    private static void nullifyColumn(int[][] matrix, int col, int value) {
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i][col] != 0) {
+                matrix[i][col] = value;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        final int[][] matrix = {
+                {0, 1, 2, 0},
+                {3, 4, 5, 2},
+                {1, 3, 1, 5}
+        };
+        setZerosV0(matrix);
+        System.out.println();
     }
 }
