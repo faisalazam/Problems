@@ -35,8 +35,8 @@ public class KadanesAlgorithmContiguousSubArrayMaxSum {
             // To print the subarray with the maximum sum the idea is to maintain start index of maximum_sum_ending_here
             // at current index so that whenever maximum_sum_so_far is updated with maximum_sum_ending_here then start
             // index and end index of subarray can be updated with start and current index.
-            currentMax = Math.max(arr[i], currentMax + arr[i]);
-            max = Math.max(max, currentMax);
+            currentMax = Long.max(arr[i], currentMax + arr[i]);
+            max = Long.max(max, currentMax);
         }
         return max;
     }
@@ -69,8 +69,8 @@ public class KadanesAlgorithmContiguousSubArrayMaxSum {
         dp[0] = arr[0];
         long max = dp[0];
         for (int i = 1; i < n; i++) {
-            dp[i] = Math.max(dp[i - 1], 0) + arr[i];
-            max = Math.max(max, dp[i]);
+            dp[i] = Long.max(dp[i - 1], 0) + arr[i];
+            max = Long.max(max, dp[i]);
         }
         return max;
     }
@@ -87,7 +87,7 @@ public class KadanesAlgorithmContiguousSubArrayMaxSum {
             long currentSum = 0;
             for (int j = i; j < n; j++) {
                 currentSum += arr[j];
-                max = Math.max(max, currentSum);
+                max = Long.max(max, currentSum);
             }
         }
         return max;
