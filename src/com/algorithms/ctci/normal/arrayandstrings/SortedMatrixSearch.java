@@ -24,7 +24,7 @@ public class SortedMatrixSearch {
      * <p>
      * The simple idea is to traverse the array and search elements one by one
      * <p>
-     * Time Complexity: O(N²), assuming M = N, otherwise O(M + N)
+     * Time Complexity: O(N²), assuming M = N, otherwise O(M * N)
      * Auxiliary Space: O(1), since no extra space has been taken
      */
     boolean findElementV0(int[][] matrix, int rows, int columns, int targetValue) {
@@ -33,8 +33,8 @@ public class SortedMatrixSearch {
         }
 
         for (int[] row : matrix) {
-            for (int j = 0; j < columns; j++) {
-                if (row[j] == targetValue) {
+            for (int column = 0; column < columns; column++) {
+                if (row[column] == targetValue) {
                     return true;
                 }
             }
@@ -66,11 +66,16 @@ public class SortedMatrixSearch {
         int row = 0;
         int col = columns - 1;
         while (row < rows && col >= 0) {
-            if (matrix[row][col] == targetValue) {
+            final int value = matrix[row][col];
+            if (value == targetValue) {
                 return true;
-            } else if (matrix[row][col] > targetValue) {
+            } else if (value > targetValue) {
+                // that means the entire column can be eliminated as all the values in the current column will be
+                // greater than the targetValue
                 col--;
             } else {
+                // that means the current row can be eliminated (because the targetValue > rightMostCellValue)
+                // and move to the next row
                 row++;
             }
         }
@@ -90,7 +95,7 @@ public class SortedMatrixSearch {
      * on the first and last column.
      * *   low=0, high=n-1
      * *   i) if( k< first element of row(a[mid][0]) ) => k must exist in the row above
-     * *                                            => high=mid-1;
+     * *                                             => high=mid-1;
      * *   ii) if( k> last element of row(a[mid][m-1])) => k must exist in the row below
      * *                                             => low=mid+1;
      * *   iii) if( k> first element of row(a[mid][0]) &&  k< last element of row(a[mid][m-1]))
@@ -156,14 +161,17 @@ public class SortedMatrixSearch {
 
     // This solution works for sorted matrices where the first cell values of the current row is greater than the last
     // cell value of the previous row.
+    @SuppressWarnings("UnnecessaryLocalVariable")
     static boolean findElementUsingEuclideanDivision(int[][] matrix, int rows, int columns, int targetValue) {
         int mid;
         int topLeft = 0;
-        int bottomRight = ((rows - 1) * columns) + (columns - 1); // using Euclidean Division
+        final int euclideanMultiplierDivisor = columns;
+        // converting 2D index into 1D index using Euclidean Division
+        int bottomRight = ((rows - 1) * euclideanMultiplierDivisor) + (columns - 1);
         while (topLeft <= bottomRight) {
             mid = topLeft + ((bottomRight - topLeft) / 2);
-            final int row = mid / columns;
-            final int column = mid % columns;
+            final int row = mid / euclideanMultiplierDivisor; // extracting the row index
+            final int column = mid % euclideanMultiplierDivisor; // extracting the column index
 
 //            System.out.println("mid=" + mid + ", (row, column)=(" + row + ", " + column + ")");
             if (matrix[row][column] == targetValue) {
