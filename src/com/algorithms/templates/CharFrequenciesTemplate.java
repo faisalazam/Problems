@@ -7,6 +7,7 @@ public class CharFrequenciesTemplate {
     private static final int NO_OF_CHARS = 256;
     private static final int NO_OF_ALPHABETS = 26;
     private static final int NO_OF_ASCII_CHARS = 128;
+    private static final int NO_OF_ALPHANUMERICS = 36;
 
     /**
      * 'a' => int value is 97
@@ -64,7 +65,7 @@ public class CharFrequenciesTemplate {
      * i.e. 36 characters array required to store 0-9 digits + [a-z][A-Z] case insensitive alphabets
      */
     private int[] caseInsensitiveAlphanumericCharFrequencies(final String text) {
-        final int[] charFrequencies = new int[36];
+        final int[] charFrequencies = new int[NO_OF_ALPHANUMERICS];
         Arrays.fill(charFrequencies, 0);
 
         for (int i = 0; i < text.length(); i++) {
