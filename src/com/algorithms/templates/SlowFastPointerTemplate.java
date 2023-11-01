@@ -2,14 +2,14 @@ package com.algorithms.templates;
 
 public class SlowFastPointerTemplate {
     /**
-     * "hare and tortoise" or "tortoise and hare" or "slow and fast" pointers approach: moving one pointer at half t
-     * he speed of the other.
+     * "hare and tortoise" or "tortoise and hare" or "slow and fast" pointers approach: moving one pointer at half the
+     * speed of the other.
      * <p>
      * After the while loop, if fast is not null, then that means list size is odd.
      * That also means that slow will be in the mid, i.e. if size is 7, then there will be 3 nodes before slow,
      * as well as 3 nodes after slow
      * <p>
-     * On the other hand, if fast is null, then that means list size is even and in that case, slow will at mid + 1,
+     * On the other hand, if fast is null, then that means list size is even and in that case, slow will be at mid + 1,
      * i.e. if size is 6, then there will be 3 nodes before slow, but 2 nodes after slow
      */
     void slowFastRunnerTemplate(LinkedListNode head) {
