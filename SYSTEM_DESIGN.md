@@ -1584,3 +1584,5 @@ environment and opportunities for career development. Additionally, agoda.com is
 presence, which would allow me to further develop my cross-cultural skills.
 
 agoda.com's top 5 competitors in August 2023 are: booking.com, hotels.com, tripadvisor.com, expedia.com, and more.
+
+https://tianpan.co/notes/2016-02-13-crack-the-system-design-interview/
