@@ -72,3 +72,27 @@ Below are the Big O performance of common functions of different Java Collection
 | TreeMap               | O(log n) | O(log n)    | O(log n) | Red-black tree           |
 | ConcurrentHashMap     | O(1)     | O(1)        | O(h / n) | Hash Tables              |
 | ConcurrentSkipListMap | O(log n) | O(log n)    | O(1)     | Skip List                |
+
+
+
+
+https://www.youtube.com/@abdul_bari/playlists
+
+
+Dynamic Programming 1D - Full Course
+https://www.youtube.com/watch?v=_i4Yxeh5ceQ
+
+NeetCode's Channel (https://neetcode.io/practice)
+https://www.youtube.com/@NeetCode/playlists
+
+Leetcode 75 Questions (NeetCode on yt)
+https://docs.google.com/spreadsheets/d/1A2PaQKcdwO_lwxz9bAnxXnIQayCouZP6d-ENrBz_NXc/edit#gid=0
+
+https://seanprashad.com/leetcode-patterns/?ref=hackernoon.com
+
+https://github.com/RodneyShag/Cracking-the-Coding-Interview_solutions
+
+https://medium.com/tech-pulse/every-resource-i-used-to-get-500k-software-engineering-offers-bae44a0097c7
+
+
+SizeOfBinaryTree.java (Understand the Morris Traversal)
