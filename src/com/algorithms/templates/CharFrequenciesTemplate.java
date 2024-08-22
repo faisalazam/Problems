@@ -20,6 +20,8 @@ public class CharFrequenciesTemplate {
 
         for (char character : text.toCharArray()) {
             // Subtracting 'a' from the Character will make the character's int value zero based
+            // We can also add the "if (Character.isLowerCase(character))" the safety check to avoid errors in case
+            // the input string contains any character other than lower case characters.
             charFrequencies[character - 'a']++;
         }
         return charFrequencies;
@@ -36,6 +38,8 @@ public class CharFrequenciesTemplate {
 
         for (int i = 0; i < text.length(); i++) {
             // Subtracting 'A' from the Character will make the character's int value zero based
+            // We can also add the "if (Character.isUpperCase(character))" the safety check to avoid errors in case
+            // the input string contains any character other than upper case characters.
             charFrequencies[text.charAt(i) - 'A']++;
         }
         return charFrequencies;
@@ -52,6 +56,8 @@ public class CharFrequenciesTemplate {
 
         for (int i = 0; i < text.length(); i++) {
             // Subtracting '0' from the Character will make the character's int value zero based
+            // We can also add the "if (Character.isDigit(character))" the safety check to avoid errors in case
+            // the input string contains any character other than a digit.
             charFrequencies[text.charAt(i) - '0']++;
         }
         return charFrequencies;
@@ -69,7 +75,9 @@ public class CharFrequenciesTemplate {
         Arrays.fill(charFrequencies, 0);
 
         for (int i = 0; i < text.length(); i++) {
-            charFrequencies[Character.getNumericValue(i)]++;
+            // We can also add the "if (Character.isLetterOrDigit(character))" the safety check to avoid errors in case
+            // the input string contains any character other than 0-9 digits + [a-z][A-Z] case insensitive alphabets.
+            charFrequencies[Character.getNumericValue(text.charAt(i))]++;
         }
         return charFrequencies;
     }
@@ -111,6 +119,10 @@ public class CharFrequenciesTemplate {
         final int[] charFrequencies = new int[NO_OF_ALPHABETS];
         Arrays.fill(charFrequencies, 0);
 
+        // This assumes that both strings are of the same length and lower-cased. The following loop can be adjusted to
+        // take care of strings of different lengths or strings with upper-case/mixed-case characters.
+        // We can also add the "if (Character.isLetter(character))" the safety check to avoid errors in case
+        // the input string contains any character other than [a-z][A-Z] case insensitive alphabets.
         for (int i = 0; i < str1.length(); i++) {
             charFrequencies[str1.charAt(i) - 'a']++;
             charFrequencies[str2.charAt(i) - 'a']--;

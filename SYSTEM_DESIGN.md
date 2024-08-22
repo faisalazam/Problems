@@ -1578,6 +1578,8 @@ Agoda's Values
 * Take ownership and make a difference
 * Be direct and respectful
 
+"Log Kestrel" is Agoda's in-house log aggregation platform, written in Rust and inspired by the Grafana Loki
+
 Why do you want to work for Agoda?
 I am interested in working at agoda.com because it is a leading online travel company that offers a great work
 environment and opportunities for career development. Additionally, agoda.com is a company with a strong international
