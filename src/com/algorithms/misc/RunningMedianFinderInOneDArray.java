@@ -31,6 +31,8 @@ public class RunningMedianFinderInOneDArray {
 
     //PriorityQueue peek and offer methods => O(log(n))
     private static void addNumber(int num, Queue<Integer> lowers, Queue<Integer> highers) {
+        // This step seems unnecessary as we can simply add the num to any of the heaps as
+        // the rebalance method will take care of maintaining the balance. 
         Queue<Integer> queue = (lowers.isEmpty() || num < lowers.peek()) ? lowers : highers;
         queue.offer(num);
     }
