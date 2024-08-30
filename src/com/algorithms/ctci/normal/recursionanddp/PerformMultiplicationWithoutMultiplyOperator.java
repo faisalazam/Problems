@@ -38,6 +38,6 @@ public class PerformMultiplicationWithoutMultiplyOperator {
 
     public static void main(String[] args) {
         PerformMultiplicationWithoutMultiplyOperator multiply = new PerformMultiplicationWithoutMultiplyOperator();
-        System.out.println(multiply.minProduct(3, 5));
+        System.out.println(multiply.minProduct(5, 6));
     }
 }

@@ -11,7 +11,7 @@ public class JumpGame {
      * Determine if you are able to reach the last index.
      * <p>
      * https://leetcode.com/problems/jump-game/
-     *
+     * <p>
      * https://leetcode.com/problems/jump-game/solutions/2375320/interview-scenario-recursion-memoization-dp-greedy/?envType=study-plan-v2&envId=top-interview-150
      */
     public boolean canJump(int[] nums) {
@@ -30,11 +30,13 @@ public class JumpGame {
         int reach = 0;
 
         for (int idx = 0; idx < nums.length; idx++) {
-            //at every index I'll check if my reach was atleast able to
+            //at every index I'll check if my reach was at least able to
             //reach that particular index.
 
             //reach >= idx -> great, carry on. Otherwise,
-            if (reach < idx) return false;
+            if (reach < idx) {
+                return false;
+            }
 
             //now as you can reach this index, it's time to update your reach
             //as at every index, you're getting a new jump length.

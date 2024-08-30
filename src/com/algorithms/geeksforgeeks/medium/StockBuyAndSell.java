@@ -24,7 +24,7 @@ public class StockBuyAndSell {
             if (prices[right] > prices[left]) {
                 final int profit = prices[right] - prices[left];
                 maxProfit = Integer.max(maxProfit, profit);
-            } else {
+            } else { // I think, for max profit it's better to set left = right only if prices[right] < prices[left]
                 left = right;
             }
             right++;

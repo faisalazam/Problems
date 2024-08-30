@@ -19,7 +19,7 @@ public class SortArrayByPeaksAndValleys {
      * 3. At each element, swap it with the previous element. Since every three elements appear in the order
      * small <= medium <= large , swapping these elements will always put medium as a peak: medium <= small <= large.
      * This approach will ensure that the peaks are in the right place: indexes 1, 3, 5, and so on.
-     * As long as the odd- numbered elements (the peaks) are bigger than the adjacent elements,
+     * As long as the odd-numbered elements (the peaks) are bigger than the adjacent elements,
      * then the even-numbered elements (the valleys) must be smaller than the adjacent elements.
      * <p>
      * This algorithm runs in 0(n log n) time.

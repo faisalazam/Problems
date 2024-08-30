@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinaryTreePaths {
+    private static final String ARROW = "->";
+
     /**
      * Given a binary tree, return all root-to-leaf paths.
      * <p>
@@ -16,29 +18,55 @@ public class BinaryTreePaths {
         if (root == null) {
             return results;
         }
-        String currentPath = Integer.toString(root.val);
-        buildPaths(currentPath, root, results);
+        StringBuilder sb = new StringBuilder();
+        buildPaths(root, results, sb);
         return results;
     }
 
-    // PreOrder?
-    private void buildPaths(String currentPath, TreeNode node, List<String> results) {
-        if (node.left == null || node.right == null) {
+    private void buildPaths(TreeNode node, List<String> results, StringBuilder stringBuilder) {
+        if (node == null) {
+            return;
+        }
+        int sbLength = stringBuilder.length();
+        stringBuilder.append(node.val);
+        if (node.left == null && node.right == null) {
+            results.add(stringBuilder.toString());
+        } else {
+            stringBuilder.append(ARROW);
+            buildPaths(node.left, results, stringBuilder);
+            buildPaths(node.right, results, stringBuilder);
+        }
+        // Need to set the length of the StringBuilder to the one it was at the time of the recursive call,
+        // as otherwise it'll contain the intermediate node values
+        stringBuilder.setLength(sbLength);
+    }
+
+    public List<String> binaryTreePathsV0(TreeNode root) {
+        List<String> results = new ArrayList<>();
+        if (root == null) {
+            return results;
+        }
+        buildPathsV0("", root, results);
+        return results;
+    }
+
+    private void buildPathsV0(String currentPath, TreeNode node, List<String> results) {
+        if (node == null) {
+            return;
+        }
+        if (!currentPath.isEmpty()) {
+            currentPath += ARROW;
+        }
+        currentPath += node.val;
+        if (node.left == null && node.right == null) {
             results.add(currentPath);
             return;
         }
-        dfs(currentPath, node.left, results); // No need to node.left null check as it is already checked
-        if (node.right != null) {
-            dfs(currentPath, node.right, results);
-        }
+        buildPathsV0(currentPath, node.left, results);
+        buildPathsV0(currentPath, node.right, results);
     }
 
-    private void dfs(String currentPath, TreeNode node, List<String> results) {
-        currentPath += "->" + node.val;
-        buildPaths(currentPath, node, results);
-    }
-
-    private class TreeNode {
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

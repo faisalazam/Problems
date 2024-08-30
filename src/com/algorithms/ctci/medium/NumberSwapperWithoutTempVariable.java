@@ -2,6 +2,8 @@ package com.algorithms.ctci.medium;
 
 public class NumberSwapperWithoutTempVariable {
     /*
+        No risk of overflow as the max value in the below calculations will be the max(a, b)
+
         a=9, b=4; a>b
         a = a - b; 9 - 4 = 5 // a = difference between a and b
         b = b + a; 4 + 5 = 9 // b = b + difference between a and b
@@ -12,8 +14,21 @@ public class NumberSwapperWithoutTempVariable {
         b = b + a; 9 + (-5) = 4
         a = b - a; 4 - (-5) = 9;
 
+        OR, the following formula can work too but there's a possibility of overflow
+        as the addition is done before subtraction
+
+        a=9, b=4; a>b
+        a = a + b; 9 + 4 = 13
+        b = a - b; 13 - 4 = 9
+        a = a - b; 13 - 9 = 4
+
+        a=4, b=9; a<b
+        a = a + b; 4 + 9 = 13
+        b = a - b; 13 - 9 = 4
+        a = a - b; 13 - 4 = 9
+
         if swapping array elements using this approach, then ensure that i != j, because this approach will result
-        in 0 when i == j.
+        in 0 when numbers to be swapped are equal, i.e., i == j.
     */
     public void swap(int a, int b) {
         a = a - b;

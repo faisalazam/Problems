@@ -3,7 +3,7 @@ package com.algorithms.ctci.normal.arrayandstrings;
 public class StringCompression {
     /**
      * String Compression: Implement a method to perform basic string compression using the counts of repeated characters.
-     * For example, the string aabcccccaaa would become a2blc5a3. If the "compressed "string would not become smaller
+     * For example, the string aabcccccaaa would become a2b1c5a3. If the "compressed "string would not become smaller
      * than the original string, your method should return the original string. You can assume the string has only
      * uppercase and lowercase letters (a - z),
      */
@@ -29,11 +29,11 @@ public class StringCompression {
             if (str.charAt(i) == last) {
                 count++;
             } else {
-                count = 1;
-                last = str.charAt(i);
                 // Converting count to String to count the number of chars instead of simple int addition
                 // e.g. if count = 100 => 1 + 100 = 101, but 1 + "100".length() = 1 + 3 = 4 chars
                 size += 1 + String.valueOf(count).length();
+                count = 1;
+                last = str.charAt(i);
             }
         }
         size += 1 + String.valueOf(count).length();
@@ -57,7 +57,7 @@ public class StringCompression {
             if (str.charAt(i) == last) {
                 count++;
             } else {
-                compressedStr += last + "" + count;
+                compressedStr += last + String.valueOf(count);
                 last = str.charAt(i);
                 count = 1;
             }
@@ -114,10 +114,10 @@ public class StringCompression {
         String str = "abbccccccde";
         int c = countCompression(str);
         String str2 = compressAlternate(str);
-        String t = compressBetter("");
-        System.out.println("Compression: " + t);
+        String str3 = compressBetter(str);
         System.out.println("Old String (len = " + str.length() + "): " + str);
         System.out.println("New String (len = " + str2.length() + "): " + str2);
+        System.out.println("Better String (len = " + str3.length() + "): " + str3);
         System.out.println("Potential Compression: " + c);
     }
 }
