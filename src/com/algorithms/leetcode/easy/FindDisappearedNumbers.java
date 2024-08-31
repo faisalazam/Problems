@@ -27,7 +27,7 @@ public class FindDisappearedNumbers {
      * Time Complexity: O(N), Where n is the number of nums in the array.
      * Auxiliary Space: O(1), Where n is the number of nums in the array.
      */
-    public List<Integer> findDisappearedNumbers(int[] nums) {
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
         for (int i = 0; i < nums.length; i++) {
             // Get the mapped index for nums[i], using Math.abs only once => NOTE in problem description -> 1 ≤ a[i] ≤ n
             final int index = Math.abs(nums[i]) - 1;
@@ -53,7 +53,7 @@ public class FindDisappearedNumbers {
      * Time Complexity: O(N), Where n is the number of nums in the array.
      * Auxiliary Space: O(N), Where n is the number of nums in the array.
      */
-    public List<Integer> findDisappearedNumbersV0(int[] nums) {
+    public static List<Integer> findDisappearedNumbersV0(int[] nums) {
         final Set<Integer> uniqueNums = new HashSet<>();
         for (int num : nums) {
             uniqueNums.add(num);
@@ -66,5 +66,12 @@ public class FindDisappearedNumbers {
             }
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{4, 3, 2, 7, 8, 2, 3, 1};
+        System.out.println(findDisappearedNumbers(nums));
+        int[] nums1 = new int[]{4, 3, 2, 7, 8, 2, 3, 1};
+        System.out.println(findDisappearedNumbersV0(nums1));
     }
 }

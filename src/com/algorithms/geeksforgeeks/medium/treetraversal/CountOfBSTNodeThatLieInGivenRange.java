@@ -3,10 +3,10 @@ package com.algorithms.geeksforgeeks.medium.treetraversal;
 public class CountOfBSTNodeThatLieInGivenRange {
     /**
      * Given a Binary Search Tree (BST) and a range l-h(inclusive), count the number of nodes in the BST that lie in the given range.
-     *
+     * <p>
      * The values smaller than root go to the left side
      * The values greater and equal to the root go to the right side
-     *
+     * <p>
      * https://practice.geeksforgeeks.org/problems/count-bst-nodes-that-lie-in-a-given-range/1
      */
     private static int getCountOfNode(Node root, int l, int h) {
@@ -24,7 +24,7 @@ public class CountOfBSTNodeThatLieInGivenRange {
         return getCountOfNode(root.left, l, h);
     }
 
-    private class Node {
+    private static class Node {
         int data;
         Node left;
         Node right;

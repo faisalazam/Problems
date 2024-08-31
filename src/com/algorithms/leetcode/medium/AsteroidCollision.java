@@ -14,6 +14,22 @@ import java.util.Stack;
  * If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
  * <p>
  * https://leetcode.com/problems/asteroid-collision/
+ * <p>
+ * Example 1:
+ * <p>
+ * Input: asteroids = [5,10,-5]
+ * Output: [5,10]
+ * Explanation: The 10 and -5 collide resulting in 10. The 5 and 10 never collide.
+ * Example 2:
+ * <p>
+ * Input: asteroids = [8,-8]
+ * Output: []
+ * Explanation: The 8 and -8 collide exploding each other.
+ * Example 3:
+ * <p>
+ * Input: asteroids = [10,2,-5]
+ * Output: [10]
+ * Explanation: The 2 and -5 collide resulting in -5. The 10 and -5 collide resulting in 10.
  */
 public class AsteroidCollision {
     /**
@@ -58,7 +74,7 @@ public class AsteroidCollision {
     }
 
     public int[] asteroidCollisionV1(final int[] asteroids) {
-        final int noOfAsteroidsAfterCollision = processAsteroids(asteroids, asteroids.length) + 1;
+        final int noOfAsteroidsAfterCollision = 1 + processAsteroids(asteroids, asteroids.length);
         return Arrays.copyOfRange(asteroids, 0, noOfAsteroidsAfterCollision);
     }
 
@@ -72,7 +88,7 @@ public class AsteroidCollision {
             final int nextAsteroid = asteroids[nextIndex];
             if (currentIndex < 0 || asteroids[currentIndex] < 0 || nextAsteroid > 0) {
                 asteroids[++currentIndex] = asteroids[nextIndex++];
-            } else if (asteroids[currentIndex] == -1 * nextAsteroid) {
+            } else if (asteroids[currentIndex] == -1 * nextAsteroid) { // Colliding with the same size asteroid
                 currentIndex--;
                 nextIndex++;
             } else if (asteroids[currentIndex] < -1 * nextAsteroid) {
@@ -117,7 +133,7 @@ public class AsteroidCollision {
                 stack.push(asteroid);
                 break;
             } else if (peek == -asteroid) {
-                // as peek as well as the incoming asteroid are same in size, so both the asteroids will explode
+                // as peek as well as the incoming asteroid have the same size, so both the asteroids will explode
                 stack.pop();
                 break;
             } else if (peek > -asteroid) {

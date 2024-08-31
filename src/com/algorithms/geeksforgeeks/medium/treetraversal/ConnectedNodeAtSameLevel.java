@@ -94,7 +94,7 @@ public class ConnectedNodeAtSameLevel {
             for (int i = 0; i < size; i++) {
                 final Node current = queue.poll();
                 // If we don't use the 'i < size - 1' condition, then it'll set the nextRight pointer of the last node
-                // in to the current level to the first node in the next level, so it's an important condition
+                // in the current level to the first node in the next level, so it's an important condition
                 processNode(queue, current, i < size - 1);
             }
         }

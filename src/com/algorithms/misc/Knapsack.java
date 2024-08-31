@@ -28,12 +28,12 @@ public class Knapsack {
      * items = {(w:2, v:6), (w:2, v:10), (w:3, v:12)}
      * max weight = 5
      * knapsack(items, max weight) = 22
-     *
+     * <p>
      * Each item can be included it or not included. This causes the recursion to branch in two different ways.
      * Like several other problems that have been discussed, we get 2 * 2 * ... * 2 or 2^n,
      * where n is the depth of our recursion. In this case, our recursion iterates over the items array.
      * Therefore, n is the number of items, which gives us a time complexity of O(2^n).
-     *
+     * <p>
      * The code performs reasonably well in terms of space complexity.
      * The only extra space that we are using is the recursive stack, which is at most, height O(n).
      */
@@ -47,19 +47,19 @@ public class Knapsack {
         }
         Item item = items[index];
         int remainingWeight = maxWeight - item.getWeight();
-        if (remainingWeight < 0) {
+        if (remainingWeight < 0) { // that means the current item can't be included'
             return maxKnapsack(items, maxWeight, index + 1);
         }
-        return Math.max(
-                maxKnapsack(items, remainingWeight, index + 1) + item.getValue(),
-                maxKnapsack(items, maxWeight, index + 1)
+        return Integer.max(
+                maxKnapsack(items, remainingWeight, index + 1) + item.getValue(), // include the current item
+                maxKnapsack(items, maxWeight, index + 1) // do not include the current item
         );
     }
 
     /**
      * Time complexity is O(n * W).
      * Space complexity is O(n * W).
-     *
+     * <p>
      * Where n is the number of items
      */
     private static int maxKnapsackWithCache(Item[] items, int maxWeight) {
@@ -83,7 +83,7 @@ public class Knapsack {
         if (remainingWeight < 0) {
             currentMax = maxKnapsackWithCache(items, maxWeight, index + 1, resultsCache);
         } else {
-            currentMax = Math.max(
+            currentMax = Integer.max(
                     maxKnapsackWithCache(items, remainingWeight, index + 1, resultsCache) + item.getValue(),
                     maxKnapsackWithCache(items, maxWeight, index + 1, resultsCache)
             );
@@ -95,7 +95,7 @@ public class Knapsack {
     /**
      * Time complexity is O(n * W).
      * Space complexity is O(n * W).
-     *
+     * <p>
      * Where n is the number of items
      */
     private static int maxKnapsackBottomUp(Item[] items, int maxWeight) {
@@ -105,7 +105,7 @@ public class Knapsack {
                 if (items[i - 1].getWeight() > j) {
                     resultsCache[i][j] = resultsCache[i - 1][j];
                 } else {
-                    resultsCache[i][j] = Math.max(
+                    resultsCache[i][j] = Integer.max(
                             resultsCache[i - 1][j],
                             resultsCache[i - 1][j - items[i - 1].getWeight()] + items[i - 1].getValue()
                     );

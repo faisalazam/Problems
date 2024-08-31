@@ -1566,7 +1566,20 @@ https://www.youtube.com/watch?v=fyn0CKPuPlA&list=PLrtCHHeadkHrrX6rxS2sbcMU5Em6L1
 ## Couple of days before the System Design Interview
 
 https://www.youtube.com/@ByteByteGo/playlists
-https://www.youtube.com/playlist?list=PLPkuArhPxxQGkbl-_STo8FFxBBB4ri-tl
+https://www.youtube.com/@interviewpen/playlists
+https://youtube.com/@hello_interview
+
+## Usefel Resources
+
+https://www.youtube.com/@ByteByteGo
+https://youtube.com/@hello_interview
+https://youtube.com/@systemdesigninterview
+
+https://bytebytego.com/courses/system-design-interview
+https://www.hellointerview.com/learn/system-design/in-a-hurry/introduction
+
+A good video for questions to ask:
+https://youtu.be/2fZszuimOEw?si=4SfWnSUkEsXbdB0v
 
 Agoda's motto is Less Hassle, More Travel
 

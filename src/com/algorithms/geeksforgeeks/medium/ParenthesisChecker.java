@@ -39,6 +39,7 @@ public class ParenthesisChecker {
         return stack.isEmpty();
     }
 
+    // May be it's easier to use a Map instead of the below private methods
     private static boolean isOpeningBrace(final char character) {
         return character == '[' || character == '{' || character == '(';
     }
@@ -48,15 +49,11 @@ public class ParenthesisChecker {
     }
 
     private static Character getClosing(final char opening) {
-        switch (opening) {
-            case '[':
-                return ']';
-            case '{':
-                return '}';
-            case '(':
-                return ')';
-            default:
-                return '!'; // any random character
-        }
+        return switch (opening) {
+            case '[' -> ']';
+            case '{' -> '}';
+            case '(' -> ')';
+            default -> '!'; // any random character
+        };
     }
 }
